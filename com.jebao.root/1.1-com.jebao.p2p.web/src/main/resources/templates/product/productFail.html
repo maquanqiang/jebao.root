@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 主页金额宝 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/result.css">
+
+</head>
+#set($_loginUser_header_=$LoginUserTool.getUser())
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--结果内容-->
+<div class="result-main clearfix">
+    <div class="result-content">
+        <img src="${filePath}/images/result-error.png">
+        <h4>投标失败！</h4>
+        <p>请稍后再试或咨询010-65006966，返回<a href="/user/index" class="myAccount">我的账户</a></p>
+        <p>失败原因：<span>${msg}</span></p>
+    </div>
+</div>
+#parse("common/footer.html")
+</body>
+</html>

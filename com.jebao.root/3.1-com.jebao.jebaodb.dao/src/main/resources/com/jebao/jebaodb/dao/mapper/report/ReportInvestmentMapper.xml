@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.report.ReportInvestmentMapper">
+    <resultMap id="ReportresultMap" type="com.jebao.jebaodb.entity.report.ReportInvestment">
+        <result column="bp_number" property="indBpNumber"/>
+        <result column="ind_true_name" property="indTrueName"/>
+        <result column="ii_money" property="iiMoney"/>
+        <result column="li_login_name" property="liLoginName"/>
+        <result column="li_create_time" property="liCreateTime"/>
+        <result column="bp_interest_st" property="bpInterestSt"/>
+        <result column="bp_repay_time" property="bpRepayTime"/>
+
+        <result column="bp_cycle_type" property="bpCycleType"/>
+        <result column="bp_interest_pay_type" property="bpInterestPayType"/>
+        <result column="bp_rate" property="bpRate"/>
+        <result column="ind_money" property="indMoney"/>
+        <result column="bp_periods" property="bpPeriods"/>
+
+
+    </resultMap>
+    <!--公用的-->
+    <sql id="Reportinvestment">
+    bp_number, ind_true_name, ii_money, li_login_name,li_create_time,bp_interest_st,
+    bp_repay_time,bp_cycle_type,bp_interest_pay_type,bp_rate,ind_money,bp_periods
+  </sql>
+    <!--查询投资人的收益明细-->
+    <select id="getAll" resultMap="ReportresultMap">
+        select
+        <include refid="Reportinvestment"/>
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+
+    </select>
+    <!--根据分页查询投资人的信息-->
+    <!--parameterType="com.jebao.jebaodb.entity.report.InvestmentReportSM"-->
+    <!-- parameterType="com.jebao.erp.web.responseModel.report.InvestmentReportVM-->
+    <select id="selectByConditionForPage" resultMap="ReportresultMap" parameterType="com.jebao.jebaodb.entity.report.ReportInvestment">
+        select
+        <include refid="Reportinvestment"/>
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <!--封装字段-->
+    <sql id="selectByCondition_Where_Clause">
+        <if test="report.bpPeriods != null and report.bpPeriods !=0">
+            AND bp_periods = #{report.bpPeriods}
+        </if>
+    <if test="report.indBpNumber != null and report.indBpNumber!=''">
+            AND bp_number = #{report.indBpNumber}
+        </if>
+        <if test="report.indTrueName != null and report.indTrueName !=''">
+            AND ind_tree_name = #{report.indTrueName}
+        </if>
+        <if test="report.iiMoney != null and report.iiMoney !=0">
+            AND ii_money= #{report.iiMoney}
+        </if>
+        <if test="report.liLoginName != null and report.liLoginName !=''">
+            AND li_login_name = #{report.liLoginName}
+        </if>
+        <if test="report.indBpNumber != null and report.indBpNumber !=''">
+            AND ind_bp_number = #{report.indBpNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="report.bpInterestSt != null and report.bpInterestSt !=''">
+            AND bp_interest_st = #{report.bpInterestSt}
+        </if>
+        <if test="report.bpCycleType != null and report.bpCycleType !=0">
+            AND bp_cycle_type = #{report.bpCycleType}
+        </if>
+        <if test="report.bpRepayTime != null and report.bpRepayTime !=''">
+            AND by_repay_time = #{report.bpRepayTime}
+        </if>
+        <if test="report.bpInterestPayType != null and report.bpInterestPayType !=0">
+            AND bp_interest_pay_type = #{report.bpInterestPayType}
+        </if>
+        <if test="report.bpRate != null and report.bpRate !=''">
+            AND bp_rate = #{report.bpRate}
+        </if>
+        <if test="report.indMoney != null and report.indMoney !=0">
+            AND ind_money= #{report.indMoney}
+        </if>
+
+    </sql>
+
+    <!--&lt;!&ndash;查询当前的数量&ndash;&gt;-->
+    <select id="selectPostLoanDetailCount" resultType="java.lang.Integer">
+       SELECT
+        count(*)
+        FROM
+        tb_income_detail income
+		LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+		LEFT JOIN tb_login_info info ON income.ind_login_id = info.li_id
+		LEFT JOIN tb_invest_info invest ON income.ind_ii_id = invest.ii_id
+  </select>
+    <!--根据时间段查询相关的数据-->
+    <select id="betweenDate" parameterType="com.jebao.jebaodb.entity.report.ReportInvestment" resultType="java.util.Date">
+        select
+        <include refid="Reportinvestment"/>
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+       <where>
+           li_create_time between #{liCreateTime} and #{liCreateTime} and bp_repay_time =#{bpRepayTime}
+       </where>
+
+    
+    </select>
+    <!--&lt;!&ndash;根据标的编号查询相关的数据&ndash;&gt;-->
+    <select id="getId" parameterType="com.jebao.jebaodb.entity.report.ReportInvestment" resultType="java.lang.String">
+        select
+        <include refid="Reportinvestment" />
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+        <where>
+            bp_number= #{indBpNumber}
+        </where>
+    </select>
+</mapper>
+
+
+
+
+

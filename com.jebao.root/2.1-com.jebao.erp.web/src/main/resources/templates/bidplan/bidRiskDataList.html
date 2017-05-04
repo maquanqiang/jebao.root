@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>借款管理-标的-添加/修改材料</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!--认证材料-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box-title">
+                    <h5>认证材料</h5>
+                </div>
+                <div class="form-group ">
+                    <a href="javascript:void(0);" class="btn btn-primary " role="button"
+                       id="add-material" @click.prevent="openAddForm">添加</a>
+                </div>
+                <div class="box box-primary">
+                    <input id="bpId" name="bpId" value="${bpId}" type="hidden">
+                    <div class="box-body">
+                        <div class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table class="table table-bordered table-hover dataTable" role="grid"
+                                           aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="25%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">材料名称
+                                            </th>
+                                            <th width="25%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">材料编号
+                                            </th>
+                                            <th width="25%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">备注
+                                            </th>
+                                            <th width="25%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">操作
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" v-for="data in riskDataList">
+                                            <td>{{data.brdName}}</td>
+                                            <td>{{data.brdNo}}</td>
+                                            <td>{{data.brdRemark}}</td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="btn btn-default btn-xs"
+                                                   role="button" @click.prevent="openViewForm(data.brdId)">预览</a>
+                                                <a href="javascript:void(0);" class="btn btn-default btn-xs remove-msg"
+                                                   role="button" @click.prevent="openDeleteWin(data.brdId)">删除</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- /.content-wrapper -->
+
+<div class="control-sidebar-bg"></div>
+<!--提示框-->
+<!--添加材料-->
+<div class="modal col-xs-12" id="addMaterialModal">
+    <form class="form-horizontal">
+        <div class="box-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">上传材料:</label>
+                <div class="col-sm-8">
+                    <input type="file" name="file" class="btn-fileupload" @change="fileupload">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">图片路径:</label>
+                <div class="col-sm-8">
+                    <input type="text" name="path" value="" class="uploadFileUrl" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="brdBpId" value="${bpId}"/>
+                <label class="col-sm-3 control-label">材料名称:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" value="" name="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="" value="" name="remark">
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </form>
+</div>
+<!--预览材料图片-->
+<div class="modal col-xs-12" id="viewMaterialModal">
+    <form class="form-horizontal">
+        <div class="box-body">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <img name="path" :src="formData.path">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<input type="hidden" id="hidden_active_menu" value="/bidplan/reviewedPlanList">
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/bidplan/bidRiskDataList.js")></script>
+</body>
+<!--上传图片-->
+<script src="/content/AdminLTE-2.2.0/plugins/jQuery/jquery.form.js"></script>
+</html>

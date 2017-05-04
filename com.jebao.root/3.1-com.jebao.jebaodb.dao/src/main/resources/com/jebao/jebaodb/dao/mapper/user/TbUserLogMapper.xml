@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.user.TbUserLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.user.TbUserLog" >
+    <id column="ul_id" property="ulId" jdbcType="BIGINT" />
+    <result column="ul_user_id" property="ulUserId" jdbcType="BIGINT" />
+    <result column="ul_content" property="ulContent" jdbcType="VARCHAR" />
+    <result column="ul_create_user_id" property="ulCreateUserId" jdbcType="BIGINT" />
+    <result column="ul_create_user_time" property="ulCreateUserTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ul_id, ul_user_id, ul_content, ul_create_user_id, ul_create_user_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_log
+    where ul_id = #{ulId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.user.TbUserLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="ulId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_user_log (ul_user_id, ul_content, ul_create_user_id, 
+      ul_create_user_time)
+    values (#{ulUserId,jdbcType=BIGINT}, #{ulContent,jdbcType=VARCHAR}, #{ulCreateUserId,jdbcType=BIGINT}, 
+      #{ulCreateUserTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.user.TbUserLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="ulId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_user_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ulUserId != null" >
+        ul_user_id,
+      </if>
+      <if test="ulContent != null" >
+        ul_content,
+      </if>
+      <if test="ulCreateUserId != null" >
+        ul_create_user_id,
+      </if>
+      <if test="ulCreateUserTime != null" >
+        ul_create_user_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ulUserId != null" >
+        #{ulUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ulContent != null" >
+        #{ulContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ulCreateUserId != null" >
+        #{ulCreateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ulCreateUserTime != null" >
+        #{ulCreateUserTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.user.TbUserLog" >
+    update tb_user_log
+    <set >
+      <if test="ulUserId != null" >
+        ul_user_id = #{ulUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ulContent != null" >
+        ul_content = #{ulContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ulCreateUserId != null" >
+        ul_create_user_id = #{ulCreateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ulCreateUserTime != null" >
+        ul_create_user_time = #{ulCreateUserTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ul_id = #{ulId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.user.TbUserLog" >
+    update tb_user_log
+    set ul_user_id = #{ulUserId,jdbcType=BIGINT},
+      ul_content = #{ulContent,jdbcType=VARCHAR},
+      ul_create_user_id = #{ulCreateUserId,jdbcType=BIGINT},
+      ul_create_user_time = #{ulCreateUserTime,jdbcType=TIMESTAMP}
+    where ul_id = #{ulId,jdbcType=BIGINT}
+  </update>
+</mapper>

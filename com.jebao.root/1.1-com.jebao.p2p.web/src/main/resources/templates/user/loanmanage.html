@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>借款管理-我的账户</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+</head>
+<body>
+<!--顶部nav---start-->
+#parse("common/header.html")
+<!--导航条-->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">借款管理</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--借款管理-->
+        <div class="my-account">
+            <div class="my-account-title">
+                <h2>借款管理</h2>
+            </div>
+            <ul class="loanManagement clearfix" v-cloak>
+                <li>
+                    <h5>借款金额（元）</h5>
+
+                    <p class="red">{{loanSum.loanMoneyTotal}}</p>
+                </li>
+                <li>
+                    <h5>逾期金额（元）</h5>
+
+                    <p>{{loanSum.overdueMoneyTotal}}</p>
+                </li>
+                <li>
+                    <h5>待还金额（元）</h5>
+
+                    <p>{{loanSum.repaymentMoneyTotal}}</p>
+                </li>
+                <li>
+                    <h5>最近10天应还金额（元）</h5>
+
+                    <p>{{loanSum.afterTenMoney}}</p>
+                </li>
+            </ul>
+        </div>
+        <!--还款中借款---已结清借款-->
+        <div class="project">
+            <div class="project-menu clearfix">
+                <h4 class="active" @click="repayingList()">还款中的借款</h4>
+                <h4 @click="repayedList()">已结清借款</h4>
+            </div>
+            <div class="project-list">
+                <div class="project-item active">
+                    <table class="borrow-repayment">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>还款期号</th>
+                            <th>下一还款日</th>
+                            <th>还款日应还本息合计</th>
+                            <th>当前罚息</th>
+                            <th>当前应还总额</th>
+                            <!--<th>查看</th>-->
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDatei">
+                        <tr v-for="data in paymentIngs">
+                            <td>
+                                <a :href="'/product/detail/'+data.bpId">{{data.bpName}}({{data.bpNumber}})</a>
+                            </td>
+                            <td>{{data.bpPeriod}}</td>
+                            <td>{{data.nextRepayTime}}</td>
+                            <td>{{data.repayMoney}}</td>
+                            <td>{{data.dueMoney}}</td>
+                            <td>{{data.repayMoney+data.dueMoney}}</td>
+                            <!--<td></td>-->
+                            <td>
+                                <a v-if="data.status==1" href="javascript:void(0);" class="table-btn"
+                                   @click.prevent="repay(data.bpPeriod, data.bpId, data.repayMoney+data.dueMoney)">还款</a>
+                                <a v-if="data.status==0" href="javascript:void(0);" class="table-btn">已冻结</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--无数据-->
+                    <div class="noProject" v-show="!isHasDatei">
+                        <p>
+                            暂无还款中借款
+                        </p>
+                    </div>
+                    <div class="page" id="pageNum1"></div>
+                </div>
+                <div class="project-item">
+                    <table class="borrow-clear">
+                        <thead>
+                        <tr>
+                            <th>借款名称</th>
+                            <th>招标金额</th>
+                            <th>发标时间</th>
+                            <th>期限</th>
+                            <th>年化利率</th>
+                            <th>还款总额</th>
+                            <th>还清日期</th>
+                            <!--<th>查看</th>-->
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDated">
+                        <tr v-for="data in paymented">
+                            <td>
+                                <a :href="'/product/detail/'+data.bpId">{{data.bpName}}({{data.bpNumber}})</a>
+                            </td>
+                            <td>{{data.bpLoanMoney}}</td>
+                            <td>{{data.bpStartTime}}</td>
+                            <td>{{data.bpPeriods}}{{cycleType[data.cycleType]}}</td>
+                            <td>{{data.bpRate}}%</td>
+                            <td>{{data.totalMoney}}</td>
+                            <td>{{data.repayedDate}}</td>
+                            <!--<td></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--无数据-->
+                    <div class="noProject" v-show="!isHasDated">
+                        <p>
+                            暂无已结清借款
+                        </p>
+                    </div>
+                    <div class="page" id="pageNum2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/user/loanmanage.js")></script>
+</body>
+
+</html>

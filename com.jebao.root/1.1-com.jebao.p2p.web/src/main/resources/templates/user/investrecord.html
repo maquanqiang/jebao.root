@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>投资记录-我的账户</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+</head>
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">投资记录</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--投资记录-->
+        <div class="my-account">
+            <h2>投资记录</h2>
+        </div>
+        <!--投资中的项目-->
+        <div class="project">
+            <div class="project-menu clearfix">
+                <h4 class="active" @click="search(1)">投资中的项目</h4>
+                <h4 @click="search(2)">还款中的项目</h4>
+                <h4 @click="search(3)">已还款的项目</h4>
+            </div>
+            <div class="project-list">
+                <div class="project-item active">
+                    <table class="investment">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>投资时间</th>
+                            <th>投资金额</th>
+                            <th>投资期限</th>
+                            <th>投资进度</th>
+                            <th>年化利率</th>
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDateii">
+                        <tr v-for="item in investings">
+                            <td><a :href="'/product/detail/'+item.bpId">{{ item.bpName }}</a></td>
+                            <td>{{ item.createTime }}</td>
+                            <td>{{ item.money }}</td>
+                            <td>{{ item.periods }}</td>
+                            <td>{{ item.progress }}%</td>
+                            <td>{{ item.bpRate }}%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--无投资项目-->
+                    <div v-show="!isHasDateii" class="noProject">
+                        <p>
+                            暂无投资中项目<a href="/html/product">去投资</a>
+                        </p>
+                    </div>
+                    <div class="page" id="pageNum1">
+                    </div>
+                </div>
+                <div class="project-item">
+                    <table class="repayment">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>投资时间</th>
+                            <th>投资金额</th>
+                            <th>投资期限</th>
+                            <th>年化利率</th>
+                            <th>下个还款日</th>
+                            <th>还款日应还金额</th>
+                            <th>查看</th>
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDatepi">
+                        <tr v-for="item in paymentings">
+                            <td><a :href="'/product/detail/'+item.bpId">{{ item.bpName }}</a></td>
+                            <td>{{ item.createTime }}</td>
+                            <td>{{ item.money }}</td>
+                            <td>{{ item.periods }}</td>
+                            <td>{{ item.bpRate }}%</td>
+                            <td>{{ item.nextDueDate }}</td>
+                            <td>{{ item.dueMoney }}</td>
+                            <td><a :href="item.contractUrl">合同</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--无数据-->
+                    <div v-show="!isHasDatepi" class="noProject">
+                        <p>
+                            暂无还款中项目
+                        </p>
+                    </div>
+                    <div class="page" id="pageNum2">
+                    </div>
+                </div>
+                <div class="project-item">
+                    <table class="gaven">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>投资时间</th>
+                            <th>投资金额</th>
+                            <th>投资期限</th>
+                            <th>年化利率</th>
+                            <th>已收回金额</th>
+                            <th>已赚金额</th>
+                            <th>结清日期</th>
+                            <!--<th>查看</th>-->
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDatepd">
+                        <tr v-for="item in paymenteds">
+                            <td><a :href="'/product/detail/'+item.bpId">{{ item.bpName }}</a></td>
+                            <td>{{ item.createTime }}</td>
+                            <td>{{ item.money }}</td>
+                            <td>{{ item.periods }}</td>
+                            <td>{{ item.bpRate }}%</td>
+                            <td>{{ item.factMoeny }}</td>
+                            <td>{{ item.makeMoney }}</td>
+                            <td>{{ item.settleDate }}</td>
+                            <!--<td><a :href="item.contractUrl">合同</a></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--无数据-->
+                    <div v-show="!isHasDatepd" class="noProject">
+                        <p>
+                            暂无还款中项目
+                        </p>
+                    </div>
+                    <div class="page" id="pageNum3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容 end-->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/user/investrecord.js")></script>
+</body>
+</html>

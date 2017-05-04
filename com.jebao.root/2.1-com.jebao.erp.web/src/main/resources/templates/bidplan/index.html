@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>借款信息-建标</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <form action="" class="form-inline" id="defaultForm" method="post" novalidate="novalidate">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">用户名</div>
+                                    <input type="text" class="form-control" placeholder="" v-model="searchObj.nickName" name="nickName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">手机号</div>
+                                    <input type="text" class="form-control" placeholder="" v-model="searchObj.phone" name="phone">
+                                </div>
+                            </div>
+                            <div class="input-group  margin">
+                                <a href="javascript:void(0);" class="btn btn-primary " role="button" id="btnSearch" @click.prevent="search">搜索</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--表格内容-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table id="orderlist_table" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">用户名</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">姓名</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">手机号</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">注册时间</th>
+                                            <!--<th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">借款笔数</th>-->
+                                            <!--<th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">借款金额</th>-->
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template v-for="item in loaners">
+                                                <tr role="row" class="odd">
+                                                    <td>{{item.nickName}}</td>
+                                                    <td>{{item.trueName}}</td>
+                                                    <td>{{item.phone}}</td>
+                                                    <td>{{item.registerTime}}</td>
+                                                    <!--<td>5</td>-->
+                                                    <!--<td>10000.00</td>-->
+                                                    <td>
+                                                        <a href="javascript:void(0);" class="btn btn-default btn-xs" role="button" @click.prevent="addPlanBtn(item.id)">添加借款</a>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 pagination">
+                                <div id="pageNum"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/bidplan/index.js")></script>
+</body>
+</html>

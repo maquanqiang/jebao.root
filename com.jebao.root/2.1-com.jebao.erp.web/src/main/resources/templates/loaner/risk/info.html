@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+    <!-- 编辑器引入 BEGIN-->
+    <link rel="stylesheet" href="/content/AdminLTE-2.2.0/kindEditor/themes/default/default.css" />
+    <script charset="utf-8" src="/content/AdminLTE-2.2.0/kindEditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="/content/AdminLTE-2.2.0/kindEditor/lang/zh-CN.js"></script>
+    <script charset="utf-8" src="/content/AdminLTE-2.2.0/kindEditor/kindEditorConfig.js"></script>
+    <!-- 编辑器引入 END-->
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>风控信息</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <form id="search_form"><input type="hidden" name="rcptId" value="${rcptId}"/></form>
+                <form  id="order_search_form">
+                    <div class="box-body">
+                        <!--项目信息-->
+                        <div class="box-title">
+                            <h5>项目信息</h5>
+                        </div>
+                        <div class="box box-primary">
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <input type="hidden" name="id" value="${rcptId}">
+                                    <input type="hidden" name="loanerId" value="${loanerId}"/>
+                                    <div class="input-group-addon"><span class="text-red">*</span>项目名称</div>
+                                    <input type="text" class="form-control" placeholder="" name="name" v-model="risk.name">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>借款描述</div>
+                                    <textarea class="form-control" placeholder="" name="borrowDesc" v-model="risk.borrowDesc" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>资金用途</div>
+                                    <textarea class="form-control" placeholder="" name="fundsPurpose" v-model="risk.fundsPurpose" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>还款来源</div>
+                                    <textarea class="form-control" placeholder="" name="repayingSource" v-model="risk.repayingSource" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>抵押信息</div>
+                                    <textarea class="form-control" placeholder="" name="mortgageInfo" v-model="risk.mortgageInfo" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>个人征信</div>
+                                    <textarea class="form-control" placeholder="" name="personalCredit" v-model="risk.personalCredit" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>风控意见</div>
+                                    <textarea class="form-control" placeholder="" name="opinion" v-model="risk.opinion" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--风控详情-->
+                    <div class="box-body">
+                        <div class="box-title">
+                            <h5>风控详情</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box box-primary">
+                                    <textarea id="kindEditorContent" name="desc" style="height:350px;visibility:hidden;" class="col-xs-12" :value="risk.desc"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!--按钮-->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box-body">
+                                    <a href="javascript:void(0);" class="btn btn-primary btn-lg" role="button" id="btn-save" @click.prevent="save">保存</a>
+                                    <a href="javascript:void(0);" class="btn btn-primary btn-lg" role="button" @click.prevent="cancel">取消</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<input type="hidden" id="hidden_active_menu" value="/loaner/index">
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/loaner/risk/info.js")></script>
+</body>
+</html>

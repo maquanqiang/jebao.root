@@ -1,0 +1,87 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>我的财富</title>
+    #parse("common/head.html")
+    #set($_loginUser_header_=$LoginUserTool.getUser())
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/wealth.css">
+    <script src="${filePath}/js/lib/zepto.js"></script>
+    <script src="${filePath}/js/assembly/layer/layer.js"></script>
+</head>
+<body>
+<div class="wrap" style="margin-bottom:3rem;">
+    <!--我的财富头部-->
+    <header>
+        <div class="wealth-title">
+            <h5>累积收益（元）</h5>
+            <strong>{{ fundSum.incomeAmount }}</strong>
+        </div>
+        <div class="wealth-introduce">
+            <div>
+                <h4>资产总额（元）</h4>
+                <p>{{ fundSum.totalAssets }}</p>
+            </div>
+            <div>
+                <h4>可用金额（元）</h4>
+                <p>{{ fundSum.balance }}</p>
+            </div>
+        </div>
+    </header>
+    <!--充值、提现-->
+    <div class="wealth-function">
+        <div class="wealth-recharge">
+            #if($_loginUser_header_.isFundAccount)
+            <a href="recharge"><em></em>充值</a>
+            #else
+            <a href="/userfund/register"><em></em>充值</a>
+            #end
+
+        </div>
+        <div class="wealth-cash">
+            #if($_loginUser_header_.isFundAccount)
+            <a href="withdraw"><em></em>提现</a>
+            #else
+            <a href="/userfund/register"><em></em>提现</a>
+            #end
+        </div>
+    </div>
+    <!--我的投资-->
+    <div class="wealth-item wealth-investment">
+        <a href="investrecord">
+            <h3><em></em>我的投资</h3>
+            <img src="${filePath}/images/more.png">
+        </a>
+    </div>
+    <!--资金流水-->
+    <div class="wealth-item  wealth-flow">
+        <a href="javascript:void(0)" @click="openfunds">
+            <h3><em></em>资金流水</h3>
+            <img src="${filePath}/images/more.png">
+        </a>
+    </div>
+    <!--我的红包-->
+    <div class="wealth-item noBorder wdhb-flow">
+        <a href="javascript:void(0)" @click="voucher">
+            <h3><em></em>我的红包</h3>
+            <img src="${filePath}/images/more.png">
+        </a>
+    </div>
+    <!--底部-->
+    <footer>
+        <ul>
+            <li><a href="/"><img src="${filePath}/images/footer-index.png"><p>首页</p></a></li>
+            <li><a href="javascript:void(0)"><img src="${filePath}/images/footer-money-bg.png"><p class="choosed">财富</p></a> </li>
+            <li><a href="/account/setting"><img src="${filePath}/images/footer-set.png"><p>设置</p></a> </li>
+        </ul>
+    </footer>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/index.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+<script src="${filePath}/js/assembly/layer/layer.js"></script>
+
+</html>

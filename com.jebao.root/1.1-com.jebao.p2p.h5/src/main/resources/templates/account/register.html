@@ -1,0 +1,51 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>快速注册</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/register.css">
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/lib/validate.css">
+    <script type="text/javascript" src="${filePath}/js/lib/jquery-mvalidate.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <!--快速注册新加图片-->
+    <div class="mid_img">
+        <img src="${filePath}/images/kszcimg.png">
+        <span>新手专享豪礼</span>
+    </div>
+    <form action="/account/sendcorde"  id="registerForm" >
+        <fieldset class="register">
+            <div class="zform-control">
+                <div class="control-field userName">
+                    <em></em><input type="text"  id="tel" name="tel"  class="field-text" placeholder="请输入手机号码" data-validate="phone" data-describedby="phone-description">
+                </div>
+            </div>
+            <div class="zform-control">
+                <div class="control-field userPassword">
+                    <em></em><input type="password" id="pwd" name="pwd" class="field-text" placeholder="请设置6-16位密码（由字母、数字组成）"  data-required="true" data-descriptions="password" data-pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$">
+                </div>
+            </div>
+            <div class="zform-control">
+                <div class="control-field userYaoqingma">
+                    <em></em><input type="text" id="yqm" name="yqm" class="field-text" placeholder="请输入邀请码,可不填" data-validate="invitationCode" data-describedby="invitationCode-description">
+                </div>
+            </div>
+        </fieldset>
+        <p class="agree">注册即视为同意<a href="#">《金额宝服务协议》</a> </p>
+        <a href="#" class="go">
+            <!--不可登录，背景为灰色-->
+            <!--<button type="submit" class="btn-disable" disabled>登录</button>-->
+            <!--可登录，背景为蓝色-->
+            <button type="submit">立即注册</button>
+        </a>
+    </form>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/register.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

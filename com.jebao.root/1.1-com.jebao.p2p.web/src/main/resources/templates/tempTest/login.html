@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+
+<body>
+#parse("common/header.html")
+<div class="main">
+    <h1>account/login</h1>
+    <form action='/account/doLogin' method='get' id="login" target="_blank">
+        用户名：<input type='text' name='name'/>
+        密码：<input type='password' name='password'/>
+        <input type='button'  value="本地提交" id="form-btn"/>
+    </form>
+    <br><br>
+    <form action='http://localhost:9089/api/tempTest/doLogin' method='get' id="login-webApi" target="_blank">
+        用户名：<input type='text' name='name'/>
+        密码：<input type='password' name='password'/>
+        <input type='button'  value="WEB-API提交" id="form-btn-webApi"/>
+    </form>
+</div>
+<script src="/content/script/testTemp/login.js?2016101301"></script>
+#parse("common/footer.html")
+</body>
+</html>

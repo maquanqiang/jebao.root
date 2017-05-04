@@ -1,0 +1,103 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>我的投资</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/investRecord.css">
+    <script src="${filePath}/js/lib/zepto.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="investRecord">
+        <div class="investRecord-tit-bg">
+            <div class="investRecord-tit">
+                <h4 @click="search(1)" class="active">投资中</h4>
+                <h4 @click="search(2)">还款中</h4>
+                <h4  @click="search(3)">已还款</h4>
+            </div>
+        </div>
+        <div class="investRecord-list">
+            <div class="investRecord-box active"  >
+                <div  class="investRecord-info" v-for="item in investings"   v-show="isHasDateii"  >
+                    <!--<a href="财富详情-投资中.html">-->
+                        <h5>{{ item.bpName }}<span>{{item.bpNumber}}</span></h5>
+                        <div class="investRecord-content">
+                            <div class="investRecord-item">
+                                <div class="investRecord-number rate">{{ item.money }}</div>
+                                <p>投资金额（元）</p>
+                            </div>
+                            <div class="investRecord-item">
+                                <div class="investRecord-number orange">{{ item.periods }}</div>
+                                <p>项目期限</p>
+                            </div>
+                            <div class="investRecord-item">
+                                <div class="investRecord-number noWeight">{{ item.createTime }}</div>
+                                <p>投资时间</p>
+                            </div>
+                        </div>
+                    <!--</a>-->
+                </div>
+                <div class="noProject"  v-show="!isHasDateii">
+                    <p>暂无记录...</p>
+                </div>
+            </div>
+            <div class="investRecord-box" >
+                <div class="investRecord-info" v-show="isHasDatepi" v-for="item in paymentings">
+                    <!--<a href="财富详情-还款中.html">-->
+                        <h5>{{ item.bpName }}<span>{{item.bpNumber}}</span></h5>
+                        <div class="investRecord-content">
+                            <div class="investRecord-item">
+                                <div class="investRecord-number rate">{{ item.money }}</div>
+                                <p>投资金额（元）</p>
+                            </div>
+                            <div class="investRecord-item">
+                                <div class="investRecord-number orange">{{ item.dueMoney }}</div>
+                                <p>应还金额（元）</p>
+                            </div>
+                            <div class="investRecord-item">
+                                <div class="investRecord-number noWeight">{{ item.createTime }}</div>
+                                <p>投资时间</p>
+                            </div>
+                        </div>
+                    <!--</a>-->
+                </div>
+                <div class="noProject"  v-show="!isHasDatepi">
+                    <p>暂无记录...</p>
+                </div>
+                </div>
+            <div class="investRecord-box">
+                <div class="investRecord-info"  v-show="isHasDatepd" v-for="item in paymenteds">
+                    <!--<a href="财富详情-已还款.html">-->
+                        <h5>{{ item.bpName }}<span>{{item.bpNumber}}</span></h5>
+                        <div class="investRecord-content">
+                            <div class="investRecord-item">
+                                <div class="investRecord-number rate">{{ item.money }}</div>
+                                <p>投资金额（元）</p>
+                            </div>
+                            <div class="investRecord-item">
+                                <div class="investRecord-number orange">{{ item.makeMoney }}</div>
+                                <p>已赚金额（元）</p>
+                            </div>
+                            <div class="investRecord-item">
+                                <div class="investRecord-number noWeight">{{ item.bpRate }}%</div>
+                                <p>年化收益</p>
+                            </div>
+                        </div>
+                    <!--</a>-->
+                </div>
+
+                <div class="noProject"  v-show="!isHasDatepd">
+                    <p>暂无记录...</p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/investrecord.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

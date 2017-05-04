@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.investment.TbLoanerRepaymentDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.investment.TbLoanerRepaymentDetail" >
+    <id column="lrd_id" property="lrdId" jdbcType="BIGINT" />
+    <result column="lrd_bp_id" property="lrdBpId" jdbcType="BIGINT" />
+    <result column="lrd_bp_number" property="lrdBpNumber" jdbcType="VARCHAR" />
+    <result column="lrd_bp_name" property="lrdBpName" jdbcType="VARCHAR" />
+    <result column="lrd_date_time" property="lrdDateTime" jdbcType="TIMESTAMP" />
+    <result column="lrd_periods" property="lrdPeriods" jdbcType="INTEGER" />
+    <result column="lrd_fund_type" property="lrdFundType" jdbcType="INTEGER" />
+    <result column="lrd_money" property="lrdMoney" jdbcType="DECIMAL" />
+    <result column="lrd_fact_money" property="lrdFactMoney" jdbcType="DECIMAL" />
+    <result column="lrd_interest_st" property="lrdInterestSt" jdbcType="TIMESTAMP" />
+    <result column="lrd_interest_et" property="lrdInterestEt" jdbcType="TIMESTAMP" />
+    <result column="lrd_overdue_days" property="lrdOverdueDays" jdbcType="INTEGER" />
+    <result column="lrd_overdue_money" property="lrdOverdueMoney" jdbcType="DECIMAL" />
+    <result column="lrd_status" property="lrdStatus" jdbcType="INTEGER" />
+    <result column="lrd_create_time" property="lrdCreateTime" jdbcType="TIMESTAMP" />
+    <result column="lrd_update_time" property="lrdUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="lrd_is_del" property="lrdIsDel" jdbcType="INTEGER" />
+      <result column="lrd_fact_date_time" property="lrdFactDateTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lrd_id, lrd_bp_id, lrd_bp_number, lrd_bp_name, lrd_date_time, lrd_periods, lrd_fund_type, 
+    lrd_money, lrd_fact_money, lrd_interest_st, lrd_interest_et, lrd_overdue_days, lrd_overdue_money, 
+    lrd_status, lrd_create_time, lrd_update_time, lrd_is_del, lrd_fact_date_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_loaner_repayment_detail
+    where lrd_id = #{lrdId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.investment.TbLoanerRepaymentDetail" >
+      <selectKey resultType="java.lang.Long" keyProperty="lrdId" order="AFTER" >
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into tb_loaner_repayment_detail (lrd_id, lrd_bp_id, lrd_bp_number, 
+      lrd_bp_name, lrd_date_time, lrd_periods, 
+      lrd_fund_type, lrd_money, lrd_fact_money, 
+      lrd_interest_st, lrd_interest_et, lrd_overdue_days, 
+      lrd_overdue_money, lrd_status, lrd_create_time, 
+      lrd_update_time, lrd_is_del, lrd_fact_date_time)
+    values (#{lrdId,jdbcType=BIGINT}, #{lrdBpId,jdbcType=BIGINT}, #{lrdBpNumber,jdbcType=VARCHAR}, 
+      #{lrdBpName,jdbcType=VARCHAR}, #{lrdDateTime,jdbcType=TIMESTAMP}, #{lrdPeriods,jdbcType=INTEGER}, 
+      #{lrdFundType,jdbcType=INTEGER}, #{lrdMoney,jdbcType=DECIMAL}, #{lrdFactMoney,jdbcType=DECIMAL}, 
+      #{lrdInterestSt,jdbcType=TIMESTAMP}, #{lrdInterestEt,jdbcType=TIMESTAMP}, #{lrdOverdueDays,jdbcType=INTEGER}, 
+      #{lrdOverdueMoney,jdbcType=DECIMAL}, #{lrdStatus,jdbcType=INTEGER}, #{lrdCreateTime,jdbcType=TIMESTAMP}, 
+      #{lrdUpdateTime,jdbcType=TIMESTAMP}, #{lrdIsDel,jdbcType=INTEGER} , #{lrdFactDateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.investment.TbLoanerRepaymentDetail" >
+    insert into tb_loaner_repayment_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lrdId != null" >
+        lrd_id,
+      </if>
+      <if test="lrdBpId != null" >
+        lrd_bp_id,
+      </if>
+      <if test="lrdBpNumber != null" >
+        lrd_bp_number,
+      </if>
+      <if test="lrdBpName != null" >
+        lrd_bp_name,
+      </if>
+      <if test="lrdDateTime != null" >
+        lrd_date_time,
+      </if>
+      <if test="lrdPeriods != null" >
+        lrd_periods,
+      </if>
+      <if test="lrdFundType != null" >
+        lrd_fund_type,
+      </if>
+      <if test="lrdMoney != null" >
+        lrd_money,
+      </if>
+      <if test="lrdFactMoney != null" >
+        lrd_fact_money,
+      </if>
+      <if test="lrdInterestSt != null" >
+        lrd_interest_st,
+      </if>
+      <if test="lrdInterestEt != null" >
+        lrd_interest_et,
+      </if>
+      <if test="lrdOverdueDays != null" >
+        lrd_overdue_days,
+      </if>
+      <if test="lrdOverdueMoney != null" >
+        lrd_overdue_money,
+      </if>
+      <if test="lrdStatus != null" >
+        lrd_status,
+      </if>
+      <if test="lrdCreateTime != null" >
+        lrd_create_time,
+      </if>
+      <if test="lrdUpdateTime != null" >
+        lrd_update_time,
+      </if>
+      <if test="lrdIsDel != null" >
+        lrd_is_del,
+      </if>
+        <if test="lrdFactDateTime != null" >
+            lrd_fact_date_time,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lrdId != null" >
+        #{lrdId,jdbcType=BIGINT},
+      </if>
+      <if test="lrdBpId != null" >
+        #{lrdBpId,jdbcType=BIGINT},
+      </if>
+      <if test="lrdBpNumber != null" >
+        #{lrdBpNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lrdBpName != null" >
+        #{lrdBpName,jdbcType=VARCHAR},
+      </if>
+      <if test="lrdDateTime != null" >
+        #{lrdDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdPeriods != null" >
+        #{lrdPeriods,jdbcType=INTEGER},
+      </if>
+      <if test="lrdFundType != null" >
+        #{lrdFundType,jdbcType=INTEGER},
+      </if>
+      <if test="lrdMoney != null" >
+        #{lrdMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lrdFactMoney != null" >
+        #{lrdFactMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lrdInterestSt != null" >
+        #{lrdInterestSt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdInterestEt != null" >
+        #{lrdInterestEt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdOverdueDays != null" >
+        #{lrdOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="lrdOverdueMoney != null" >
+        #{lrdOverdueMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lrdStatus != null" >
+        #{lrdStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lrdCreateTime != null" >
+        #{lrdCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdUpdateTime != null" >
+        #{lrdUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdIsDel != null" >
+        #{lrdIsDel,jdbcType=INTEGER},
+      </if>
+        <if test="lrdFactDateTime != null" >
+            #{lrdFactDateTime,jdbcType=TIMESTAMP},
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.investment.TbLoanerRepaymentDetail" >
+    update tb_loaner_repayment_detail
+    <set >
+      <if test="lrdBpId != null" >
+        lrd_bp_id = #{lrdBpId,jdbcType=BIGINT},
+      </if>
+      <if test="lrdBpNumber != null" >
+        lrd_bp_number = #{lrdBpNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lrdBpName != null" >
+        lrd_bp_name = #{lrdBpName,jdbcType=VARCHAR},
+      </if>
+      <if test="lrdDateTime != null" >
+        lrd_date_time = #{lrdDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdPeriods != null" >
+        lrd_periods = #{lrdPeriods,jdbcType=INTEGER},
+      </if>
+      <if test="lrdFundType != null" >
+        lrd_fund_type = #{lrdFundType,jdbcType=INTEGER},
+      </if>
+      <if test="lrdMoney != null" >
+        lrd_money = #{lrdMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lrdFactMoney != null" >
+        lrd_fact_money = #{lrdFactMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lrdInterestSt != null" >
+        lrd_interest_st = #{lrdInterestSt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdInterestEt != null" >
+        lrd_interest_et = #{lrdInterestEt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdOverdueDays != null" >
+        lrd_overdue_days = #{lrdOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="lrdOverdueMoney != null" >
+        lrd_overdue_money = #{lrdOverdueMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lrdStatus != null" >
+        lrd_status = #{lrdStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lrdCreateTime != null" >
+        lrd_create_time = #{lrdCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdUpdateTime != null" >
+        lrd_update_time = #{lrdUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrdIsDel != null" >
+        lrd_is_del = #{lrdIsDel,jdbcType=INTEGER},
+      </if>
+        <if test="lrdFactDateTime != null" >
+            lrd_fact_date_time = #{lrdFactDateTime,jdbcType=TIMESTAMP},
+        </if>
+    </set>
+    where lrd_id = #{lrdId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.investment.TbLoanerRepaymentDetail" >
+    update tb_loaner_repayment_detail
+    set lrd_bp_id = #{lrdBpId,jdbcType=BIGINT},
+      lrd_bp_number = #{lrdBpNumber,jdbcType=VARCHAR},
+      lrd_bp_name = #{lrdBpName,jdbcType=VARCHAR},
+      lrd_date_time = #{lrdDateTime,jdbcType=TIMESTAMP},
+      lrd_periods = #{lrdPeriods,jdbcType=INTEGER},
+      lrd_fund_type = #{lrdFundType,jdbcType=INTEGER},
+      lrd_money = #{lrdMoney,jdbcType=DECIMAL},
+      lrd_fact_money = #{lrdFactMoney,jdbcType=DECIMAL},
+      lrd_interest_st = #{lrdInterestSt,jdbcType=TIMESTAMP},
+      lrd_interest_et = #{lrdInterestEt,jdbcType=TIMESTAMP},
+      lrd_overdue_days = #{lrdOverdueDays,jdbcType=INTEGER},
+      lrd_overdue_money = #{lrdOverdueMoney,jdbcType=DECIMAL},
+      lrd_status = #{lrdStatus,jdbcType=INTEGER},
+      lrd_create_time = #{lrdCreateTime,jdbcType=TIMESTAMP},
+      lrd_update_time = #{lrdUpdateTime,jdbcType=TIMESTAMP},
+      lrd_is_del = #{lrdIsDel,jdbcType=INTEGER},
+      lrd_fact_date_time = #{lrdFactDateTime,jdbcType=TIMESTAMP}
+    where lrd_id = #{lrdId,jdbcType=BIGINT}
+  </update>
+
+    <!--==================================================华丽分割线==================================================-->
+    <sql id="selectByCondition_Where_Clause">
+        <if test="lrdBpId != null" >
+            lrd_bp_id = #{lrdBpId,jdbcType=BIGINT},
+        </if>
+        <if test="lrdBpNumber != null" >
+            lrd_bp_number = #{lrdBpNumber,jdbcType=VARCHAR},
+        </if>
+        <if test="lrdBpName != null" >
+            lrd_bp_name = #{lrdBpName,jdbcType=VARCHAR},
+        </if>
+        <if test="lrdDateTime != null" >
+            lrd_date_time = #{lrdDateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="lrdPeriods != null" >
+            lrd_periods = #{lrdPeriods,jdbcType=INTEGER},
+        </if>
+        <if test="lrdFundType != null" >
+            lrd_fund_type = #{lrdFundType,jdbcType=INTEGER},
+        </if>
+        <if test="lrdMoney != null" >
+            lrd_money = #{lrdMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="lrdFactMoney != null" >
+            lrd_fact_money = #{lrdFactMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="lrdInterestSt != null" >
+            lrd_interest_st = #{lrdInterestSt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="lrdInterestEt != null" >
+            lrd_interest_et = #{lrdInterestEt,jdbcType=TIMESTAMP},
+        </if>
+        <if test="lrdOverdueDays != null" >
+            lrd_overdue_days = #{lrdOverdueDays,jdbcType=INTEGER},
+        </if>
+        <if test="lrdOverdueMoney != null" >
+            lrd_overdue_money = #{lrdOverdueMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="lrdStatus != null" >
+            lrd_status = #{lrdStatus,jdbcType=INTEGER},
+        </if>
+        <if test="lrdCreateTime != null" >
+            lrd_create_time = #{lrdCreateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="lrdUpdateTime != null" >
+            lrd_update_time = #{lrdUpdateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="lrdFactDateTime != null" >
+            lrd_fact_date_time = #{lrdFactDateTime,jdbcType=TIMESTAMP},
+        </if>
+            lrd_is_del = 1
+    </sql>
+
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_loaner_repayment_detail
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_loaner_repayment_detail
+        <where>
+            <include refid="selectByCondition_Where_Clause" />
+        </where>
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_loaner_repayment_detail
+        <where>
+            <include refid="selectByCondition_Where_Clause" />
+        </where>
+    </select>
+</mapper>

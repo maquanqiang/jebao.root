@@ -1,0 +1,65 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>设置</title>
+    #parse("common/head.html")
+    #set($_loginUser_header_=$LoginUserTool.getUser())
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/setUp.css">
+    <script src="${filePath}/js/lib/zepto.js"></script>
+    <!--layer-->
+    <script src="${filePath}/js/assembly/layer/layer.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="setUp-box">
+        <div class="setUp-info">
+            <h5>手机号</h5>
+            <p>$!_loginUser_header_.userName</p>
+        </div>
+        <div class="setUp-info">
+            <h5>资金账户</h5>
+            #if($_loginUser_header_.isFundAccount)
+            <b class="orange isOpen">已开通</b>
+            #else
+            <a href="/userfund/register" class="orange isOpen">未开通<img src="${filePath}/images/more.png" /></a>
+            #end
+        </div>
+    </div>
+    <div class="setUp-box">
+        <a href="/account/forgot" class="setUp-info">
+            <h5>修改密码</h5>
+            <b><img src="${filePath}/images/more.png" style="display:inline-block; vertical-align: middle;"/></b>
+        </a>
+        <a class="setUp-info orange fore">退出登录</a>
+    </div>
+    <!--底部-->
+    <footer>
+        <ul>
+            <li><a href="/"><img src="${filePath}/images/footer-index.png"><p>首页</p></a></li>
+            <li><a href="/account/"><img src="${filePath}/images/footer-money.png"><p>财富</p></a> </li>
+            <li><a href="javascript:void(0)"><img src="${filePath}/images/footer-set-bg.png"><p class="choosed">设置</p></a> </li>
+        </ul>
+    </footer>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>
+    $(".fore").bind("click",function(){
+        //询问框
+        layer.confirm('是否确认退出？', {
+            btn: ['退出','取消'] //按钮
+        }, function(){
+            window.location.href="/account/logout";
+        }, function(){
+
+        });
+
+
+    })
+
+
+</script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

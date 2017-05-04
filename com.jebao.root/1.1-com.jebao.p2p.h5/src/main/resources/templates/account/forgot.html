@@ -1,0 +1,76 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>找回并修改密码</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/register.css">
+    <style>
+        .none {
+            display: none !important;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/lib/validate.css">
+    <script type="text/javascript" src="${filePath}/js/lib/jquery-mvalidate.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <form  action="/api/account/forgotStep1" method="post" id="findForm" :class="{none:!form1.show}"  autocomplete="off">
+        <fieldset class="register">
+            <div class="zform-control">
+                <div class="control-field userName">
+                    <em></em><input type="text" class="field-text" name="mobile"  v-model="form1.mobile"  placeholder="请输入手机号码" data-validate="phone" data-describedby="phone-description">
+                </div>
+                <div class="imgCode form-group clearfix">
+                    <div class="fl tx_yzm">
+                        <em></em><input class="field-text" type="text" placeholder="请输入图形验证码" data-required="true" data-descriptions="code" name="imgCode" v-model="form1.imgCode">
+                    </div>
+                    <img src="/captcha/getCode" class="verification fr" @click="refreshCaptcha">
+                    <p class="help-block" :class="{none:!form1.error.hasError}" v-cloak><i class="icon"></i>{{form1.error.message}}</p>
+                </div>
+            </div>
+        </fieldset>
+        <a href="javascirpt:;"  class="go">
+            <!--不可登录，背景为灰色-->
+            <!--<button type="submit" class="btn-disable" disabled>登录</button>-->
+            <!--可登录，背景为蓝色-->
+            <button type="submit">下一步</button>
+        </a>
+    </form>
+    <form action="/api/account/forgotStep2" id="findForm2" method="post" :class="{none:!form2.show}">
+        <fieldset class="register">
+            <p class="sendTel">验证码已发送至手机号：<span id="mobelsend" >182****8053</span></p>
+            <div class="zform-control userCodebox">
+                <div class="control-field userCode">
+                    <em></em><input type="text" id="code" class="field-text"  name="messageCode" placeholder="请输入验证码" data-required="true" data-descriptions="code" v-model="form2.messageCode">
+                </div>
+                <input type="button" value="90s后可重发"  class="userCodeBtn" @click="sendMessage">
+            </div>
+            <div class="zform-control">
+                <div class="control-field userPassword">
+                    <em></em><input type="password" id="pwd" class="field-text"  name="password" placeholder="请设置6-16位密码（由字母、数字组成）" data-required="true" v-model="form2.password" data-descriptions="password" data-pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$">
+                </div>
+            </div>
+            <div class="zform-control">
+                <div class="control-field userPassword">
+                    <em></em><input type="password" id="confirmpwd" class="field-text"  placeholder="重复输入新密码"  name="passwordAgain" data-required="true" v-model="form2.passwordAgain" data-descriptions="confirmpassword" data-conditional="confirmpwd">
+                </div>
+            </div>
+        </fieldset>
+        <a href="#" class="go">
+            <!--不可登录，背景为灰色-->
+            <!--<button type="submit" class="btn-disable" disabled>登录</button>-->
+            <!--可登录，背景为蓝色-->
+            <button type="submit">下一步</button>
+        </a>
+    </form>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/forgot.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+<script src="${filePath}/js/assembly/layer/layer.js"></script>
+<script src=$UrlHelperTool.href("/content/js/lib/jquery.cookie.min.js")></script>
+</html>

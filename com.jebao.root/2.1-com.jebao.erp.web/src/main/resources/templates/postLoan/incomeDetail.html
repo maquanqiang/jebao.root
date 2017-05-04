@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>贷后管理-还款明细</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!--表格内容-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                            <form id="defaultForm" method="post">
+                                <input type="hidden" id="bpId" name="bpId" value="${bpId}"/>
+                                <input type="hidden" id="period" name="period" value="${period}"/>
+                            </form>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table id="orderlist_table" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="4%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">序号</th>
+                                            <th width="5%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">期数</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">投资人用户名</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">投资人姓名</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">资金类型</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">计划还款日</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">应还金额</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">逾期天数</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">逾期罚息</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">实际到账金额</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">实际到账日期</th>
+                                            <th width="5%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">类型</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" class="odd" v-for="(data, index) in incomeDetailList">
+                                            <td>{{ index+1 }}</td>
+                                            <td>第{{data.indPeriods}}期</td>
+                                            <td>{{data.bpTrueName}}</td>
+                                            <td>{{data.indTrueName}}</td>
+                                            <td>{{fundType[data.indFundType]}}</td>
+                                            <td>{{data.indDateTime}}</td>
+                                            <td>{{data.indMoney}}</td>
+                                            <td>{{data.indOverdueDays}}</td>
+                                            <td>{{data.indOverdueMoney}}</td>
+                                            <td>{{data.indFactMoeny}}</td>
+                                            <td>{{data.indFactDateTime}}</td>
+                                            <td>{{repayStatus[data.indStatus]}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box-body">
+                    <a href="javascript:void(0);" class="btn btn-primary btn-lg" role="button" @click.prevent="closeBtn">关闭</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<input type="hidden" id="hidden_active_menu" value="/postLoan/index">
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/postLoan/incomeDetail.js")></script>
+</body>
+</html>

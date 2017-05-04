@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+    #parse("common/main-header.html")
+    <!-- Left side column. contains the logo and sidebar -->
+    #parse("common/main-sidebar.html")
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>统计信息（昨日信息）</h1>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="fa fa-file-text-o"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">昨日新增用户</span>
+                                <span class="info-box-number">{{accountCount.createCount}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red"><i class="fa fa-credit-card"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">昨日登陆用户</span>
+                                <span class="info-box-number">{{accountCount.loginCount}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-yellow"><i class="fa fa-money"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">待开标借款（笔）</span>
+                                <span class="info-box-number">{{accountCount.nonCheckCount}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-purple"><i class="fa fa-flag-o"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">开标数量（昨日/累计）</span>
+                                <span class="info-box-number">{{accountCount.yesterdayCount}}/{{accountCount.planTotal}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-maroon"><i class="fa fa-bookmark-o"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">借款总额（元）（昨日/累计）</span>
+                                <span class="info-box-number">{{accountCount.yesterdayLoan}}/{{accountCount.loanTotal}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-light-blue"><i class="fa fa-money"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">提现笔数（昨日/累计）</span>
+                                <span class="info-box-number">{{accountCount.yesterdayWithdraw}}/{{accountCount.withdrawCount}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">本月累计投资额（元）</span>
+                                <span class="info-box-number">{{accountCount.investCount}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-black"><i class="fa fa-money"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">今日应还金额（元）</span>
+                                <span class="info-box-number">{{accountCount.yesterdayIncome}}</span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    #parse("common/footer.html")
+</body>
+<script src=$UrlHelperTool.href("/content/script/home/index.js")></script>
+</html>

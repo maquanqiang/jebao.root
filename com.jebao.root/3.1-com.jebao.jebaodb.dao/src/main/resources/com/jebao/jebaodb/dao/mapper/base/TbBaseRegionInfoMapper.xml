@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.base.TbBaseRegionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.base.TbBaseRegionInfo" >
+    <id column="ri_id" property="riId" jdbcType="INTEGER" />
+    <result column="ri_code" property="riCode" jdbcType="VARCHAR" />
+    <result column="ri_name" property="riName" jdbcType="VARCHAR" />
+    <result column="ri_parent_code" property="riParentCode" jdbcType="VARCHAR" />
+    <result column="ri_level" property="riLevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ri_id, ri_code, ri_name, ri_parent_code, ri_level
+  </sql>
+  <select id="selectList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_base_region_info
+  </select>
+
+
+</mapper>

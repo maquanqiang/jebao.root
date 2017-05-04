@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.investment.TbInvestInfoMapper" >
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.investment.TbInvestInfo" >
+        <id column="ii_id" property="iiId" jdbcType="BIGINT" />
+        <result column="ii_login_id" property="iiLoginId" jdbcType="BIGINT" />
+        <result column="ii_login_name" property="iiLoginName" jdbcType="VARCHAR" />
+        <result column="ii_true_name" property="iiTrueName" jdbcType="VARCHAR" />
+        <result column="ii_third_account" property="iiThirdAccount" jdbcType="VARCHAR" />
+        <result column="ii_order_number" property="iiOrderNumber" jdbcType="VARCHAR" />
+        <result column="ii_bp_id" property="iiBpId" jdbcType="BIGINT" />
+        <result column="ii_bp_name" property="iiBpName" jdbcType="VARCHAR" />
+        <result column="ii_money" property="iiMoney" jdbcType="DECIMAL" />
+        <result column="ii_freeze_status" property="iiFreezeStatus" jdbcType="INTEGER" />
+        <result column="ii_contract_url" property="iiContractUrl" jdbcType="VARCHAR" />
+        <result column="ii_bp_repayed_periods" property="iiBpRepayedPeriods" jdbcType="CHAR" />
+        <result column="ii_create_time" property="iiCreateTime" jdbcType="TIMESTAMP" />
+        <result column="ii_update_time" property="iiUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="ii_is_del" property="iiIsDel" jdbcType="INTEGER" />
+        <result column="ii_contract_no" property="iiContractNo" jdbcType="VARCHAR" />
+        <result column="ii_ssn" property="iiSsn" jdbcType="VARCHAR" />
+        <result column="ii_platform" property="iiPlatform" jdbcType="INTEGER" />
+        <result column="ii_platform_type" property="iiPlatformType" jdbcType="INTEGER" />
+        <result column="ii_channel" property="iiChannel" jdbcType="INTEGER" />
+        <result column="ii_channel_type" property="iiChannelType" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        ii_id, ii_login_id, ii_login_name, ii_true_name, ii_third_account, ii_order_number,
+        ii_bp_id, ii_bp_name, ii_money, ii_freeze_status, ii_contract_url, ii_bp_repayed_periods,
+        ii_create_time, ii_update_time, ii_is_del, ii_contract_no, ii_ssn, ii_platform, ii_platform_type,
+        ii_channel, ii_channel_type
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from tb_invest_info
+        where ii_id = #{iiId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.investment.TbInvestInfo" >
+        <selectKey resultType="java.lang.Long" keyProperty="iiId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_invest_info (ii_login_id, ii_login_name, ii_true_name,
+        ii_third_account, ii_order_number, ii_bp_id,
+        ii_bp_name, ii_money, ii_freeze_status,
+        ii_contract_url, ii_bp_repayed_periods, ii_create_time,
+        ii_update_time, ii_is_del, ii_contract_no,
+        ii_ssn, ii_platform, ii_platform_type,
+        ii_channel, ii_channel_type)
+        values (#{iiLoginId,jdbcType=BIGINT}, #{iiLoginName,jdbcType=VARCHAR}, #{iiTrueName,jdbcType=VARCHAR},
+        #{iiThirdAccount,jdbcType=VARCHAR}, #{iiOrderNumber,jdbcType=VARCHAR}, #{iiBpId,jdbcType=BIGINT},
+        #{iiBpName,jdbcType=VARCHAR}, #{iiMoney,jdbcType=DECIMAL}, #{iiFreezeStatus,jdbcType=INTEGER},
+        #{iiContractUrl,jdbcType=VARCHAR}, #{iiBpRepayedPeriods,jdbcType=CHAR}, #{iiCreateTime,jdbcType=TIMESTAMP},
+        #{iiUpdateTime,jdbcType=TIMESTAMP}, #{iiIsDel,jdbcType=INTEGER}, #{iiContractNo,jdbcType=VARCHAR},
+        #{iiSsn,jdbcType=VARCHAR}, #{iiPlatform,jdbcType=INTEGER}, #{iiPlatformType,jdbcType=INTEGER},
+        #{iiChannel,jdbcType=INTEGER}, #{iiChannelType,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.investment.TbInvestInfo" >
+        <selectKey resultType="java.lang.Long" keyProperty="iiId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_invest_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="iiLoginId != null" >
+                ii_login_id,
+            </if>
+            <if test="iiLoginName != null" >
+                ii_login_name,
+            </if>
+            <if test="iiTrueName != null" >
+                ii_true_name,
+            </if>
+            <if test="iiThirdAccount != null" >
+                ii_third_account,
+            </if>
+            <if test="iiOrderNumber != null" >
+                ii_order_number,
+            </if>
+            <if test="iiBpId != null" >
+                ii_bp_id,
+            </if>
+            <if test="iiBpName != null" >
+                ii_bp_name,
+            </if>
+            <if test="iiMoney != null" >
+                ii_money,
+            </if>
+            <if test="iiFreezeStatus != null" >
+                ii_freeze_status,
+            </if>
+            <if test="iiContractUrl != null" >
+                ii_contract_url,
+            </if>
+            <if test="iiBpRepayedPeriods != null" >
+                ii_bp_repayed_periods,
+            </if>
+            <if test="iiCreateTime != null" >
+                ii_create_time,
+            </if>
+            <if test="iiUpdateTime != null" >
+                ii_update_time,
+            </if>
+            <if test="iiIsDel != null" >
+                ii_is_del,
+            </if>
+            <if test="iiContractNo != null" >
+                ii_contract_no,
+            </if>
+            <if test="iiSsn != null" >
+                ii_ssn,
+            </if>
+            <if test="iiPlatform != null" >
+                ii_platform,
+            </if>
+            <if test="iiPlatformType != null" >
+                ii_platform_type,
+            </if>
+            <if test="iiChannel != null" >
+                ii_channel,
+            </if>
+            <if test="iiChannelType != null" >
+                ii_channel_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="iiLoginId != null" >
+                #{iiLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="iiLoginName != null" >
+                #{iiLoginName,jdbcType=VARCHAR},
+            </if>
+            <if test="iiTrueName != null" >
+                #{iiTrueName,jdbcType=VARCHAR},
+            </if>
+            <if test="iiThirdAccount != null" >
+                #{iiThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="iiOrderNumber != null" >
+                #{iiOrderNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="iiBpId != null" >
+                #{iiBpId,jdbcType=BIGINT},
+            </if>
+            <if test="iiBpName != null" >
+                #{iiBpName,jdbcType=VARCHAR},
+            </if>
+            <if test="iiMoney != null" >
+                #{iiMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="iiFreezeStatus != null" >
+                #{iiFreezeStatus,jdbcType=INTEGER},
+            </if>
+            <if test="iiContractUrl != null" >
+                #{iiContractUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="iiBpRepayedPeriods != null" >
+                #{iiBpRepayedPeriods,jdbcType=CHAR},
+            </if>
+            <if test="iiCreateTime != null" >
+                #{iiCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="iiUpdateTime != null" >
+                #{iiUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="iiIsDel != null" >
+                #{iiIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="iiContractNo != null" >
+                #{iiContractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="iiSsn != null" >
+                #{iiSsn,jdbcType=VARCHAR},
+            </if>
+            <if test="iiPlatform != null" >
+                #{iiPlatform,jdbcType=INTEGER},
+            </if>
+            <if test="iiPlatformType != null" >
+                #{iiPlatformType,jdbcType=INTEGER},
+            </if>
+            <if test="iiChannel != null" >
+                #{iiChannel,jdbcType=INTEGER},
+            </if>
+            <if test="iiChannelType != null" >
+                #{iiChannelType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.investment.TbInvestInfo" >
+        update tb_invest_info
+        <set >
+            <if test="iiLoginId != null" >
+                ii_login_id = #{iiLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="iiLoginName != null" >
+                ii_login_name = #{iiLoginName,jdbcType=VARCHAR},
+            </if>
+            <if test="iiTrueName != null" >
+                ii_true_name = #{iiTrueName,jdbcType=VARCHAR},
+            </if>
+            <if test="iiThirdAccount != null" >
+                ii_third_account = #{iiThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="iiOrderNumber != null" >
+                ii_order_number = #{iiOrderNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="iiBpId != null" >
+                ii_bp_id = #{iiBpId,jdbcType=BIGINT},
+            </if>
+            <if test="iiBpName != null" >
+                ii_bp_name = #{iiBpName,jdbcType=VARCHAR},
+            </if>
+            <if test="iiMoney != null" >
+                ii_money = #{iiMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="iiFreezeStatus != null" >
+                ii_freeze_status = #{iiFreezeStatus,jdbcType=INTEGER},
+            </if>
+            <if test="iiContractUrl != null" >
+                ii_contract_url = #{iiContractUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="iiBpRepayedPeriods != null" >
+                ii_bp_repayed_periods = #{iiBpRepayedPeriods,jdbcType=CHAR},
+            </if>
+            <if test="iiCreateTime != null" >
+                ii_create_time = #{iiCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="iiUpdateTime != null" >
+                ii_update_time = #{iiUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="iiIsDel != null" >
+                ii_is_del = #{iiIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="iiContractNo != null" >
+                ii_contract_no = #{iiContractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="iiSsn != null" >
+                ii_ssn = #{iiSsn,jdbcType=VARCHAR},
+            </if>
+            <if test="iiPlatform != null" >
+                ii_platform = #{iiPlatform,jdbcType=INTEGER},
+            </if>
+            <if test="iiPlatformType != null" >
+                ii_platform_type = #{iiPlatformType,jdbcType=INTEGER},
+            </if>
+            <if test="iiChannel != null" >
+                ii_channel = #{iiChannel,jdbcType=INTEGER},
+            </if>
+            <if test="iiChannelType != null" >
+                ii_channel_type = #{iiChannelType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where ii_id = #{iiId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.investment.TbInvestInfo" >
+        update tb_invest_info
+        set ii_login_id = #{iiLoginId,jdbcType=BIGINT},
+        ii_login_name = #{iiLoginName,jdbcType=VARCHAR},
+        ii_true_name = #{iiTrueName,jdbcType=VARCHAR},
+        ii_third_account = #{iiThirdAccount,jdbcType=VARCHAR},
+        ii_order_number = #{iiOrderNumber,jdbcType=VARCHAR},
+        ii_bp_id = #{iiBpId,jdbcType=BIGINT},
+        ii_bp_name = #{iiBpName,jdbcType=VARCHAR},
+        ii_money = #{iiMoney,jdbcType=DECIMAL},
+        ii_freeze_status = #{iiFreezeStatus,jdbcType=INTEGER},
+        ii_contract_url = #{iiContractUrl,jdbcType=VARCHAR},
+        ii_bp_repayed_periods = #{iiBpRepayedPeriods,jdbcType=CHAR},
+        ii_create_time = #{iiCreateTime,jdbcType=TIMESTAMP},
+        ii_update_time = #{iiUpdateTime,jdbcType=TIMESTAMP},
+        ii_is_del = #{iiIsDel,jdbcType=INTEGER},
+        ii_contract_no = #{iiContractNo,jdbcType=VARCHAR},
+        ii_ssn = #{iiSsn,jdbcType=VARCHAR},
+        ii_platform = #{iiPlatform,jdbcType=INTEGER},
+        ii_platform_type = #{iiPlatformType,jdbcType=INTEGER},
+        ii_channel = #{iiChannel,jdbcType=INTEGER},
+        ii_channel_type = #{iiChannelType,jdbcType=INTEGER}
+        where ii_id = #{iiId,jdbcType=BIGINT}
+    </update>
+    <!--==================================================华丽分割线==================================================-->
+    <resultMap type="com.jebao.jebaodb.entity.investment.TbInvestInfo" id="selectListByBpId" extends="BaseResultMap">
+        <result column="bp_bid_money" property="bpBidMoney" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="bp_Column_List">
+        ii_id, ii_login_id, ii_login_name, ii_true_name, ii_third_account, ii_contract_no,
+        ii_bp_id, ii_bp_name, ii_money, ii_freeze_status, ii_contract_url, ii_bp_repayed_periods,
+        ii_create_time, ii_update_time, ii_is_del, bp_bid_money, ii_ssn
+    </sql>
+
+    <sql id="selectByCondition_Where_Clause">
+        <if test="record.iiLoginId != null">
+            ii_login_id = #{record.iiLoginId,jdbcType=BIGINT}
+        </if>
+        <if test="record.iiLoginName != null">
+            ii_login_name = #{record.iiLoginName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.iiTrueName != null">
+            ii_true_name = #{record.iiTrueName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.iiThirdAccount != null">
+            ii_third_account = #{record.iiThirdAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="record.iiContractNo != null">
+            ii_contract_no = #{record.iiContractNo,jdbcType=VARCHAR}
+        </if>
+        <if test="record.iiBpId != null">
+            ii_bp_id = #{record.iiBpId,jdbcType=BIGINT}
+        </if>
+        <if test="record.iiBpName != null">
+            ii_bp_name = #{record.iiBpName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.iiMoney != null">
+            ii_money = #{record.iiMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="record.iiFreezeStatus != null">
+            ii_freeze_status = #{record.iiFreezeStatus,jdbcType=INTEGER}
+        </if>
+        <if test="record.iiContractUrl != null">
+            ii_contract_url = #{record.iiContractUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="record.iiBpRepayedPeriods != null">
+            ii_bp_repayed_periods = #{record.iiBpRepayedPeriods,jdbcType=INTEGER}
+        </if>
+        <if test="record.iiCreateTime != null">
+            ii_create_time = #{record.iiCreateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.iiUpdateTime != null">
+            ii_update_time = #{record.iiUpdateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.iiSsn != null">
+            ii_ssn = #{record.iiSsn,jdbcType=VARCHAR}
+        </if>
+        AND ii_is_del = 1
+    </sql>
+
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_invest_info
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_invest_info
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_invest_info
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+    </select>
+
+    <select id="selectByBpId" resultMap="selectListByBpId">
+        select
+        <include refid="bp_Column_List"/>
+        from tb_invest_info, tb_bid_plan
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+            AND ii_bp_id = bp_id
+        </where>
+    </select>
+
+    <select id="investTotal" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+          SELECT
+              sum(ii_money)
+            FROM
+            tb_invest_info
+            WHERE ii_bp_id = #{iiBpId,jdbcType=BIGINT}
+              AND ii_is_del = 1
+
+    </select>
+
+    <!--==================================================投资记录==================================================-->
+    <resultMap id="InvestBaseResultMap" type="com.jebao.jebaodb.entity.investment.InvestBase">
+        <result column="ii_id" property="iiId" jdbcType="BIGINT"/>
+        <result column="bp_id" property="bpId" jdbcType="BIGINT"/>
+        <result column="bp_name" property="bpName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="periods" property="periods" jdbcType="INTEGER"/>
+        <result column="cycle_type" property="cycleType" jdbcType="INTEGER"/>
+        <result column="bp_rate" property="bpRate" jdbcType="DECIMAL"/>
+        <result column="progress" property="progress" jdbcType="DECIMAL"/>
+        <result column="contract_url" property="contractUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectInvestBaseByLoginId" resultMap="InvestBaseResultMap">
+        select
+        ii.ii_id,
+        ii.ii_bp_id as bp_id,
+        ii.ii_bp_name as bp_name,
+        ii.ii_create_time as create_time,
+        IFNULL(ii.ii_money,0) as money,
+        IFNULL(bp.bp_periods,0)*IFNULL(bp.bp_cycle_size,0) as periods,
+        bp.bp_cycle_type as cycle_type,
+        bp.bp_rate,
+        (1-(IFNULL(bp.bp_surplus_money,0) / IFNULL(bp.bp_bid_money,0)))*100 AS progress,
+        ii.ii_contract_url as contract_url
+        from tb_invest_info ii
+        inner join tb_bid_plan bp on ii.ii_bp_id=bp.bp_id
+        where ii.ii_is_del = 1
+        and bp.bp_is_del = 1
+        and ii.ii_login_id = #{record.iiLoginId,jdbcType=BIGINT}
+        and ii.ii_freeze_status = #{record.iiFreezeStatus,jdbcType=INTEGER}
+        order by ii.ii_id desc
+        <if test="pageWhere != null">
+            LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+        </if>
+    </select>
+    <select id="selectInvestBaseByLoginIdForPageCount" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_invest_info
+        WHERE ii_login_id = #{record.iiLoginId,jdbcType=BIGINT}
+        <if test="record.iiFreezeStatus != null">
+            AND ii_freeze_status = #{record.iiFreezeStatus,jdbcType=INTEGER}
+        </if>
+        AND ii_is_del = 1
+    </select>
+    <select id="totalFreezeMoneyByLoginId" resultType="java.math.BigDecimal" parameterType="java.lang.Long">
+        SELECT IFNULL(SUM(ii_money),0) AS total_freeze
+        FROM tb_invest_info
+        WHERE ii_login_id = #{iiLoginId,jdbcType=BIGINT}
+        AND ii_freeze_status = 1
+        AND ii_is_del = 1
+    </select>
+</mapper>

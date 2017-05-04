@@ -1,0 +1,61 @@
+#set($_loginUser_header_=$LoginUserTool.getUser())
+<!--顶部nav---start-->
+<div class="site-header">
+    <div class="header-top clearfix">
+        <ul class="header_contact fl">
+            <li><em></em>010-65006966&nbsp;&nbsp;（工作日）：9:00-18:00</li>
+            <li>
+                <span><i></i>微信</span>
+                <div class="weixin-content"  style="z-index: 999">
+                    <div class="triangle-inner" ></div>
+                    <img src="${filePath}/images/header-code.jpg">
+                </div>
+            </li>
+            <li class="spacer"></li>
+            <li>
+                <span><i></i>手机客户端</span>
+                <div class="weixin-content"  style="z-index: 999">
+                    <div class="triangle-inner"></div>
+                    <img src="${filePath}/images/header-download.jpg">
+                </div>
+            </li>
+        </ul>
+
+        #if($_loginUser_header_.isLogin)
+        <ul class="header_login fr">
+            <li class="fore">
+                <a href="/user/index">
+                    <p>你好~</p>
+                    <p>$!_loginUser_header_.userName</p>
+                </a>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore">
+                <a href="/account/logout">
+                    <!--<em class="header-exit"></em>-->
+                    退出
+                </a>
+            </li>
+        </ul>
+        #else
+        <ul class="header_login fr">
+            <li class="fore">
+                <a href="/account/login" id="header_login_link">
+                    <!--<em class="header-user"></em>-->
+                    登录
+                </a>
+                <script>
+                    document.getElementById("header_login_link").href += "?redirect="+window.location.pathname;
+                </script>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore">
+                <a href="/account/register">
+                    <!--<em class="header-pen"></em>-->
+                    免费注册
+                </a>
+            </li>
+        </ul>
+        #end
+    </div>
+</div>

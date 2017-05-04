@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.article.TbArticleTypeMapper">
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.article.TbArticleType">
+        <id column="at_id" property="atId" jdbcType="INTEGER"/>
+        <result column="at_name" property="atName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        at_id, at_name
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_article_type
+        where at_id = #{atId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.article.TbArticleType">
+        <selectKey resultType="java.lang.Integer" keyProperty="atId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_article_type (at_name)
+        values (#{atName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.article.TbArticleType">
+        <selectKey resultType="java.lang.Integer" keyProperty="atId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_article_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="atName != null">
+                at_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="atName != null">
+                #{atName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.article.TbArticleType">
+        update tb_article_type
+        <set>
+            <if test="atName != null">
+                at_name = #{atName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where at_id = #{atId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.article.TbArticleType">
+        update tb_article_type
+        set at_name = #{atName,jdbcType=VARCHAR}
+        where at_id = #{atId,jdbcType=INTEGER}
+    </update>
+    <!--==================================================华丽分割线==================================================-->
+    <select id="selectForList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_article_type
+        order by at_id ASC
+    </select>
+</mapper>

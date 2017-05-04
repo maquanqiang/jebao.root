@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>信投资本综合管理系统</title>
+    #parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部菜单 -->
+    #parse("common/main-header.html")
+    <!-- 左侧菜单 -->
+    #parse("common/main-sidebar.html")
+    <!-- 页面主内容 -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>业绩查询</h1>
+        </section>
+        <section class="content">
+            <!--write something -->
+            <!-- 查询条件块 -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <form class="form-inline" id="search_form" autocomplete="off">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">姓名</div>
+                                        <input type="text" class="form-control" placeholder="" name="name"
+                                               v-model="searchObj.name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">手机号</div>
+                                        <input type="tel" class="form-control" placeholder="" name="mobile"
+                                               v-model="searchObj.mobile">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">所属团队</div>
+                                        <select class="select2" id="teamId" name="teamId" style="width: 15rem;"
+                                                v-model="searchObj.teamId">
+                                            <option value="0">全部</option>
+                                            <option v-for="item in teams" :value="item.id">{{ item.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">级别</div>
+                                        <div id="tree"></div>
+                                        <select class="select2" id="rankId" name="rankId" style="width: 15rem;"
+                                                v-model="searchObj.rankId">
+                                            <option value="0">全部</option>
+                                            <option v-for="item in ranks" :value="item.id">{{ item.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group  margin">
+                                        <a href="javascript:void(0);" class="btn btn-primary" role="button" id="btnSearch"
+                                           @click.prevent="search">搜索</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--表格内容-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table id="orderlist_table" class="table table-bordered table-hover dataTable">
+                                            <thead>
+                                            <tr role="row">
+                                                <!--<th>投资编号</th>-->
+                                                <th>投资项目</th>
+                                                <th>投资金额</th>
+                                                <th>投资时间</th>
+                                                <th>投资人</th>
+                                                <th>投资人手机</th>
+                                                <th>姓名</th>
+                                                <th>职级</th>
+                                                <th>部门</th>
+                                                <th>提成</th>
+                                                <th>业绩</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <template v-for="item in dataList">
+                                                <tr>
+                                                    <!--<td>{{item.orderId}}</td>-->
+                                                    <td>
+                                                        <a :href="'/bidplan/alreadyLoanDetail/'+item.productId" target="_blank">{{item.productName}}</a>
+                                                    </td>
+                                                    <td>{{item.orderMoney | money}}</td>
+                                                    <td>{{item.orderCreateTime}}</td>
+                                                    <td>{{item.trueName}}</td>
+                                                    <td>{{item.mobilePhone}}</td>
+                                                    <td>{{item.empName}}</td>
+                                                    <td>{{item.rankName}}</td>
+                                                    <td>{{item.depName}}</td>
+                                                    <td>{{item.rankBrokeragePercent | percent }}</td>
+                                                    <td>{{(item.orderMoney * item.rankBrokeragePercent) | money}}</td>
+                                                </tr>
+                                            </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 pagination">
+                                        <div id="pageNum"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <!-- /.content-wrapper -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+#include("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/performance/index.js")></script>
+</body>
+</html>

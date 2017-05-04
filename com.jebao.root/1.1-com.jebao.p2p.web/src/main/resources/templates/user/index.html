@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>账户总览-我的账户</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+</head>
+<body>
+<!--顶部nav---start-->
+#parse("common/header.html")
+<!--导航条-->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">账户总览</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--账户总览-->
+        <div class="my-account">
+            <div class="my-account-title">
+                <h2>账户总览</h2>
+            </div>
+            <div class="my-account-cont clearfix">
+                <ul class="fl" v-cloak>
+                    <li>
+                        <p>累计收益：<span class="num">￥{{ fundSum.incomeAmount }}</span></p>
+                    </li>
+                    <li>
+                        <p>总资产：<span>{{ fundSum.totalAssets }}</span>元</p>
+                    </li>
+                    <li>
+                        <p>可用金额：<span>{{ fundSum.balance }}</span>元</p>
+                    </li>
+                    <li>
+                        <p>冻结金额：<span>{{ fundSum.freezeAmount }}</span>元</p>
+                    </li>
+                    <li>
+                        <p>待收本金：<span>{{ fundSum.dueInPrincipal }}</span>元</p>
+                    </li>
+                    <li>
+                        <p>待收收益：<span>{{ fundSum.dueInIncome }}</span>元</p>
+                    </li>
+                </ul>
+                <div class="my-account-btn fl">
+                    <a href="/user/chargewithdraw?typeId=1" class="rechange">充值</a>
+                    <a href="/user/chargewithdraw?typeId=2" class="expressive">提现</a>
+                </div>
+            </div>
+        </div>
+        <!--开通资金账户-->
+        <ul class="user-function clearfix">
+            <li>
+                #if($_loginUser_header_.isFundAccount)
+                <a href="javascript:void(0);">
+                    <img src="${filePath}/images/account-open.png">
+                    <p>开通资金账户</p>
+                </a>
+                #else
+                <a href="/userfund/register">
+                    <img src="${filePath}/images/account-open.png">
+                    <p>开通资金账户</p>
+                </a>
+                #end
+            </li>
+            <li>
+                <a href="/user/chargewithdraw?typeId=1">
+                    <img src="${filePath}/images/account-recharge.png">
+                    <p>充值</p>
+                </a>
+            </li>
+            <li>
+                <a href="/user/chargewithdraw?typeId=2">
+                    <img src="${filePath}/images/account-invest.png">
+                    <p>提现</p>
+                </a>
+            </li>
+            <li>
+                <a href="/html/product">
+                    <img src="${filePath}/images/account-expressive.png">
+                    <p>我要投资</p>
+                </a>
+            </li>
+        </ul>
+        <!--投资中的项目-->
+        <div class="project">
+            <div class="project-menu clearfix">
+                <h4 class="active" @click="search(1)">投资中的项目</h4>
+                <h4 @click="search(2)">还款中的项目</h4>
+                <div class="project-more fr">
+                    <a href="/user/investrecord">更多<i></i></a>
+                </div>
+            </div>
+            <div class="project-list">
+                <div class="project-item active">
+                    <table class="investment">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>投资时间</th>
+                            <th>投资金额</th>
+                            <th>投资期限</th>
+                            <th>投资进度</th>
+                            <th>年化利率</th>
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDateii">
+                            <tr v-for="item in investIngs">
+                                <td><a :href="'/product/detail/'+item.bpId">{{ item.bpName }}</a></td>
+                                <td>{{ item.createTime }}</td>
+                                <td>{{ item.money }}</td>
+                                <td>{{ item.periods }}</td>
+                                <td>{{ item.progress }}%</td>
+                                <td>{{ item.bpRate }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--无投资项目-->
+                    <div v-show="!isHasDateii" class="noProject">
+                        <p>
+                            暂无投资中项目<a href="/html/product">去投资</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <table class="repayment">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>投资时间</th>
+                            <th>投资金额</th>
+                            <th>投资期限</th>
+                            <th>年化利率</th>
+                            <th>下个还款日</th>
+                            <th>还款日应还金额</th>
+                            <th>查看</th>
+                        </tr>
+                        </thead>
+                        <tbody v-show="isHasDatepi">
+                        <tr v-for="item in paymentIngs">
+                            <td>
+                                <a :href="'/product/detail/'+item.bpId">{{ item.bpName }}</a>
+                            </td>
+                            <td>{{ item.createTime }}</td>
+                            <td>{{ item.money }}</td>
+                            <td>{{ item.periods }}</td>
+                            <td>{{ item.bpRate }}%</td>
+                            <td>{{ item.nextDueDate }}</td>
+                            <td>{{ item.dueMoney }}</td>
+                            <td><a :href="item.contractUrl">合同</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--无数据-->
+                    <div v-show="!isHasDatepi" class="noProject">
+                        <p>
+                            暂无还款中项目
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--收支明细-->
+        <div class="income-detail">
+            <div class="project-menu clearfix">
+                <h4>收支明细</h4>
+                <div class="project-more fr">
+                    <a href="/user/funds">更多<i></i></a>
+                </div>
+            </div>
+            <div class="income-detail-cont">
+                <table class="income-table">
+                    <thead>
+                    <tr>
+                        <th>交易流水号</th>
+                        <th>交易时间</th>
+                        <th>交易类型</th>
+                        <th>收入金额（元）</th>
+                        <th>支出金额（元）</th>
+                        <th>交易状态</th>
+                    </tr>
+                    </thead>
+                    <tbody v-show="isHasDatefd">
+                    <tr v-for="item in fundsDetails">
+                        <td>{{ item.serialNumber }}</td>
+                        <td>{{ item.serialTime }}</td>
+                        <td>{{ item.serialTypeName }}</td>
+                        <td class="red">{{ item.incAmount }}</td>
+                        <td class="green">{{ item.expAmount }}</td>
+                        <td>{{ item.serialStatus }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--无数据-->
+                <div v-show="!isHasDatefd" class="noProject">
+                    <p>
+                        暂无收支明细
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/user/index.js")></script>
+</body>
+
+</html>

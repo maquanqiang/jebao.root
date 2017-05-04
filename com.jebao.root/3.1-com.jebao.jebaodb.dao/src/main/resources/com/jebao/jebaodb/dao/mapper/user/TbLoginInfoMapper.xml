@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.user.TbLoginInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.user.TbLoginInfo" >
+    <id column="li_id" property="liId" jdbcType="BIGINT" />
+    <result column="li_login_name" property="liLoginName" jdbcType="VARCHAR" />
+    <result column="li_password" property="liPassword" jdbcType="VARCHAR" />
+    <result column="li_create_time" property="liCreateTime" jdbcType="TIMESTAMP" />
+    <result column="li_last_login_time" property="liLastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="li_is_del" property="liIsDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    li_id, li_login_name, li_password, li_create_time, li_last_login_time, li_is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_login_info
+    where li_id = #{liId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.user.TbLoginInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="liId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_login_info (li_login_name, li_password, li_create_time,
+      li_last_login_time, li_is_del)
+    values (#{liLoginName,jdbcType=VARCHAR}, #{liPassword,jdbcType=VARCHAR}, #{liCreateTime,jdbcType=TIMESTAMP},
+      #{liLastLoginTime,jdbcType=TIMESTAMP}, #{liIsDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.user.TbLoginInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="liId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_login_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="liLoginName != null" >
+        li_login_name,
+      </if>
+      <if test="liPassword != null" >
+        li_password,
+      </if>
+      <if test="liCreateTime != null" >
+        li_create_time,
+      </if>
+      <if test="liLastLoginTime != null" >
+        li_last_login_time,
+      </if>
+      <if test="liIsDel != null" >
+        li_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="liLoginName != null" >
+        #{liLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="liPassword != null" >
+        #{liPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="liCreateTime != null" >
+        #{liCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="liLastLoginTime != null" >
+        #{liLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="liIsDel != null" >
+        #{liIsDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.user.TbLoginInfo" >
+    update tb_login_info
+    <set >
+      <if test="liLoginName != null" >
+        li_login_name = #{liLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="liPassword != null" >
+        li_password = #{liPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="liCreateTime != null" >
+        li_create_time = #{liCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="liLastLoginTime != null" >
+        li_last_login_time = #{liLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="liIsDel != null" >
+        li_is_del = #{liIsDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where li_id = #{liId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.user.TbLoginInfo" >
+    update tb_login_info
+    set li_login_name = #{liLoginName,jdbcType=VARCHAR},
+      li_password = #{liPassword,jdbcType=VARCHAR},
+      li_create_time = #{liCreateTime,jdbcType=TIMESTAMP},
+      li_last_login_time = #{liLastLoginTime,jdbcType=TIMESTAMP},
+      li_is_del = #{liIsDel,jdbcType=INTEGER}
+    where li_id = #{liId,jdbcType=BIGINT}
+  </update>
+    <!--==================================================华丽分割线==================================================-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        update tb_login_info
+        set li_is_del = 2
+        where li_id = #{liId,jdbcType=BIGINT}
+    </update>
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_login_info
+        order by li_id DESC
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from tb_login_info
+        WHERE
+        li_login_name=#{liLoginName,jdbcType=VARCHAR} AND li_is_del=1
+    </select>
+</mapper>

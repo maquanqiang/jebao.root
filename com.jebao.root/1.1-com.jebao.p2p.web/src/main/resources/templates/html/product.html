@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 项目列表 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/lib/swiper.css">
+    <link rel="stylesheet" href="${filePath}/css/project-list.css">
+
+</head>
+
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--内容 begin-->
+<!--投标选择-->
+<div class="project-filter">
+    <dl class="clearfix">
+        <dd>还款方式：</dd>
+        <dt class="active all" fType="bpInterestPayType" fValue="">全部</dt>
+        <dt fType="bpInterestPayType" fValue="1">一次性还本付息</dt>
+        <dt fType="bpInterestPayType" fValue="2">先息后本，按期付息</dt>
+    </dl>
+    <dl class="clearfix">
+        <dd>期限：</dd>
+        <dt class="active all" fType="bpPeriodStr" fValue="">全部</dt>
+        <dt fType="bpPeriodStr" fValue="3-2">3个月</dt>
+        <dt fType="bpPeriodStr" fValue="6-2">6个月</dt>
+        <dt fType="bpPeriodStr" fValue="12-2">12个月</dt>
+    </dl>
+    <dl class="clearfix">
+        <dd>金额：</dd>
+        <dt class="active all" fType="searchMoneyStr" fValue="">全部</dt>
+        <dt fType="searchMoneyStr" fValue="1000-10000">1000-1万元</dt>
+        <dt fType="searchMoneyStr" fValue="10001-100000">1万元-10万元</dt>
+        <dt fType="searchMoneyStr" fValue="100001-1000000">10万元-100万元</dt>
+        <dt fType="searchMoneyStr" fValue="1000001-3000000">100万元-300万元</dt>
+        <dt fType="searchMoneyStr" fValue="3000001-100000000">300万元以上</dt>
+    </dl>
+    <dl class="clearfix">
+        <dd>状态：</dd>
+        <dt class="active all" fType="bpStatus" fValue="">全部</dt>
+        <dt fType="bpStatus" fValue="2">投资中</dt>
+        <dt fType="bpStatus" fValue="7">还款中</dt>
+        <dt fType="bpStatus" fValue="10">已还款</dt>
+    </dl>
+</div>
+<!--投标内容-->
+<div class="index-main">
+    <form action="/api/product/list" method="post" id="loginForm"></form>
+    <div class="index-main-title clearfix">
+        <h4>推荐项目</h4>
+        <p>精选项目，资深金融人士层层甄选，最靠谱的投资项目呈现给您</p>
+    </div>
+    <div class="project-list">
+        <!--无投资项目-->
+        <div v-show="products.length==0" class="noProject">
+            <p style="width: 100%;height: 300px;text-align: center;font-size: 24px;color: #666;line-height: 300px;">
+                暂无项目
+            </p>
+        </div>
+        <div class="project-content"  v-for="data in products" @click.prevent="openDetail(data.bpId)">
+            <div class="project-name">
+                <p>{{data.bpName}}<span>{{data.bpNumber}}</span></p>
+            </div>
+            <div class="project-item clearfix">
+                <div class="project-info text-left">
+                    <div>{{data.bpRate}}%</div>
+                    <p>年化收益率</p>
+                </div>
+                <div class="project-info">
+                    <div>{{data.bpPeriodsDisplay}}{{cycleType[data.bpCycleType]}}</div>
+                    <p>项目期限</p>
+                </div>
+                <div class="project-info">
+                    <div>{{data.bpBidMoney}}</div>
+                    <p>项目总额</p>
+                </div>
+                <div class="project-progress fl">
+                    <div class="project-progress-box">
+                       <span class="progress-line">
+                            <span :style="'width: '+data.progress+'%'" class="progress-bar progress-bar-info"></span>
+                       </span>
+                        <span class="num">{{data.progress}}%</span>
+                    </div>
+                    <p>投资进度</p>
+                </div>
+                <div class="project-btn fr">
+                    <a href="javascript:void(0);">{{status[data.bpStatus]}}</a>
+                </div>
+            </div>
+            <img src="${filePath}/images/new-project.png" class="new-project" v-if="data.bpType==2">
+            <img src="${filePath}/images/increase.png" class="increase" v-if="data.bpType==3">
+        </div>
+        <div id="pageNum" class="page" style="padding-bottom: 40px"></div>
+    </div>
+</div>
+
+<!--内容 end-->
+
+
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/html/product.js")></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>组织结构图 - 信投资本综合管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link href="../../AdminLTE-2.2.0/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="../../AdminLTE-2.2.0/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="../../AdminLTE-2.2.0/bootstrap/fonts/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- DATA TABLES -->
+    <link href="../../AdminLTE-2.2.0/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../../AdminLTE-2.2.0/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Select2 -->
+    <link href="../../AdminLTE-2.2.0/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="../../AdminLTE-2.2.0/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="../../AdminLTE-2.2.0/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/OrganizationChart.css" rel="stylesheet" type="text/css" />
+    <script src="../../AdminLTE-2.2.0/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../../layer/layer.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../../AdminLTE-2.2.0/html5shiv.min.js"></script>
+    <script src="../../AdminLTE-2.2.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>平</b>台</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>管理</b>平台</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            管理员
+                            <!--<span class="hidden-xs">
+                                <a href="#"></a>
+                            </span>-->
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+
+                                <div class="pull-right">
+                                    <a href="" class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="../../AdminLTE-2.2.0/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                </div>
+                <div class="pull-left info">
+                    <p>
+                        管理员
+                    </p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <ul class="sidebar-menu" id="ulList">
+                <li class="header">导航-借款中心</li>
+                <li class="treeview">
+                    <a href="../../page/首页/index.html" target="_self">
+                        <i class="fa fa-dashboard"></i><span>首页</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="../../page/借款个人/index.html" target="_self">
+                        <i class="fa fa-th-large"></i><span>借款个人</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i><span>客户档案管理</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>企业客户档案</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>个人客户档案</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>个人贷款客户P2P账号</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>黑名单</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>客户资源分配</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-pie-chart"></i><span>抵质押物管理</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>抵质押物查询</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>抵质押物办理</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-laptop"></i><span>合同管理</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>合同模板制作</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>合同管理</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>合同查询</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>合同要素</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i><span>资金管理</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href=""><i class="fa fa-circle-o"></i><span>银行账户管理</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>银行流水录入</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>现金流水录入</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>银行账户明细</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>地区管理</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-table"></i> <span>款项台账</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>本金放款台账</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>本金收款台账</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>利息收款台账</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>其他支出台账</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>手续费收支台账</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>本金利息台账日志</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>手续费收支台账日志</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>本金挪用台账</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i><span>审批进度查询</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>调查审核项目</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>审批通过项目</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>审批否决项目</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-book"></i><span>项目状态查询</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>全部贷款业务</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>办理中项目</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>还款中项目</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>违约处理项目</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>结项项目</span></a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>提前终止项目</span></a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-th"></i><span>贷款产品管理</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i><span>贷款产品设计</span></a></li>
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i><span>基础材料配置</span><i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i><span>基础贷款材料管理</span></a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i><span>基础贷款条件管理</span></a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i><span>基础贷款归档材料管理</span></a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i><span>费用配置管理</span></a></li>
+                                <li><a href="../贷款产品管理/文档模板管理.html"><i class="fa fa-circle-o"></i>文档模板管理</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>组织结构图</h1>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="col-xs-12">
+                            <h3 class="box-title">
+                                公司组织结构图
+                            </h3>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="strt-part">
+                                <span class="strt-name">总经理</span>
+                                <div class="line-v"><span></span></div>
+                                <span class="strt-name">副总经理</span>
+                                <div class="line-v"><span></span></div>
+                                <div class="strt-block">
+                                    <div class="strt-part">
+                                        <span class="line-h line-h-r"></span>
+                                        <div class="line-v"><span></span></div>
+                                        <span class="strt-name">总监</span>
+                                        <div class="line-v"><span></span></div>
+                                        <div class="strt-block">
+                                            <div class="strt-part">
+                                                <span class="line-h line-h-r"></span>
+                                                <div class="line-v"><span></span></div>
+                                                <span class="strt-name">团队经理</span>
+                                                <div class="line-v"><span></span></div>
+                                                <div class="strt-block">
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-r"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-l"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="strt-part">
+                                                <span class="line-h line-h-l"></span>
+                                                <div class="line-v"><span></span></div>
+                                                <span class="strt-name">团队经理</span>
+                                                <div class="line-v"><span></span></div>
+                                                <div class="strt-block">
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-r"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-l"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="strt-part">
+                                        <span class="line-h line-h-c"></span>
+                                        <div class="line-v"><span></span></div>
+                                        <span class="strt-name">总监</span>
+                                        <div class="line-v"><span></span></div>
+                                        <div class="strt-block">
+                                            <div class="strt-part">
+                                                <span class="line-h line-h-r"></span>
+                                                <div class="line-v"><span></span></div>
+                                                <span class="strt-name">团队经理</span>
+                                                <div class="line-v"><span></span></div>
+                                                <div class="strt-block">
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-r"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-l"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="strt-part">
+                                                <span class="line-h line-h-l"></span>
+                                                <div class="line-v"><span></span></div>
+                                                <span class="strt-name">团队经理</span>
+                                                <div class="line-v"><span></span></div>
+                                                <div class="strt-block">
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-r"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-l"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="strt-part">
+                                        <span class="line-h line-h-l"></span>
+                                        <div class="line-v"><span></span></div>
+                                        <span class="strt-name">总监</span>
+                                        <div class="line-v"><span></span></div>
+                                        <div class="strt-block">
+                                            <div class="strt-part">
+                                                <span class="line-h line-h-r"></span>
+                                                <div class="line-v"><span></span></div>
+                                                <span class="strt-name">团队经理</span>
+                                                <div class="line-v"><span></span></div>
+                                                <div class="strt-block">
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-r"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-l"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="strt-part">
+                                                <span class="line-h line-h-l"></span>
+                                                <div class="line-v"><span></span></div>
+                                                <span class="strt-name">团队经理</span>
+                                                <div class="line-v"><span></span></div>
+                                                <div class="strt-block">
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-r"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                    <div class="strt-part">
+                                                        <span class="line-h line-h-l"></span>
+                                                        <div class="line-v"><span></span></div>
+                                                        <span class="strt-name">理财顾问</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="javascript:;">信投资本</a>.</strong> All rights reserved.
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+<script src="../../AdminLTE-2.2.0/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../AdminLTE-2.2.0/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../AdminLTE-2.2.0/plugins/select2/select2.full.min.js" type="text/javascript"></script>
+<script src="../../AdminLTE-2.2.0/plugins/fastclick/fastclick.min.js"></script>
+<script src="../../AdminLTE-2.2.0/dist/js/app.min.js" type="text/javascript"></script>
+<script src="../../AdminLTE-2.2.0/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="../../AdminLTE-2.2.0/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<script src="../../AdminLTE-2.2.0/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="../../js/lib/common.js"></script>
+</body>
+</html>

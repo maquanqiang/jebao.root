@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.loaner.TbLoanerMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.loaner.TbLoaner" >
+    <id column="l_id" property="lId" jdbcType="BIGINT" />
+    <result column="l_login_id" property="lLoginId" jdbcType="BIGINT" />
+    <result column="l_nick_name" property="lNickName" jdbcType="VARCHAR" />
+    <result column="l_phone" property="lPhone" jdbcType="VARCHAR" />
+    <result column="l_true_name" property="lTrueName" jdbcType="VARCHAR" />
+    <result column="l_id_number" property="lIdNumber" jdbcType="VARCHAR" />
+    <result column="l_email" property="lEmail" jdbcType="VARCHAR" />
+    <result column="l_sex" property="lSex" jdbcType="INTEGER" />
+    <result column="l_age" property="lAge" jdbcType="INTEGER" />
+    <result column="l_register_time" property="lRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="l_last_login_time" property="lLastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="l_home_add" property="lHomeAdd" jdbcType="VARCHAR" />
+    <result column="l_hkadr" property="lHkadr" jdbcType="VARCHAR" />
+    <result column="l_marital_status" property="lMaritalStatus" jdbcType="INTEGER" />
+    <result column="l_ishave_house" property="lIshaveHouse" jdbcType="INTEGER" />
+    <result column="l_ishave_car" property="lIshaveCar" jdbcType="INTEGER" />
+    <result column="l_politics_status" property="lPoliticsStatus" jdbcType="INTEGER" />
+    <result column="l_credit_status" property="lCreditStatus" jdbcType="VARCHAR" />
+    <result column="l_monthly_salary" property="lMonthlySalary" jdbcType="INTEGER" />
+    <result column="l_education" property="lEducation" jdbcType="INTEGER" />
+    <result column="l_work_city" property="lWorkCity" jdbcType="VARCHAR" />
+    <result column="l_third_account" property="lThirdAccount" jdbcType="VARCHAR" />
+    <result column="l_third_login_password" property="lThirdLoginPassword" jdbcType="VARCHAR" />
+    <result column="l_third_pay_password" property="lThirdPayPassword" jdbcType="VARCHAR" />
+    <result column="l_bank_provinces_code" property="lBankProvincesCode" jdbcType="VARCHAR" />
+    <result column="l_bank_provinces_name" property="lBankProvincesName" jdbcType="VARCHAR" />
+    <result column="l_bank_city_code" property="lBankCityCode" jdbcType="VARCHAR" />
+    <result column="l_bank_city_name" property="lBankCityName" jdbcType="VARCHAR" />
+    <result column="l_bank_parent_bank_code" property="lBankParentBankCode" jdbcType="VARCHAR" />
+    <result column="l_bank_parent_bank_name" property="lBankParentBankName" jdbcType="VARCHAR" />
+    <result column="l_create_time" property="lCreateTime" jdbcType="TIMESTAMP" />
+    <result column="l_update_time" property="lUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="l_bank_card_no" property="lBankCardNo" jdbcType="VARCHAR" />
+    <result column="l_is_del" property="lIsDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    l_id, l_login_id, l_nick_name, l_phone, l_true_name, l_id_number, l_email, l_sex, 
+    l_age, l_register_time, l_last_login_time, l_home_add, l_hkadr, l_marital_status, 
+    l_ishave_house, l_ishave_car, l_politics_status, l_credit_status, l_monthly_salary, 
+    l_education, l_work_city, l_third_account, l_third_login_password, l_third_pay_password, 
+    l_bank_provinces_code, l_bank_provinces_name, l_bank_city_code, l_bank_city_name, 
+    l_bank_parent_bank_code, l_bank_parent_bank_name, l_create_time, l_update_time, l_bank_card_no, 
+    l_is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_loaner
+    where l_id = #{lId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.loaner.TbLoaner" >
+    <selectKey resultType="java.lang.Long" keyProperty="lId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_loaner (l_login_id, l_nick_name, l_phone, 
+      l_true_name, l_id_number, l_email, 
+      l_sex, l_age, l_register_time, 
+      l_last_login_time, l_home_add, l_hkadr, 
+      l_marital_status, l_ishave_house, l_ishave_car, 
+      l_politics_status, l_credit_status, l_monthly_salary, 
+      l_education, l_work_city, l_third_account, 
+      l_third_login_password, l_third_pay_password, 
+      l_bank_provinces_code, l_bank_provinces_name, 
+      l_bank_city_code, l_bank_city_name, l_bank_parent_bank_code, 
+      l_bank_parent_bank_name, l_create_time, l_update_time, 
+      l_bank_card_no, l_is_del)
+    values (#{lLoginId,jdbcType=BIGINT}, #{lNickName,jdbcType=VARCHAR}, #{lPhone,jdbcType=VARCHAR}, 
+      #{lTrueName,jdbcType=VARCHAR}, #{lIdNumber,jdbcType=VARCHAR}, #{lEmail,jdbcType=VARCHAR}, 
+      #{lSex,jdbcType=INTEGER}, #{lAge,jdbcType=INTEGER}, #{lRegisterTime,jdbcType=TIMESTAMP}, 
+      #{lLastLoginTime,jdbcType=TIMESTAMP}, #{lHomeAdd,jdbcType=VARCHAR}, #{lHkadr,jdbcType=VARCHAR}, 
+      #{lMaritalStatus,jdbcType=INTEGER}, #{lIshaveHouse,jdbcType=INTEGER}, #{lIshaveCar,jdbcType=INTEGER}, 
+      #{lPoliticsStatus,jdbcType=INTEGER}, #{lCreditStatus,jdbcType=VARCHAR}, #{lMonthlySalary,jdbcType=INTEGER}, 
+      #{lEducation,jdbcType=INTEGER}, #{lWorkCity,jdbcType=VARCHAR}, #{lThirdAccount,jdbcType=VARCHAR},
+      #{lThirdLoginPassword,jdbcType=VARCHAR}, #{lThirdPayPassword,jdbcType=VARCHAR}, 
+      #{lBankProvincesCode,jdbcType=VARCHAR}, #{lBankProvincesName,jdbcType=VARCHAR}, 
+      #{lBankCityCode,jdbcType=VARCHAR}, #{lBankCityName,jdbcType=VARCHAR}, #{lBankParentBankCode,jdbcType=VARCHAR}, 
+      #{lBankParentBankName,jdbcType=VARCHAR}, #{lCreateTime,jdbcType=TIMESTAMP}, #{lUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lBankCardNo,jdbcType=VARCHAR}, #{lIsDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.loaner.TbLoaner" >
+    <selectKey resultType="java.lang.Long" keyProperty="lId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_loaner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lLoginId != null" >
+        l_login_id,
+      </if>
+      <if test="lNickName != null" >
+        l_nick_name,
+      </if>
+      <if test="lPhone != null" >
+        l_phone,
+      </if>
+      <if test="lTrueName != null" >
+        l_true_name,
+      </if>
+      <if test="lIdNumber != null" >
+        l_id_number,
+      </if>
+      <if test="lEmail != null" >
+        l_email,
+      </if>
+      <if test="lSex != null" >
+        l_sex,
+      </if>
+      <if test="lAge != null" >
+        l_age,
+      </if>
+      <if test="lRegisterTime != null" >
+        l_register_time,
+      </if>
+      <if test="lLastLoginTime != null" >
+        l_last_login_time,
+      </if>
+      <if test="lHomeAdd != null" >
+        l_home_add,
+      </if>
+      <if test="lHkadr != null" >
+        l_hkadr,
+      </if>
+      <if test="lMaritalStatus != null" >
+        l_marital_status,
+      </if>
+      <if test="lIshaveHouse != null" >
+        l_ishave_house,
+      </if>
+      <if test="lIshaveCar != null" >
+        l_ishave_car,
+      </if>
+      <if test="lPoliticsStatus != null" >
+        l_politics_status,
+      </if>
+      <if test="lCreditStatus != null" >
+        l_credit_status,
+      </if>
+      <if test="lMonthlySalary != null" >
+        l_monthly_salary,
+      </if>
+      <if test="lEducation != null" >
+        l_education,
+      </if>
+      <if test="lWorkCity != null" >
+        l_work_city,
+      </if>
+      <if test="lThirdAccount != null" >
+        l_third_account,
+      </if>
+      <if test="lThirdLoginPassword != null" >
+        l_third_login_password,
+      </if>
+      <if test="lThirdPayPassword != null" >
+        l_third_pay_password,
+      </if>
+      <if test="lBankProvincesCode != null" >
+        l_bank_provinces_code,
+      </if>
+      <if test="lBankProvincesName != null" >
+        l_bank_provinces_name,
+      </if>
+      <if test="lBankCityCode != null" >
+        l_bank_city_code,
+      </if>
+      <if test="lBankCityName != null" >
+        l_bank_city_name,
+      </if>
+      <if test="lBankParentBankCode != null" >
+        l_bank_parent_bank_code,
+      </if>
+      <if test="lBankParentBankName != null" >
+        l_bank_parent_bank_name,
+      </if>
+      <if test="lCreateTime != null" >
+        l_create_time,
+      </if>
+      <if test="lUpdateTime != null" >
+        l_update_time,
+      </if>
+      <if test="lBankCardNo != null" >
+        l_bank_card_no,
+      </if>
+      <if test="lIsDel != null" >
+        l_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lLoginId != null" >
+        #{lLoginId,jdbcType=BIGINT},
+      </if>
+      <if test="lNickName != null" >
+        #{lNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="lPhone != null" >
+        #{lPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lTrueName != null" >
+        #{lTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="lIdNumber != null" >
+        #{lIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lEmail != null" >
+        #{lEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="lSex != null" >
+        #{lSex,jdbcType=INTEGER},
+      </if>
+      <if test="lAge != null" >
+        #{lAge,jdbcType=INTEGER},
+      </if>
+      <if test="lRegisterTime != null" >
+        #{lRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lLastLoginTime != null" >
+        #{lLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lHomeAdd != null" >
+        #{lHomeAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="lHkadr != null" >
+        #{lHkadr,jdbcType=VARCHAR},
+      </if>
+      <if test="lMaritalStatus != null" >
+        #{lMaritalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lIshaveHouse != null" >
+        #{lIshaveHouse,jdbcType=INTEGER},
+      </if>
+      <if test="lIshaveCar != null" >
+        #{lIshaveCar,jdbcType=INTEGER},
+      </if>
+      <if test="lPoliticsStatus != null" >
+        #{lPoliticsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lCreditStatus != null" >
+        #{lCreditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lMonthlySalary != null" >
+        #{lMonthlySalary,jdbcType=INTEGER},
+      </if>
+      <if test="lEducation != null" >
+        #{lEducation,jdbcType=INTEGER},
+      </if>
+      <if test="lWorkCity != null" >
+        #{lWorkCity,jdbcType=VARCHAR},
+      </if>
+      <if test="lThirdAccount != null" >
+        #{lThirdAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="lThirdLoginPassword != null" >
+        #{lThirdLoginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lThirdPayPassword != null" >
+        #{lThirdPayPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankProvincesCode != null" >
+        #{lBankProvincesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankProvincesName != null" >
+        #{lBankProvincesName,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankCityCode != null" >
+        #{lBankCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankCityName != null" >
+        #{lBankCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankParentBankCode != null" >
+        #{lBankParentBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankParentBankName != null" >
+        #{lBankParentBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="lCreateTime != null" >
+        #{lCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lUpdateTime != null" >
+        #{lUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lBankCardNo != null" >
+        #{lBankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lIsDel != null" >
+        #{lIsDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.loaner.TbLoaner" >
+    update tb_loaner
+    <set >
+      <if test="lLoginId != null" >
+        l_login_id = #{lLoginId,jdbcType=BIGINT},
+      </if>
+      <if test="lNickName != null" >
+        l_nick_name = #{lNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="lPhone != null" >
+        l_phone = #{lPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lTrueName != null" >
+        l_true_name = #{lTrueName,jdbcType=VARCHAR},
+      </if>
+      <if test="lIdNumber != null" >
+        l_id_number = #{lIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lEmail != null" >
+        l_email = #{lEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="lSex != null" >
+        l_sex = #{lSex,jdbcType=INTEGER},
+      </if>
+      <if test="lAge != null" >
+        l_age = #{lAge,jdbcType=INTEGER},
+      </if>
+      <if test="lRegisterTime != null" >
+        l_register_time = #{lRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lLastLoginTime != null" >
+        l_last_login_time = #{lLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lHomeAdd != null" >
+        l_home_add = #{lHomeAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="lHkadr != null" >
+        l_hkadr = #{lHkadr,jdbcType=VARCHAR},
+      </if>
+      <if test="lMaritalStatus != null" >
+        l_marital_status = #{lMaritalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lIshaveHouse != null" >
+        l_ishave_house = #{lIshaveHouse,jdbcType=INTEGER},
+      </if>
+      <if test="lIshaveCar != null" >
+        l_ishave_car = #{lIshaveCar,jdbcType=INTEGER},
+      </if>
+      <if test="lPoliticsStatus != null" >
+        l_politics_status = #{lPoliticsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lCreditStatus != null" >
+        l_credit_status = #{lCreditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lMonthlySalary != null" >
+        l_monthly_salary = #{lMonthlySalary,jdbcType=INTEGER},
+      </if>
+      <if test="lEducation != null" >
+        l_education = #{lEducation,jdbcType=INTEGER},
+      </if>
+      <if test="lWorkCity != null" >
+        l_work_city = #{lWorkCity,jdbcType=VARCHAR},
+      </if>
+      <if test="lThirdAccount != null" >
+        l_third_account = #{lThirdAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="lThirdLoginPassword != null" >
+        l_third_login_password = #{lThirdLoginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lThirdPayPassword != null" >
+        l_third_pay_password = #{lThirdPayPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankProvincesCode != null" >
+        l_bank_provinces_code = #{lBankProvincesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankProvincesName != null" >
+        l_bank_provinces_name = #{lBankProvincesName,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankCityCode != null" >
+        l_bank_city_code = #{lBankCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankCityName != null" >
+        l_bank_city_name = #{lBankCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankParentBankCode != null" >
+        l_bank_parent_bank_code = #{lBankParentBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lBankParentBankName != null" >
+        l_bank_parent_bank_name = #{lBankParentBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="lCreateTime != null" >
+        l_create_time = #{lCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lUpdateTime != null" >
+        l_update_time = #{lUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lBankCardNo != null" >
+        l_bank_card_no = #{lBankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lIsDel != null" >
+        l_is_del = #{lIsDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where l_id = #{lId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.loaner.TbLoaner" >
+    update tb_loaner
+    set l_login_id = #{lLoginId,jdbcType=BIGINT},
+      l_nick_name = #{lNickName,jdbcType=VARCHAR},
+      l_phone = #{lPhone,jdbcType=VARCHAR},
+      l_true_name = #{lTrueName,jdbcType=VARCHAR},
+      l_id_number = #{lIdNumber,jdbcType=VARCHAR},
+      l_email = #{lEmail,jdbcType=VARCHAR},
+      l_sex = #{lSex,jdbcType=INTEGER},
+      l_age = #{lAge,jdbcType=INTEGER},
+      l_register_time = #{lRegisterTime,jdbcType=TIMESTAMP},
+      l_last_login_time = #{lLastLoginTime,jdbcType=TIMESTAMP},
+      l_home_add = #{lHomeAdd,jdbcType=VARCHAR},
+      l_hkadr = #{lHkadr,jdbcType=VARCHAR},
+      l_marital_status = #{lMaritalStatus,jdbcType=INTEGER},
+      l_ishave_house = #{lIshaveHouse,jdbcType=INTEGER},
+      l_ishave_car = #{lIshaveCar,jdbcType=INTEGER},
+      l_politics_status = #{lPoliticsStatus,jdbcType=INTEGER},
+      l_credit_status = #{lCreditStatus,jdbcType=VARCHAR},
+      l_monthly_salary = #{lMonthlySalary,jdbcType=INTEGER},
+      l_education = #{lEducation,jdbcType=INTEGER},
+      l_work_city = #{lWorkCity,jdbcType=VARCHAR},
+      l_third_account = #{lThirdAccount,jdbcType=VARCHAR},
+      l_third_login_password = #{lThirdLoginPassword,jdbcType=VARCHAR},
+      l_third_pay_password = #{lThirdPayPassword,jdbcType=VARCHAR},
+      l_bank_provinces_code = #{lBankProvincesCode,jdbcType=VARCHAR},
+      l_bank_provinces_name = #{lBankProvincesName,jdbcType=VARCHAR},
+      l_bank_city_code = #{lBankCityCode,jdbcType=VARCHAR},
+      l_bank_city_name = #{lBankCityName,jdbcType=VARCHAR},
+      l_bank_parent_bank_code = #{lBankParentBankCode,jdbcType=VARCHAR},
+      l_bank_parent_bank_name = #{lBankParentBankName,jdbcType=VARCHAR},
+      l_create_time = #{lCreateTime,jdbcType=TIMESTAMP},
+      l_update_time = #{lUpdateTime,jdbcType=TIMESTAMP},
+      l_bank_card_no = #{lBankCardNo,jdbcType=VARCHAR},
+      l_is_del = #{lIsDel,jdbcType=INTEGER}
+    where l_id = #{lId,jdbcType=BIGINT}
+  </update>
+    <!--==================================================华丽分割线==================================================-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        update tb_loaner
+        set l_is_del = 2
+        where l_id = #{lId,jdbcType=BIGINT}
+    </update>
+    <select id="selectByLoginId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from tb_loaner
+        where l_login_id = #{lLoginId,jdbcType=BIGINT}
+        and l_is_del = 1
+    </select>
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_loaner
+        order by l_id DESC
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByParamsForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_loaner
+        WHERE
+        <include refid="selectByParams_Where_Clause"/>
+        order by l_id DESC
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByParamsForPageCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_loaner
+        WHERE
+        <include refid="selectByParams_Where_Clause"/>
+    </select>
+    <sql id="selectByParams_Where_Clause">
+        l_is_del = 1
+        <if test="record.lNickName != null and record.lNickName != ''" >
+            AND l_nick_name = #{record.lNickName}
+        </if>
+        <if test="record.lPhone != null and record.lPhone != ''" >
+            AND l_phone = #{record.lPhone}
+        </if>
+        <if test="record.lTrueName != null and record.lTrueName != ''" >
+            AND l_true_name = #{record.lTrueName}
+        </if>
+    </sql>
+
+
+    <!--==================================================erp首页统计==================================================-->
+    <select id="selectCreateCount" resultType="int" parameterType="string">
+        SELECT
+        COUNT(li_id)
+        FROM
+        tb_login_info
+        WHERE
+        DATE_FORMAT(li_create_time,'%Y-%m-%d') = #{paramDate}
+    </select>
+
+    <select id="selectLoginCount" resultType="int" parameterType="string">
+        SELECT
+        COUNT(li_id)
+        FROM
+        tb_login_info
+        <where>
+            <if test="paramDate !=null and paramDate != ''">
+                DATE_FORMAT(li_last_login_time,'%Y-%m-%d') = #{paramDate}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectNonCheckCount" resultType="int">
+        SELECT
+            COUNT(bp_id)
+        FROM
+            tb_bid_plan
+        WHERE
+            bp_is_del = 1
+        AND bp_status = 0
+    </select>
+
+    <select id="selectPlanCount" resultType="int" parameterType="string">
+        SELECT
+            COUNT(bp_id)
+        FROM
+            tb_bid_plan
+        WHERE
+            bp_status >= 2
+        AND bp_status != 4
+        AND bp_is_del = 1
+        <if test="paramDate !=null and paramDate != ''">
+            AND DATE_FORMAT(bp_start_time,'%Y-%m-%d') = #{paramDate}
+        </if>
+    </select>
+
+    <select id="selectLoanCount" resultType="java.math.BigDecimal" parameterType="string">
+      SELECT
+        sum(bp_loan_money)
+        FROM
+        tb_bid_plan
+        WHERE
+        bp_is_del = 1
+        and bp_status >=7
+        <if test="paramDate!=null and paramDate !=''">
+            AND DATE_FORMAT(bp_loan_time,'%Y-%m-%d') = #{paramDate}
+        </if>
+    </select>
+
+    
+    <select id="selectWithdrawCount" resultType="int" parameterType="string">
+        SELECT
+            COUNT(fd_id)
+        FROM
+            tb_funds_details
+        WHERE
+            fd_serial_status = 1
+        AND fd_serial_type_id = 2
+        AND fd_is_del = 1
+        <if test="paramDate!=null and paramDate != ''">
+            and DATE_FORMAT(fd_create_time,'%Y-%m-%d') = #{paramDate}
+        </if>
+    </select>
+
+
+    <select id="selectInvestCount" resultType="java.math.BigDecimal">
+        SELECT
+            sum(ii_money)
+        FROM
+            tb_invest_info
+        WHERE
+        DATE_FORMAT(ii_create_time,'%Y-%m') = DATE_FORMAT(CURDATE(),'%Y-%m')
+    </select>
+
+    <select id="selectCurrentIncome" resultType="java.math.BigDecimal">
+        SELECT
+            sum(ind_money)
+        FROM
+            tb_income_detail
+        WHERE
+            ind_date_time = CURDATE()
+        AND ind_is_del = 1
+        AND ind_status = 1
+    </select>
+</mapper>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+    <!-- 编辑器引入 BEGIN-->
+    <link rel="stylesheet" href="/content/AdminLTE-2.2.0/kindEditor/themes/default/default.css" />
+    <script charset="utf-8" src="/content/AdminLTE-2.2.0/kindEditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="/content/AdminLTE-2.2.0/kindEditor/lang/zh-CN.js"></script>
+    <script charset="utf-8" src="/content/AdminLTE-2.2.0/kindEditor/kindEditorConfig.js"></script>
+    <!-- 编辑器引入 END-->
+</head>
+<body class="skin-blue sidebar-mini">
+
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>借款管理-建标-添加借款</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <form action="" id="defaultForm" novalidate="novalidate">
+            <input name="bpLoanerId" type="hidden" value="${bpLoanerId}"/>
+            <input id="bpPeriods" name="bpPeriods" type="hidden"/>
+            <input id="bpCycleSize" name="bpCycleSize" type="hidden" value="1"/>
+
+            <!--基本信息-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box-title">
+                        <h5>基本信息</h5>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-body form-inline">
+                            <div class="form-group">
+                                <div class="input-group margin" style="position: relative;">
+                                    <div class="input-group-addon" >项目编号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <input type="text" class="form-control" placeholder="" name="bpNumber">
+                                    <div id="searchresult" style="display: none;position: absolute;top: 36px;z-index: 3;background-color: #fff;width: 62%;"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">标的名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <input type="text" class="form-control" placeholder="" name="bpName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">产品类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <select name="bpType" class="form-control" style="width: 160px;" v-model="typeSelected">
+                                        <option value="0">请选择</option>
+                                        <option value="1">普通理财</option>
+                                        <option value="2">新手专享</option>
+                                        <option value="3">加息标</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group " style="display:none" id="bpUpRateDiv">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">加息编号</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpUpRate" id="bpUpRate">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">募集金额(元)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpBidMoney" >
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">借款年化利率(%)</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpRate">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">起投金额(元)</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpStartMoney">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">递增金额(元)</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpRiseMoney">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">投资上限(元)</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpTopMoney">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">是否PC端显示</div>
+                                    <select name="bpDisplayIsPc" class="form-control" style="width: 160px;">
+                                        <option value="1">显示</option>
+                                        <option value="2">不显示</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">是否移动端显示</div>
+                                    <select name="bpDisplayIsMobile" class="form-control" style="width: 160px;">
+                                        <option value="1">显示</option>
+                                        <option value="2">不显示</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">募集开始时间&nbsp;&nbsp;&nbsp;</div>
+                                    <input type="text" placeholder="" class="form-control chooseDate" id="bpStartTime" name="bpStartTime" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">募集期限(小时)&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <input type="text" placeholder="" class="form-control" id="bpOpenTime" name="bpOpenTime">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon">募集结束时间</div>
+                                    <input type="text" placeholder="" class="form-control" id="bpEndTime" name="bpEndTime" readonly>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">借款期限(期数)</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpPeriodsDisplay" id="bpPeriodsDisplay">
+                                </div>
+                            </div>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">周期选项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <select name="bpCycleType" class="form-control" style="width: 160px;" id="bpCycleType">
+                                        <option value="0">请选择</option>
+                                        <option value="1">日</option>
+                                        <option value="2">月</option>
+                                        <option value="3">季</option>
+                                        <option value="4">年</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">预期放款日期</div>
+                                    <input type="text" placeholder="" class="form-control chooseDate" id="bpExpectLoanDate" name="bpExpectLoanDate" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">预期到期日期</div>
+                                    <input type="text" placeholder="" class="form-control" id="bpExpectExpireDate" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">预期还款日期</div>
+                                    <input type="text" placeholder="" class="form-control" id="bpExpectRepayDate" name="bpExpectRepayDate" readonly>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">还款方式&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                    <select name="bpInterestPayType" class="form-control" style="width: 160px;">
+                                        <option value="0">请选择</option>
+                                        <option value="1">一次性还本付息</option>
+                                        <option value="2">先息后本，按期付息</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group margin">
+                                <div class="input-group">
+                                    <div class="input-group-addon">逾期罚息</div>
+                                    <input type="text" placeholder="" class="form-control" name="bpLateRate" value="0">
+                                    <div class="input-group-addon">*借款利率</div>
+                                </div>
+                            </div>
+                            <div class="form-group margin">
+                            <div class="input-group">
+                                <div class="input-group-addon">平台服务费</div>
+                                <input type="text" placeholder="" class="form-control" name="bpServiceChargeRate" value="0">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--预期还款计划-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box-title">
+                        <h5>预期放款计划</h5>
+                    </div>
+                    <div class="form-group ">
+                        <a href="javascript:void(0);" class="btn btn-primary " role="button" @click.prevent="createIntent">生成</a>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table id="orderlist_table" class="table table-bordered table-hover dataTable"
+                                               role="grid" aria-describedby="orderlist_table_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th width="10%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">期次
+                                                </th>
+                                                <th width="20%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">到期日期
+                                                </th>
+                                                <th width="20%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">预计打款日期
+                                                </th>
+                                                <th width="10%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">本周期天数
+                                                </th>
+                                                <th width="15%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">还款本金
+                                                </th>
+                                                <th width="15%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">还款利息
+                                                </th>
+                                                <th width="10%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                    colspan="1">还款金额
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr role="row" class="odd" v-for="intent in intentList">
+                                                <td>{{intent.intentPeriod}}</td>
+                                                <td>{{intent.interestEt}}</td>
+                                                <td>{{intent.repayDate}}</td>
+                                                <td>{{intent.days}}</td>
+                                                <td>{{intent.principal}}</td>
+                                                <td>{{intent.interest}}</td>
+                                                <td>{{intent.total}}</td>
+                                            </tr>
+                                            <tr role="row" class="even">
+                                                <td>总计</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{principalTotal}}</td>
+                                                <td>{{interestTotal}}</td>
+                                                <td>{{total}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--项目说明-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box-title">
+                        <h5>项目说明</h5>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>产品类型</div>
+                                    <select name="rcptId" id="rcptId" class="form-control" style="width: 160px;" v-model="selected">
+                                        <option v-for="temp in projList" :value="temp.rcptId">{{temp.rcptName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>借款描述</div>
+                                    <textarea class="form-control" placeholder="" name="bpBorrowDesc" :value="projectTemp.bpBorrowDesc" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>资金用途</div>
+                                    <textarea  class="form-control" placeholder="" name="bpFundsPurpose" :value="projectTemp.bpFundsPurpose" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>还款来源</div>
+                                    <textarea value="" placeholder="" class="form-control" name="bpRepayingSource" :value="projectTemp.bpRepayingSource" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>抵押信息</div>
+                                    <textarea  placeholder="" class="form-control" name="bpMortgageInfo" :value="projectTemp.bpMortgageInfo" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>个人征信</div>
+                                    <textarea  placeholder="" class="form-control" name="bpPersonalCredit" :value="projectTemp.bpPersonalCredit" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group ">
+                                <div class="input-group margin">
+                                    <div class="input-group-addon"><span class="text-red">*</span>风控意见</div>
+                                    <textarea  placeholder="" class="form-control" name="bpRiskOpinion" :value="projectTemp.bpRiskOpinion" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--项目详情-->
+            <div class="box-body">
+                <div class="box-title">
+                    <h5>项目详情</h5>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <textarea id="kindEditorContent" name="bpDesc" style="height:350px;visibility:hidden;" class="col-xs-12" :value="projectTemp.bpRcptDesc"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--认证材料-->
+        <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+        <!--<div class="box-title">-->
+        <!--<h5>认证材料</h5>-->
+        <!--</div>-->
+        <!--<div class="form-group ">-->
+        <!--<a href="javascript:;" class="btn btn-primary " role="button" target="_blank"-->
+        <!--id="add-material">添加</a>-->
+        <!--</div>-->
+        <!--<div class="box box-primary">-->
+        <!--<div class="box-body">-->
+        <!--<div class="dataTables_wrapper">-->
+        <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+        <!--<table class="table table-bordered table-hover dataTable" role="grid"-->
+        <!--aria-describedby="orderlist_table_info">-->
+        <!--<thead>-->
+        <!--<tr role="row">-->
+        <!--<th width="25%" class="ui-state-default sorting_disabled" rowspan="1"-->
+        <!--colspan="1">材料名称-->
+        <!--</th>-->
+        <!--<th width="25%" class="ui-state-default sorting_disabled" rowspan="1"-->
+        <!--colspan="1">备注-->
+        <!--</th>-->
+        <!--<th width="25%" class="ui-state-default sorting_disabled" rowspan="1"-->
+        <!--colspan="1">操作-->
+        <!--</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr role="row">-->
+        <!--<td>认证材料</td>-->
+        <!--<td>认证材料</td>-->
+        <!--<td>-->
+        <!--<a href="javascript:;" class="btn btn-default btn-xs"-->
+        <!--role="button">预览</a>-->
+        <!--<a href="javascript:;" class="btn btn-default btn-xs remove-msg"-->
+        <!--role="button">删除</a>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--按钮-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box-body">
+                    <a id="submitBtn" href="javascript:void(0);" class="btn btn-primary btn-lg add" role="button" @click.prevent="addBtn">建标</a>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-lg" role="button" @click.prevent="cancelBtn">取消</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<input type="hidden" id="hidden_active_menu" value="/bidplan/index">
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/bidplan/addplan.js")></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+#set($_loginUser_sidebar_=$LoginUserTool.getUser())
+<!--我的账户--左侧导航-->
+#set($apiOrigin = $UrlHelperTool.getApiOrigin())
+<style type="text/css">
+    /*我的红包小图标变化*/
+
+    .wdhb-menu .account-voucher{ height: 22px;
+        background: url("http://192.168.1.7/html/p2p/images/wdhb.png") no-repeat center;
+        display: inline-block;
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        margin: 8px 8px 0 36px;
+        position: relative;
+        top: 3px;}
+    .sidebar-menu .account-voucher {
+        width: 20px;
+        background-position: 0px -28px;
+    }
+    .sidebar-menu a:hover .account-voucher ,.sidebar-menu a.on .account-voucher{
+        background-position: 0px 0;
+    }
+</style>
+<div class="account-sidebar fl" xmlns="http://www.w3.org/1999/html">
+    <div class="account-user">
+        <p class="greeting">您好！</p>
+        <p class="user-tel">$_loginUser_sidebar_.userName</p>
+    </div>
+    <input type="hidden" id="apiOrigin" value="$apiOrigin"/>
+    <input type="hidden" id="vLoginId" value="$_loginUser_sidebar_.userId"/>
+    <ul class="sidebar-menu wdhb-menu">
+        <li>
+            <a href="/user/index" class="on">
+                <em class="account-eye"></em>账户总览
+            </a>
+        </li>
+        <li>
+            <a href="/user/investrecord">
+                <em class="account-pen"></em>投资记录
+            </a>
+        </li>
+        #if($_loginUser_header_.loanerId > 0)
+        <li>
+            <a href="/user/loanmanage">
+                <em class="account-money"></em>借款管理
+            </a>
+        </li>
+        #end
+        <li>
+            <a href="/user/funds">
+                <em class="account-income"></em>收支明细
+            </a>
+        </li>
+        <li>
+            <a href="/user/chargewithdraw?typeId=1">
+                <em class="account-rex"></em>充值提现
+            </a>
+        </li>
+        <li>
+            <a href="/user/bankcard">
+                <em class="account-bankcord"></em>我的银行卡
+            </a>
+        </li>
+        <li>
+            <a href="/user/voucher">
+                <em class="account-voucher"></em>我的红包
+            </a>
+        </li>
+        <li>
+            <a href="/user/setting">
+                <em class="account-install"></em>账户设置
+            </a>
+        </li>
+        <li>
+            <a href="/user/invite">
+                <em class="account-invite"></em>邀请好友
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/user/sidebar.js")></script>
+<script>
+    var theLocationPath = location.pathname;
+    var sidebarNodes = document.querySelectorAll(".sidebar-menu a");
+    for (var i=0;i<sidebarNodes.length;i++){
+        var node = sidebarNodes[i];
+        var href = node.getAttribute("href");
+        if(href.split('?')[0] == theLocationPath){
+            node.setAttribute("class","on");
+        }else{
+            node.setAttribute("class","");
+        }
+    }
+</script>

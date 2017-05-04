@@ -1,0 +1,107 @@
+<!Doctype html>
+<html>
+<head>
+    #set($_loginUser_header_=$LoginUserTool.getUser())
+    <meta charset="UTF-8" />
+    <title>金额宝 - 首页 </title>
+    #parse("common/head.html")
+
+    <!--轮播图-->
+    <link rel="stylesheet" href="${filePath}/css/assembly/swiper.min.css">
+    <!--首页样式-->
+    <link rel="stylesheet" href="${filePath}/css/index.css">
+    <!--画圆组件-->
+    <link rel="stylesheet" href="${filePath}/css/assembly/jquery.circliful.css">
+
+
+</head>
+<body>
+<div class="wrap">
+    <!-- banner图片轮播 -->
+    <div class="banner">
+        <ul class="swiper-wrapper">
+            <li class="swiper-slide"  v-for="data in items"><a :href="data.detailUrl"><img v-bind:src="data.imgUrl" ></a></li>
+        </ul>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="project-list">
+    <!--新手专享-->
+    <div class="new-vip"  v-if="products2.length == 0">
+        <div class="new-title">
+            <div>新人专享</div>
+            <p>新手标<span>NEW001</span></p>
+        </div>
+        <div class="new-info">
+            <h3>预期年化收益</h3>
+            <p>10.00<span>%</span></p>
+        </div>
+        <div class="new-introduce">
+            <div><img src="${filePath}/images/index-book.png"/><span>满标日计息</span></div>
+            <div><img src="${filePath}/images/index-time.png"/><span>灵活存取</span></div>
+        </div>
+        <div class="new-date">
+            <p>期限<span>30</span>天</p>
+            <p>可投金额<span>0</span>元</p>
+        </div>
+        <div class="new-btn">
+            <a href="javascript:void(0)">敬请期待</a>
+        </div>
+    </div>
+    <div class="new-vip" v-else v-for="data in products2" >
+        <div class="new-title">
+            <div>新人专享</div>
+            <p>{{data.bpName}}<span>{{data.bpNumber}}</span></p>
+        </div>
+        <div class="new-info">
+            <h3>预期年化收益</h3>
+            <p>{{data.bpRate}}<span>%</span></p>
+        </div>
+        <div class="new-introduce">
+            <div><img src="${filePath}/images/index-book.png"/><span>满标日计息</span></div>
+            <div><img src="${filePath}/images/index-time.png"/><span>灵活存取</span></div>
+        </div>
+        <div class="new-date">
+            <p>期限<span>{{data.bpPeriodsDisplay}}</span>{{cycleType[data.bpCycleType]}}</p>
+            <p>可投金额<span>{{data.bpSurplusMoney}}</span>元</p>
+        </div>
+        <div class="new-btn">
+            <a href="javascript:void(0) " @click.prevent="openDetail(data.bpId)">{{status[data.bpStatus]}}</a>
+        </div>
+    </div>
+    <!--产品列表-->
+        <div  v-for=" data in products1" class="project-info"  >
+            <div  class="project-title">
+                <p>{{data.bpName}}<span>{{data.bpNumber}}</span></p>
+            </div>
+            <a href="javascript:void(0)"  @click.prevent="openDetail(data.bpId)">
+                <div class="project-content">
+                    <div class="project-item">
+                        <div class="project-number rate">{{data.bpRate}}<em>%</em></div>
+                        <p>年化收益</p>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-number">{{data.bpPeriodsDisplay}}<span>{{cycleType[data.bpCycleType]}}</span></div>
+                        <p>期限</p>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-number">{{data.bpSurplusMoney}}</div>
+                        <p>可投金额</p>
+                    </div>
+                    <div class="project-item" >
+                        <button type="button"  v-if="data.bpStatus!=2" class="project-btn" >{{status[data.bpStatus]}}</button>
+                        <div class="circle" v-else   data-dimension="60"  :data-text="data.progress+'%'" data-width="4" data-fontsize="0.8"  :data-percent="data.progress" data-fgcolor="#ef4f00" data-bgcolor="#e9e9e9"></div>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--底部-->
+    #parse("common/footer.html")
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/script/home/index.js")></script>
+<script src="${filePath}/js/assembly/jquery.circliful.js"></script>
+<script src="${filePath}/js/assembly/swiper.min.js"></script>
+<script src="${filePath}/js/assembly/layer/layer.js"></script>
+</html>

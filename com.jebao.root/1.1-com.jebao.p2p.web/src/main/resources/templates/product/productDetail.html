@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 主页金额宝 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/lib/swiper.css">
+    <link rel="stylesheet" href="${filePath}/css/project-list.css">
+    <link rel="stylesheet" href="${filePath}/js/plugins/lightbox2/css/lightbox.css">
+<style type="text/css">
+    .hongbao_qk{display:none;border:1px solid #e9e9e9;border-radius:5px;padding:8px;position: absolute; width: 96%; background-color: #fff;z-index: 999;}
+    .hongbao_qk p{height:28px;line-height:28px;}
+</style>
+</head>
+#set($_loginUser_header_=$LoginUserTool.getUser())
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--内容 begin-->
+<div class="project">
+    <!--项目头部-->
+    <div class="project-information  clearfix">
+        <form action="/api/product/productDetail" method="post" id="defaultForm">
+            <input id="bpId" name="bpId" type="hidden" value="${bpId}">
+        </form>
+        <!--项目头部左侧-->
+        <div class="plan-card fl">
+            <div class="plan-name" v-cloak>
+                <p>{{product.bpName}}<span>{{product.bpNumber}}</span></p>
+            </div>
+            <div class="plan-item clearfix">
+                <div class="plan-info text-left">
+                    <div v-cloak>{{product.bpRate}}%</div>
+                    <p>年化收益率</p>
+                </div>
+                <div class="plan-info">
+                    <div v-cloak>{{product.bpPeriodsDisplay}}{{cycleType[product.bpCycleType]}}</div>
+                    <p>项目期限</p>
+                </div>
+                <div class="plan-info text-right">
+                    <div v-cloak>{{product.bpBidMoney}}</div>
+                    <p>项目总额</p>
+                </div>
+            </div>
+            <div class="plan-progress clearfix">
+                <p>投资进度</p>
+                <span class="plan-line">
+                    <span :style="'width: '+product.progress+'%'" class="plan-bar plan-bar-info"></span>
+                </span>
+                <span class="num fl" v-cloak>{{product.progress}}%</span>
+            </div>
+            <div class="plan-value clearfix">
+                <p>还款方式：<span v-cloak>{{bpInterestPayTypeArr[product.bpInterestPayType]}}</span></p>
+
+                <p>计息时间：<span>满标日计息</span></p>
+            </div>
+            <div class="plan-value clearfix">
+                <p>开始时间：<span v-cloak>{{product.bpStartTime}}</span></p>
+
+                <p>剩余期限：<span id="span1">0天0时0分0秒</span></p>
+            </div>
+            <!--<div class="plan-value clearfix" v-show="product.bpType == 3">-->
+                <!--<p>加息利率：<span>{{product.bpUpRate}}</span></p>-->
+            <!--</div>-->
+        </div>
+        <!--项目头部右侧-->
+        <div class="plan-investment fr">
+            <form style="position:relative;">
+                <div class="increase-icon" v-if="product.bpType==3">
+                    加息卡编号：{{product.bpUpRate}}
+                </div>
+                <input id="loginId" name="loginId" type="hidden" value="${_loginUser_header_.userId}">
+                <p class="plan-money">可投金额：<span v-cloak>{{product.bpSurplusMoney}}元</span></p>
+                #if($_loginUser_header_.isLogin)
+                <p class="plan-money">可用金额：<span v-cloak>{{statistics.balance}}元</span></p>
+                #else
+                <!--<p class="plan-money">可用金额：<span>----元</span><span><a href="/account/login">登录</a>查看</span></p>-->
+                <div class="plan-money clearfix">
+                    <P class="fl">可用金额：<span><a :href="'/account/login?redirect=/product/detail/'+product.bpId" style="color: #FFAD30" class="fr">登录查看</a></span></P>
+                </div>
+                #end
+                <div class="plan-tip" v-cloak>{{product.bpStartMoney}}元起投，{{product.bpRiseMoney}}元递增，{{product.bpTopMoney}}元上限</div>
+                <div class="spinner">
+                    <input type="text" id="investMoney" name="investMoney" :placeholder="product.bpStartMoney+'元起投，'+product.bpRiseMoney+'元递增，'+product.bpTopMoney+'元上限'"
+                           class="entry-num">
+
+                    <div class="plan-unit">元</div>
+                </div>
+                <div class="plan-explain clearfix">
+                    <p>投资<i class="money-num">0</i>元，预期收益<span><i class="money-income">0</i>元</span></p>
+                    #if($_loginUser_header_.isLogin)
+                        #if($_loginUser_header_.isFundAccount)
+                            <a href="/user/chargewithdraw?typeId=1">充值</a>
+                        #else
+                            <a href="javascript:void(0);" @click.prevent="validAccount">充值</a>
+                        #end
+                    #else
+                        <a href="/account/login?redirect=/user/chargewithdraw?typeId=1">充值</a>
+                    #end
+                </div>
+                <div class="plan-explain clearfix voucher" style="margin-bottom:20px;">
+                    <a style="display:inline-block;float:left;">我的可用红包</a>
+                    #if($_loginUser_header_.isLogin)
+                    <a style="display:inline-block;float:right;">返{{amount}}元</a>
+                    #else
+                    <a style="display:inline-block;float:right;">----</a>
+                    #end
+                </div>
+                <div id="voucherList" hidden="true" class="hongbao_qk">
+                    #if($_loginUser_header_.isLogin)
+                    <div v-if="voucherList.length > 0">
+                        不可叠加使用,金额优先返现
+                        <p v-for="item in voucherList">
+                            投资{{item.vMinPrice}}元（含）以上,立返{{item.vAmount}}元现金
+                        </p>
+                    </div>
+                    <div v-else>
+                         无可使用红包
+                    </div>
+                    #else
+                    立即去登录
+                    #end
+                </div>
+                <div v-if="product.bpStatus != 2">
+                    <a href="javascript:void(0);" class="plan-btn">{{bpStatusArr[product.bpStatus]}}</a>
+                </div>
+                <div v-else>
+                    <div v-if="flag">
+                        #if($_loginUser_header_.isLogin)
+                            #if($_loginUser_header_.isFundAccount)
+                                <a href="javascript:void(0);" class="plan-btn" @click.prevent="investBtn">立即投资</a>
+                            #else
+                                <a href="javascript:void(0);" class="plan-btn" @click.prevent="validAccount">立即投资</a>
+                            #end
+                        #else
+                        <a :href="'/account/login?redirect=/product/detail/'+product.bpId" class="plan-btn">立即投资</a>
+                        #end
+                    </div>
+                    <div v-else>
+                        <a href="javascript:void(0);" class="plan-btn">倒计时中</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!--认证文件、证件-->
+    <div class="project-file">
+        <div class="project-file-name">
+            <h2><em></em>认证文件 / 证件 </h2>
+        </div>
+        <div class="file-img">
+            <!--遮罩图片-->
+            #if($_loginUser_header_.isLogin)
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="data in riskDataList">
+                        <a :href="data.brdPath" data-lightbox="example-set" data-title=""><img :src="data.brdPath" class="swiper-lazy img-item"></a>
+                    </div>
+                </div>
+            </div>
+            #else
+            <div class="img-shadow">
+                <img src="${filePath}/images/project-bg.jpg" class="img-shadow">
+                <p>您还没有登录<a :href="'/account/login?redirect=/product/detail/'+product.bpId">立即登录</a>后可查看认证图片</p>
+            </div>
+            #end
+            <!-- 如果需要导航按钮 -->
+            <a href="javascript:void(0);" class="prev btn button-prev" style="background-size: 70%;"></a>
+            <a href="javascript:void(0);" class="next btn button-next" style="background-size: 70%;"></a>
+        </div>
+    </div>
+    <!--项目描述-->
+    <div class="project-detail">
+        <div class="project-detail-tit clearfix">
+            <h4 class="active">借款描述</h4>
+            <h4>风险控制</h4>
+            <h4>还款计划</h4>
+            <h4>投资记录</h4>
+        </div>
+        <div class="project-detail-list">
+            <!--借款描述-->
+            <div class="project-detail-info active">
+                <div class="borrow-info">
+                    <h5>借款人信息</h5>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>借款人姓名</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                            <th>身份证号</th>
+                            <th>工作地</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-cloak>
+                            <td>{{loanerInfo.lTrueName}}</td>
+                            <td>{{sex[loanerInfo.lSex]}}</td>
+                            <td>{{loanerInfo.lAge}}</td>
+                            <td>{{loanerInfo.lIdNumber}}</td>
+                            <td>{{loanerInfo.lWorkCity}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="funds">
+                    <h5>资金用途</h5>
+                    <div id="bpFundsPurpose" class="product-text"></div>
+                </div>
+                <div class="personal-credit">
+                    <h5>个人征信</h5>
+                    <div id="bpPersonalCredit" class="product-text"></div>
+                </div>
+            </div>
+            <!--风险控制-->
+            <div class="project-detail-info">
+                <div class="mortgage">
+                    <h5 class="mb20">抵押信息</h5>
+                    <div id="bpMortgageInfohtml" class="product-text"></div>
+                </div>
+                <div class="mortgage">
+                    <h5 class="mb20">还款来源</h5>
+                    <div id="bpRepayingSource" class="product-text"></div>
+                </div>
+                <div class="mortgage">
+                    <h5 class="mb20">风控意见</h5>
+                    <div id="bpRiskOpinion" class="product-text"></div>
+                </div>
+            </div>
+            <!--还款计划-->
+            <div class="project-detail-info">
+                <h5>预期还款计划</h5>
+                <table class="repayment-plan">
+                    <thead>
+                    <tr>
+                        <th>期数</th>
+                        <th>还款日期</th>
+                        <th>资金类型</th>
+                        <th>还款金额</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="detail in incomeDetailList">
+                        <td>{{detail.indPeriods}}</td>
+                        <td>{{detail.indDateTime}}</td>
+                        <td>{{fundType[detail.indFundType]}}</td>
+                        <td>{{detail.indMoney}}</td>
+                        <td>{{repayStatus[detail.indStatus]}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="page"></div>
+            </div>
+            <!--投资记录-->
+            <div class="project-detail-info">
+                <table class="pay-record">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>投资用户</th>
+                        <th>投资金额（元）</th>
+                        <th>投资时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(data, index) in investInfoList">
+                        <td>{{ index+1 }}</td>
+                        <td>{{data.loginName}}</td>
+                        <td>{{data.money}}</td>
+                        <td>{{data.createTime}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容 end-->
+<script src="${filePath}/js/plugins/lightbox2/js/lightbox-plus-jquery.min.js"></script>
+#parse("common/footer.html")
+<!--layerPage-->
+
+<script src="${filePath}/js/lib/swiper.min.js"></script>
+<script src=$UrlHelperTool.href("/content/script/product/productDetail.js")></script>
+</body>
+</html>

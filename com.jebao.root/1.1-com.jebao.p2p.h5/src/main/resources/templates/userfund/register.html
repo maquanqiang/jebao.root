@@ -1,0 +1,45 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>开通资金账户</title>
+    #parse("common/head.html")
+    #set($_loginUser_header_=$LoginUserTool.getUser())
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/register.css">
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/lib/validate.css">
+    <script type="text/javascript" src="${filePath}/js/lib/jquery-mvalidate.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <form action="" id="accountForm">
+        <fieldset class="register">
+            <div class="zform-control">
+                <div class="control-field userPeople">
+                    <em></em><input type="text" id="userPeople"  class="field-text" placeholder="请输入真实姓名"  data-pattern="^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$" data-required="true" data-descriptions="userPeople">
+                </div>
+            </div>
+            <div class="zform-control">
+                <div class="control-field userId">
+                    <em></em><input type="text" id="userId" class="field-text" placeholder="请输入身份证号" data-required="true" data-pattern="^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$" data-descriptions="userId">
+                </div>
+            </div>
+        </fieldset>
+        <p class="openTip">开通富友资金账户，才能投资</p>
+        <a href="#" class="go">
+            <!--不可登录，背景为灰色-->
+            <!--<button type="submit" class="btn-disable" disabled>登录</button>-->
+            <!--可登录，背景为蓝色-->
+            <button type="submit">立即开通</button>
+        </a>
+        <div class="tip">富友支付是金额宝平台的第三方支付及资金托管合作方，于
+            2011年获得中国人民银行颁发的《支付业务许可证》，2014
+            年成为“上海市网络信贷服务业企业联盟”成员单位</div>
+    </form>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/userfund/register.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

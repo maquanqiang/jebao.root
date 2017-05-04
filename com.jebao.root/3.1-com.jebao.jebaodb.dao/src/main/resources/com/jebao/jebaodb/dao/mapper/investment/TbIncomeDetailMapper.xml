@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.investment.TbIncomeDetailMapper">
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.investment.TbIncomeDetail">
+        <id column="ind_id" property="indId" jdbcType="BIGINT"/>
+        <result column="ind_ii_id" property="indIiId" jdbcType="BIGINT"/>
+        <result column="ind_login_id" property="indLoginId" jdbcType="BIGINT"/>
+        <result column="ind_true_name" property="indTrueName" jdbcType="VARCHAR"/>
+        <result column="ind_third_account" property="indThirdAccount" jdbcType="VARCHAR"/>
+        <result column="ind_bp_number" property="indBpNumber" jdbcType="VARCHAR"/>
+        <result column="ind_bp_name" property="indBpName" jdbcType="VARCHAR"/>
+        <result column="ind_periods" property="indPeriods" jdbcType="INTEGER"/>
+        <result column="ind_date_time" property="indDateTime" jdbcType="TIMESTAMP"/>
+        <result column="ind_fact_date_time" property="indFactDateTime" jdbcType="TIMESTAMP"/>
+        <result column="ind_overdue_days" property="indOverdueDays" jdbcType="INTEGER"/>
+        <result column="ind_overdue_money" property="indOverdueMoney" jdbcType="DECIMAL"/>
+        <result column="ind_fund_type" property="indFundType" jdbcType="INTEGER"/>
+        <result column="ind_money" property="indMoney" jdbcType="DECIMAL"/>
+        <result column="ind_fact_moeny" property="indFactMoeny" jdbcType="DECIMAL"/>
+        <result column="ind_interest_st" property="indInterestSt" jdbcType="TIMESTAMP"/>
+        <result column="ind_interest_et" property="indInterestEt" jdbcType="TIMESTAMP"/>
+        <result column="ind_status" property="indStatus" jdbcType="INTEGER"/>
+        <result column="ind_create_time" property="indCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="ind_update_time" property="indUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="ind_is_del" property="indIsDel" jdbcType="INTEGER"/>
+        <result column="ind_bp_id" property="indBpId" jdbcType="BIGINT"/>
+        <result column="incomeDetailMD5" property="incomeDetailMD5" jdbcType="VARCHAR"/>
+        <result column="ind_third_contract_no" property="indThirdContractNo" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    ind_id, ind_ii_id, ind_login_id, ind_true_name, ind_third_account, ind_bp_number, 
+    ind_bp_name, ind_periods, ind_date_time, ind_fact_date_time, ind_overdue_days, ind_overdue_money, 
+    ind_fund_type, ind_money, ind_fact_moeny, ind_interest_st, ind_interest_et, ind_status, 
+    ind_create_time, ind_update_time, ind_is_del, ind_bp_id, incomeDetailMD5, ind_third_contract_no
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_income_detail
+        where ind_id = #{indId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.investment.TbIncomeDetail">
+        <selectKey resultType="java.lang.Long" keyProperty="indId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_income_detail (ind_id, ind_ii_id, ind_login_id,
+        ind_true_name, ind_third_account, ind_bp_number,
+        ind_bp_name, ind_periods, ind_date_time,
+        ind_fact_date_time, ind_overdue_days, ind_overdue_money,
+        ind_fund_type, ind_money, ind_fact_moeny,
+        ind_interest_st, ind_interest_et, ind_status,
+        ind_create_time, ind_update_time, ind_is_del, ind_bp_id, incomeDetailMD5, ind_third_contract_no
+        )
+        values (#{indId,jdbcType=BIGINT}, #{indIiId,jdbcType=BIGINT}, #{indLoginId,jdbcType=BIGINT},
+        #{indTrueName,jdbcType=VARCHAR}, #{indThirdAccount,jdbcType=VARCHAR}, #{indBpNumber,jdbcType=VARCHAR},
+        #{indBpName,jdbcType=VARCHAR}, #{indPeriods,jdbcType=INTEGER}, #{indDateTime,jdbcType=TIMESTAMP},
+        #{indFactDateTime,jdbcType=TIMESTAMP}, #{indOverdueDays,jdbcType=INTEGER}, #{indOverdueMoney,jdbcType=DECIMAL},
+        #{indFundType,jdbcType=INTEGER}, #{indMoney,jdbcType=DECIMAL}, #{indFactMoeny,jdbcType=DECIMAL},
+        #{indInterestSt,jdbcType=TIMESTAMP}, #{indInterestEt,jdbcType=TIMESTAMP}, #{indStatus,jdbcType=INTEGER},
+        #{indCreateTime,jdbcType=TIMESTAMP}, #{indUpdateTime,jdbcType=TIMESTAMP}, #{indIsDel,jdbcType=INTEGER},
+        #{indBpId,jdbcType=BIGINT}, #{incomeDetailMD5,jdbcType=VARCHAR}, #{indThirdContractNo,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.investment.TbIncomeDetail">
+        insert into tb_income_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="indId != null">
+                ind_id,
+            </if>
+            <if test="indIiId != null">
+                ind_ii_id,
+            </if>
+            <if test="indLoginId != null">
+                ind_login_id,
+            </if>
+            <if test="indTrueName != null">
+                ind_true_name,
+            </if>
+            <if test="indThirdAccount != null">
+                ind_third_account,
+            </if>
+            <if test="indBpNumber != null">
+                ind_bp_number,
+            </if>
+            <if test="indBpName != null">
+                ind_bp_name,
+            </if>
+            <if test="indPeriods != null">
+                ind_periods,
+            </if>
+            <if test="indDateTime != null">
+                ind_date_time,
+            </if>
+            <if test="indFactDateTime != null">
+                ind_fact_date_time,
+            </if>
+            <if test="indOverdueDays != null">
+                ind_overdue_days,
+            </if>
+            <if test="indOverdueMoney != null">
+                ind_overdue_money,
+            </if>
+            <if test="indFundType != null">
+                ind_fund_type,
+            </if>
+            <if test="indMoney != null">
+                ind_money,
+            </if>
+            <if test="indFactMoeny != null">
+                ind_fact_moeny,
+            </if>
+            <if test="indInterestSt != null">
+                ind_interest_st,
+            </if>
+            <if test="indInterestEt != null">
+                ind_interest_et,
+            </if>
+            <if test="indStatus != null">
+                ind_status,
+            </if>
+            <if test="indCreateTime != null">
+                ind_create_time,
+            </if>
+            <if test="indUpdateTime != null">
+                ind_update_time,
+            </if>
+            <if test="indIsDel != null">
+                ind_is_del,
+            </if>
+            <if test="indIiId != null">
+                ind_bp_id,
+            </if>
+            <if test="incomeDetailMD5 != null">
+                incomeDetailMD5,
+            </if>
+            <if test="indThirdContractNo != null">
+                ind_third_contract_no,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="indId != null">
+                #{indId,jdbcType=BIGINT},
+            </if>
+            <if test="indIiId != null">
+                #{indIiId,jdbcType=BIGINT},
+            </if>
+            <if test="indLoginId != null">
+                #{indLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="indTrueName != null">
+                #{indTrueName,jdbcType=VARCHAR},
+            </if>
+            <if test="indThirdAccount != null">
+                #{indThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="indBpNumber != null">
+                #{indBpNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="indBpName != null">
+                #{indBpName,jdbcType=VARCHAR},
+            </if>
+            <if test="indPeriods != null">
+                #{indPeriods,jdbcType=INTEGER},
+            </if>
+            <if test="indDateTime != null">
+                #{indDateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indFactDateTime != null">
+                #{indFactDateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indOverdueDays != null">
+                #{indOverdueDays,jdbcType=INTEGER},
+            </if>
+            <if test="indOverdueMoney != null">
+                #{indOverdueMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="indFundType != null">
+                #{indFundType,jdbcType=INTEGER},
+            </if>
+            <if test="indMoney != null">
+                #{indMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="indFactMoeny != null">
+                #{indFactMoeny,jdbcType=DECIMAL},
+            </if>
+            <if test="indInterestSt != null">
+                #{indInterestSt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indInterestEt != null">
+                #{indInterestEt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indStatus != null">
+                #{indStatus,jdbcType=INTEGER},
+            </if>
+            <if test="indCreateTime != null">
+                #{indCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indUpdateTime != null">
+                #{indUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indIsDel != null">
+                #{indIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="indBpId != null">
+                #{indBpId,jdbcType=BIGINT},
+            </if>
+            <if test="incomeDetailMD5 != null">
+                #{incomeDetailMD5,jdbcType=VARCHAR},
+            </if>
+            <if test="indThirdContractNo != null">
+                #{ind_third_contract_no,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.investment.TbIncomeDetail">
+        update tb_income_detail
+        <set>
+            <if test="indIiId != null">
+                ind_ii_id = #{indIiId,jdbcType=BIGINT},
+            </if>
+            <if test="indLoginId != null">
+                ind_login_id = #{indLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="indTrueName != null">
+                ind_true_name = #{indTrueName,jdbcType=VARCHAR},
+            </if>
+            <if test="indThirdAccount != null">
+                ind_third_account = #{indThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="indBpNumber != null">
+                ind_bp_number = #{indBpNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="indBpName != null">
+                ind_bp_name = #{indBpName,jdbcType=VARCHAR},
+            </if>
+            <if test="indPeriods != null">
+                ind_periods = #{indPeriods,jdbcType=INTEGER},
+            </if>
+            <if test="indDateTime != null">
+                ind_date_time = #{indDateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indFactDateTime != null">
+                ind_fact_date_time = #{indFactDateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indOverdueDays != null">
+                ind_overdue_days = #{indOverdueDays,jdbcType=INTEGER},
+            </if>
+            <if test="indOverdueMoney != null">
+                ind_overdue_money = #{indOverdueMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="indFundType != null">
+                ind_fund_type = #{indFundType,jdbcType=INTEGER},
+            </if>
+            <if test="indMoney != null">
+                ind_money = #{indMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="indFactMoeny != null">
+                ind_fact_moeny = #{indFactMoeny,jdbcType=DECIMAL},
+            </if>
+            <if test="indInterestSt != null">
+                ind_interest_st = #{indInterestSt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indInterestEt != null">
+                ind_interest_et = #{indInterestEt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indStatus != null">
+                ind_status = #{indStatus,jdbcType=INTEGER},
+            </if>
+            <if test="indCreateTime != null">
+                ind_create_time = #{indCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indUpdateTime != null">
+                ind_update_time = #{indUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indIsDel != null">
+                ind_is_del = #{indIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="indBpId != null">
+                ind_bp_id = #{indBpId,jdbcType=BIGINT},
+            </if>
+            <if test="indThirdContractNo != null">
+                ind_third_contract_no = #{indThirdContractNo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ind_id = #{indId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.investment.TbIncomeDetail">
+    update tb_income_detail
+    set ind_ii_id = #{indIiId,jdbcType=BIGINT},
+      ind_login_id = #{indLoginId,jdbcType=BIGINT},
+      ind_true_name = #{indTrueName,jdbcType=VARCHAR},
+      ind_third_account = #{indThirdAccount,jdbcType=VARCHAR},
+      ind_bp_number = #{indBpNumber,jdbcType=VARCHAR},
+      ind_bp_name = #{indBpName,jdbcType=VARCHAR},
+      ind_periods = #{indPeriods,jdbcType=INTEGER},
+      ind_date_time = #{indDateTime,jdbcType=TIMESTAMP},
+      ind_fact_date_time = #{indFactDateTime,jdbcType=TIMESTAMP},
+      ind_overdue_days = #{indOverdueDays,jdbcType=INTEGER},
+      ind_overdue_money = #{indOverdueMoney,jdbcType=DECIMAL},
+      ind_fund_type = #{indFundType,jdbcType=INTEGER},
+      ind_money = #{indMoney,jdbcType=DECIMAL},
+      ind_fact_moeny = #{indFactMoeny,jdbcType=DECIMAL},
+      ind_interest_st = #{indInterestSt,jdbcType=TIMESTAMP},
+      ind_interest_et = #{indInterestEt,jdbcType=TIMESTAMP},
+      ind_status = #{indStatus,jdbcType=INTEGER},
+      ind_create_time = #{indCreateTime,jdbcType=TIMESTAMP},
+      ind_update_time = #{indUpdateTime,jdbcType=TIMESTAMP},
+      ind_is_del = #{indIsDel,jdbcType=INTEGER},
+      ind_bp_id = #{indBpId,jdbcType=BIGINT},
+      ind_third_contract_no = #{indThirdContractNo,jdbcType=VARCHAR}
+    where ind_id = #{indId,jdbcType=BIGINT}
+  </update>
+
+    <!--==================================================华丽分割线==================================================-->
+    <sql id="selectByCondition_Where_Clause">
+        <if test="record.indIiId != null">
+            AND ind_ii_id = #{record.indIiId,jdbcType=BIGINT}
+        </if>
+        <if test="record.indLoginId != null">
+            AND ind_login_id = #{record.indLoginId,jdbcType=BIGINT}
+        </if>
+        <if test="record.indTrueName != null">
+            AND ind_true_name = #{record.indTrueName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.indThirdAccount != null">
+            AND ind_third_account = #{record.indThirdAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="record.indBpNumber != null">
+            AND ind_bp_number = #{record.indBpNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="record.indBpName != null">
+            AND ind_bp_name = #{record.indBpName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.indPeriods != null">
+            AND ind_periods = #{record.indPeriods,jdbcType=INTEGER}
+        </if>
+        <if test="record.indDateTime != null">
+            AND ind_date_time = #{record.indDateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.indFactDateTime != null">
+            AND ind_fact_date_time = #{record.indFactDateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.indOverdueDays != null">
+            AND ind_overdue_days = #{record.indOverdueDays,jdbcType=INTEGER}
+        </if>
+        <if test="record.indOverdueMoney != null">
+            AND ind_overdue_money = #{record.indOverdueMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="record.indFundType != null">
+            AND ind_fund_type = #{record.indFundType,jdbcType=INTEGER}
+        </if>
+        <if test="record.indMoney != null">
+            AND ind_money = #{record.indMoney,jdbcType=DECIMAL}
+        </if>
+        <if test="record.indFactMoeny != null">
+            AND ind_fact_moeny = #{record.indFactMoeny,jdbcType=DECIMAL}
+        </if>
+        <if test="record.indInterestSt != null">
+            AND ind_interest_st = #{record.indInterestSt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.indInterestEt != null">
+            AND ind_interest_et = #{record.indInterestEt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.indStatus != null">
+            AND ind_status = #{record.indStatus,jdbcType=INTEGER}
+        </if>
+        <if test="record.indCreateTime != null">
+            AND ind_create_time = #{record.indCreateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.indUpdateTime != null">
+            AND ind_update_time = #{record.indUpdateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.indBpId != null">
+            AND ind_bp_id = #{record.indBpId,jdbcType=BIGINT}
+        </if>
+        <if test="record.bpTrueName != null">
+            AND bp_true_name = #{record.bpTrueName,jdbcType=VARCHAR}
+        </if>
+        AND ind_is_del = 1
+    </sql>
+    <resultMap id="myResultMap" type="com.jebao.jebaodb.entity.investment.TbIncomeDetail" extends="BaseResultMap">
+        <result column="bp_true_name" property="bpTrueName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="fundResultMap" type="com.jebao.jebaodb.entity.investment.TbIncomeDetail" extends="BaseResultMap">
+        <result column="ii_create_time" property="investTime" jdbcType="TIMESTAMP"/>
+        <result column="ii_money" property="investMoney" jdbcType="DECIMAL"/>
+        <result column="bp_periods" property="periods" jdbcType="INTEGER"/>
+        <result column="bp_rate" property="rate" jdbcType="DECIMAL"/>
+        <result column="bp_start_time" property="collectTime" jdbcType="TIMESTAMP"/>
+        <result column="incomeTotal" property="incomeTotal" jdbcType="DECIMAL"/>
+        <result column="ii_contract_url" property="contractUrl" jdbcType="VARCHAR"/>
+        <result column="bp_loan_money" property="bpLoanMoney" jdbcType="DECIMAL"/>
+        <result column="bp_cycle_type" property="cycleType" jdbcType="INTEGER"/>
+        <result column="bp_start_time" property="bpStartTime" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+    <sql id="selectFundWhere">
+        <if test="record.loanLoginId != null">
+            AND plan.bp_login_id = #{record.loanLoginId,jdbcType=BIGINT}
+        </if>
+        <if test="record.investLoginId != null">
+            AND detail.ind_login_id = #{record.investLoginId,jdbcType=BIGINT}
+        </if>
+        <if test="record.detailStatus != null">
+            AND detail.ind_status = #{record.detailStatus,jdbcType=INTEGER}
+        </if>
+        <if test="record.planStatus != null">
+            AND plan.bp_status = #{record.planStatus,jdbcType=INTEGER}
+        </if>
+        <if test="record.period != null">
+            AND detail.ind_periods = plan.bp_repayed_periods + #{record.period,jdbcType=INTEGER}
+        </if>
+        AND detail.ind_is_del = 1
+    </sql>
+
+    <sql id="loanInfoCountWhere">
+        plan.bp_login_id = #{bpLoginId}
+        AND detail.ind_status = 1
+        AND detail.ind_is_del = 1
+        <if test="dateTime != null">
+            <![CDATA[
+            AND detail.ind_date_time <= date_add(#{dateTime}, INTERVAL 10 DAY);
+            ]]>
+        </if>
+
+    </sql>
+
+    <sql id="postLoanDetailWhere">
+        <if test="record.bpName != null">
+            AND bp_name = #{record.bpName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.bpNumber != null" >
+            AND bp_number = #{record.bpNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="record.bpTrueName != null" >
+            AND bp_true_name = #{record.bpTrueName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.bpStatus != null">
+            AND bp_status = #{record.bpStatus,jdbcType=INTEGER}
+        </if>
+        <if test="record.searchDateSt != null and record.searchDateSt != ''" >
+            <![CDATA[
+              AND ${record.searchDateType}  >=  #{record.searchDateSt,jdbcType=VARCHAR}
+            ]]>
+        </if>
+        <if test="record.searchDateEnd != null and record.searchDateEnd != ''" >
+            <![CDATA[
+              AND ${record.searchDateType}  <=  #{record.searchDateEnd,jdbcType=VARCHAR}
+            ]]>
+        </if>
+        <if test="record.bpNumberSear != null and record.bpNumberSear != ''" >
+            AND bp_number LIKE ${record.bpNumberSear}
+        </if>
+        <if test="record.bpStatusSear != null and record.bpStatusSear != ''" >
+            AND bp_status IN ${record.bpStatusSear}
+        </if>
+        AND bp_is_del = 1 AND ind_is_del = 1
+    </sql>
+
+    <select id="selectPostLoanDetail" resultMap="myResultMap">
+        SELECT
+        ind_bp_id,
+        ind_bp_number,
+        ind_bp_name,
+        ind_true_name,
+        ind_periods,
+        ind_date_time,
+        ind_fact_date_time,
+        ind_overdue_days,
+        sum(ind_overdue_money) AS ind_overdue_money,
+        ind_fund_type,
+        sum(ind_money) AS ind_money,
+        sum(ind_fact_moeny) AS ind_fact_moeny,
+        ind_status,
+        bp_true_name
+        FROM
+        tb_income_detail LEFT JOIN tb_bid_plan ON ind_bp_id = bp_id
+        <where>
+            <include refid="postLoanDetailWhere"/>
+        </where>
+        GROUP BY
+        ind_bp_id, ind_periods
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+
+    <select id="selectPostLoanDetailCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select *
+        from tb_income_detail LEFT JOIN tb_bid_plan ON ind_bp_id = bp_id
+        <where>
+            <include refid="postLoanDetailWhere"/>
+        </where>
+        GROUP BY
+        ind_bp_id, ind_periods
+        ) a
+    </select>
+
+
+
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_income_detail where ind_is_del = 1
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_income_detail
+        <where>Base_Column_List
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_income_detail
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+    </select>
+
+    <select id="selectGroupByConditionForPage" resultMap="myResultMap">
+        SELECT
+        ind_bp_id,
+        ind_bp_number,
+        ind_bp_name,
+        ind_true_name,
+        ind_periods,
+        ind_date_time,
+        ind_fact_date_time,
+        ind_overdue_days,
+        sum(ind_overdue_money) AS ind_overdue_money,
+        ind_fund_type,
+        sum(ind_money) AS ind_money,
+        sum(ind_fact_moeny) AS ind_fact_moeny,
+        ind_status,
+        bp_true_name,
+        ind_interest_et,
+        ind_interest_st
+        FROM
+        tb_income_detail LEFT JOIN tb_bid_plan ON ind_bp_id = bp_id
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+        GROUP BY
+        ind_bp_id, ind_periods , ind_fund_type
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectGroupByConditionCount" resultType="java.lang.Integer">
+        select count(*) from (
+        select *
+        from tb_income_detail
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+        GROUP BY
+        ind_bp_id, ind_periods ,ind_fund_type
+        ) a
+    </select>
+    <select id="selectFundList" resultMap="fundResultMap">
+        SELECT
+        detail.ind_bp_id,
+        detail.ind_bp_name,
+        info.ii_create_time,
+        info.ii_money,
+        plan.bp_periods,
+        plan.bp_rate,
+        detail.ind_date_time,
+        IFNULL(SUM(detail.ind_money),0) AS ind_money,
+        IFNULL(SUM(detail.ind_overdue_money),0) AS ind_overdue_money,
+        IFNULL(SUM(detail.ind_overdue_money+detail.ind_money),0) AS incomeTotal,
+        detail.ind_periods,
+        plan.bp_start_time,
+        info.ii_contract_url,
+        detail.ind_fact_date_time,
+        plan.bp_loan_money,
+        plan.bp_cycle_type,
+        detail.ind_bp_number,
+        detail.ind_status
+        FROM
+        tb_income_detail detail
+        LEFT JOIN tb_invest_info info ON detail.ind_ii_id = info.ii_id
+        LEFT JOIN tb_bid_plan plan ON detail.ind_bp_id = plan.bp_id
+        <where>
+            <include refid="selectFundWhere"/>
+        </where>
+        GROUP BY
+        detail.ind_bp_id,
+        detail.ind_periods
+        <if test="pageWhere != null">
+            ORDER BY ${pageWhere.orderBy}
+            LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+        </if>
+    </select>
+    <select id="selectFundListForPageCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM tb_income_detail detail
+        LEFT JOIN tb_invest_info info ON detail.ind_ii_id = info.ii_id
+        LEFT JOIN tb_bid_plan plan ON detail.ind_bp_id = plan.bp_id
+        <where>
+            <include refid="selectFundWhere"/>
+        </where>
+    </select>
+
+    <select id="selectFundCount" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        (SELECT
+        *
+        FROM
+        tb_income_detail detail
+        LEFT JOIN tb_invest_info info ON detail.ind_ii_id = info.ii_id
+        LEFT JOIN tb_bid_plan plan ON detail.ind_bp_id = plan.bp_id
+        <where>
+            <include refid="selectFundWhere"/>
+        </where>
+        GROUP BY
+        detail.ind_bp_id,
+        detail.ind_periods
+        ) a
+    </select>
+
+
+    <select id="loanMoneyTotal" parameterType="long" resultType="java.math.BigDecimal">
+        SELECT
+            IFNULL(SUM(bp_loan_money),0) AS bp_loan_money
+        FROM
+            tb_bid_plan
+        WHERE
+            bp_login_id = #{loginId} and bp_status IN (7, 10)
+    </select>
+
+    <select id="overdueMoneyOther" resultMap="BaseResultMap">
+        SELECT
+        IFNULL(SUM(detail.ind_overdue_money),0) AS ind_overdue_money,
+        IFNULL(SUM(detail.ind_money + ind_overdue_money),0) AS ind_money
+        FROM
+        tb_income_detail detail
+        LEFT JOIN tb_bid_plan plan ON detail.ind_bp_id = plan.bp_id
+        WHERE
+        <include refid="loanInfoCountWhere"/>
+    </select>
+
+    <select id="repaymentList" resultMap="BaseResultMap">
+        SELECT
+        detail.ind_bp_id,
+        detail.ind_id,
+        detail.ind_ii_id,
+        detail.ind_login_id,
+        IFNULL(SUM(detail.ind_money),0) AS ind_money,
+        detail.ind_third_account,
+        detail.ind_fund_type,
+        detail.incomeDetailMD5,
+        detail.ind_date_time
+        FROM
+        tb_income_detail detail
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+        GROUP BY
+        detail.ind_ii_id, detail.ind_fund_type
+    </select>
+
+    <select id="repaymoneyTotal" resultType="java.math.BigDecimal">
+        SELECT
+        SUM(ind_money+ind_overdue_money) ind_money
+        FROM
+        tb_income_detail
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+        </where>
+    </select>
+
+    <update id="updateByConditionSelective" parameterType="com.jebao.jebaodb.entity.investment.TbIncomeDetail">
+        update tb_income_detail
+        <set >
+            <if test="indIiId != null" >
+                ind_ii_id = #{indIiId,jdbcType=BIGINT},
+            </if>
+            <if test="indLoginId != null" >
+                ind_login_id = #{indLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="indTrueName != null" >
+                ind_true_name = #{indTrueName,jdbcType=VARCHAR},
+            </if>
+            <if test="indThirdAccount != null" >
+                ind_third_account = #{indThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="indBpNumber != null" >
+                ind_bp_number = #{indBpNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="indBpName != null" >
+                ind_bp_name = #{indBpName,jdbcType=VARCHAR},
+            </if>
+            <if test="indPeriods != null" >
+                ind_periods = #{indPeriods,jdbcType=INTEGER},
+            </if>
+            <if test="indDateTime != null" >
+                ind_date_time = #{indDateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indFactDateTime != null" >
+                ind_fact_date_time = #{indFactDateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indOverdueDays != null" >
+                ind_overdue_days = #{indOverdueDays,jdbcType=INTEGER},
+            </if>
+            <if test="indOverdueMoney != null" >
+                ind_overdue_money = #{indOverdueMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="indFundType != null" >
+                ind_fund_type = #{indFundType,jdbcType=INTEGER},
+            </if>
+            <if test="indMoney != null" >
+                ind_money = #{indMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="indFactMoeny != null" >
+                ind_fact_moeny = #{indFactMoeny,jdbcType=DECIMAL},
+            </if>
+            <if test="indInterestSt != null" >
+                ind_interest_st = #{indInterestSt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indInterestEt != null" >
+                ind_interest_et = #{indInterestEt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indStatus != null" >
+                ind_status = #{indStatus,jdbcType=INTEGER},
+            </if>
+            <if test="indCreateTime != null" >
+                ind_create_time = #{indCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indUpdateTime != null" >
+                ind_update_time = #{indUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="indIsDel != null" >
+                ind_is_del = #{indIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="indBpId != null" >
+                ind_bp_id = #{indBpId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where ind_bp_id = #{indBpId,jdbcType=BIGINT}
+    </update>
+
+    <select id="investerTotalMoney" parameterType="com.jebao.jebaodb.entity.investment.TbIncomeDetail" resultType="java.math.BigDecimal">
+        SELECT
+            SUM(detail.ind_money)
+        FROM
+            tb_income_detail detail
+        WHERE detail.ind_is_del = 1 AND
+        detail.ind_login_id = #{indLoginId} and detail.ind_ii_id = #{indIiId}
+    </select>
+
+    <!--==================================================借款人相关信息==================================================-->
+    <select id="totalMoneyByloanerId" resultType="java.math.BigDecimal"
+            parameterType="com.jebao.jebaodb.entity.investment.search.IncomeDetailSM">
+        SELECT
+        <if test="status == 1 or status == 0">
+            IFNULL(SUM(IFNULL(ind_money,0)+IFNULL(ind_overdue_money,0)),0) total_moeny
+        </if>
+        <if test="status == 2">
+            IFNULL(SUM(IFNULL(ind_fact_moeny,0)),0) total_moeny
+        </if>
+        FROM
+        tb_income_detail ind
+        LEFT JOIN tb_bid_plan bp ON ind.ind_bp_id = bp.bp_id
+        WHERE bp.bp_loaner_id = #{loanerId,jdbcType=BIGINT}
+        AND ind.ind_status = #{status,jdbcType=INTEGER}
+        <if test="fundType != 0">
+            AND ind.ind_fund_type = #{fundType,jdbcType=INTEGER}
+        </if>
+        AND ind.ind_is_del = 1
+        AND bp.bp_is_del = 1
+    </select>
+    <!--==================================================投资人账户总览统计==================================================-->
+    <select id="totalMoneyByLoginId" resultType="java.math.BigDecimal">
+        SELECT
+        <if test="record.indStatus == 1">
+            IFNULL(SUM(ind_money),0) AS total_moeny
+        </if>
+        <if test="record.indStatus == 2">
+            IFNULL(SUM(ind_fact_moeny),0) AS total_moeny
+        </if>
+        FROM tb_income_detail
+        WHERE ind_login_id = #{record.indLoginId,jdbcType=BIGINT}
+        AND ind_fund_type = #{record.indFundType,jdbcType=INTEGER}
+        AND ind_status = #{record.indStatus,jdbcType=INTEGER}
+        AND ind_is_del = 1
+    </select>
+    <resultMap id="InvestPaymentResultMap" type="com.jebao.jebaodb.entity.investment.InvestPayment">
+        <result column="ii_id" property="iiId" jdbcType="BIGINT"/>
+        <result column="date_time" property="dateTime" jdbcType="TIMESTAMP"/>
+        <result column="total_money" property="totalMoney" jdbcType="DECIMAL"/>
+    </resultMap>
+    <select id="selectPaymentByIds" resultMap="InvestPaymentResultMap">
+        SELECT
+        ind_ii_id AS ii_id,
+        <if test="record.indStatus == 1">
+            MAX(ind_date_time) AS date_time,
+            IFNULL(SUM(IFNULL(ind_overdue_money,0)+IFNULL(ind_money,0)),0) AS total_money
+        </if>
+        <if test="record.indStatus == 2">
+            MAX(ind_fact_date_time) AS date_time,
+            IFNULL(SUM(IFNULL(ind_fact_moeny,0)),0) AS total_money
+        </if>
+        FROM
+        tb_income_detail
+        WHERE
+        ind_is_del = 1
+        AND ind_status = #{record.indStatus,jdbcType=INTEGER}
+        AND ind_fund_type = #{record.indFundType,jdbcType=INTEGER}
+        AND ind_ii_id IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY ind_ii_id
+        ORDER BY ind_ii_id DESC,ind_periods DESC
+    </select>
+</mapper>

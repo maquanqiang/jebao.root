@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #set($filePath = $UrlHelperTool.getStaticFilePath())
+    #set($h5Origin = $UrlHelperTool.getH5Origin())
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>操作成功 -金额宝</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="eamil=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="${filePath}/css/lib/base.css">
+    <style>
+        .wrap{
+            width: 100%;
+            text-align: center;
+            padding-top: 55%;
+        }
+        .wrap h1{
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: .8rem;
+        }
+        .wrap p{
+            font-size: 0.8rem;
+            color:#999999 ;
+            margin-bottom: .3rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .wrap a {
+            width: 8rem;
+            height: 2.2rem;
+            background-color: #4c7ee9;
+            color: #fff;
+            display: block;
+            font-size: .7rem;
+            font-weight: bold;
+            text-align: center;
+            line-height: 2.2rem;
+            border-radius: .25rem;
+            margin: 2rem 2rem .5rem 0;
+        }
+        .wrap p a:last-child{
+            margin-right: 0;
+            margin-left: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>${title}</h1>
+    <p>${content}</p>
+    <p>
+        <a href="${h5Origin}/account/" onclick="goAccount()">返回我的账户</a>
+        <a href="${h5Origin}/" onclick="goProduct()">立即投资</a>
+    </p>
+</div>
+<script type="text/javascript">
+    function goAccount(){
+       app.goAccount();
+    }
+    function goProduct(){
+        app.goProduct();
+    }
+</script>
+</body>
+</html>

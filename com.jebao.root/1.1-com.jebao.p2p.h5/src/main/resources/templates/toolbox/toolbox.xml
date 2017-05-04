@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<toolbox>
+    <tool>
+        <key>UrlHelperTool</key>
+        <scope>application</scope>
+        <class>com.jebao.p2p.h5.utils.toolbox.UrlHelperTool</class>
+    </tool>
+    <tool>
+        <key>LoginUserTool</key>
+        <scope>application</scope>
+        <class>com.jebao.p2p.h5.utils.toolbox.LoginUserTool</class>
+    </tool>
+</toolbox>

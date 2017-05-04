@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>邀请好友-我的账户</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+    <style>
+        .account-Invitation-item input[type=text]{
+            width: 360px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">邀请好友</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--邀请好友-->
+        <div class="my-account">
+            <div class="my-account-title">
+                <h2>邀请好友</h2>
+            </div>
+            <div class="account-Invitation-list">
+                <div class="account-Invitation-item clearfix">
+                    <p>我的推荐码：</p>
+                    <input type="text" value="$_loginUser_sidebar_.userName" class="text-content" readonly>
+                    <input type=button  value="复制" class="copyBtn">
+                </div>
+                <div class="account-Invitation-item clearfix">
+                    <p>我的推荐链接：</p>
+                    <input type="text" value="${inviteUrl}" class="text-content" readonly>
+                    <input type=button  value="复制" class="copyBtn">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容 end-->
+#parse("common/footer.html")
+
+<script>
+    $(function () {
+        //复制
+        $('.copyBtn').click(function () {
+            $(this).prev().select();
+            try {
+                document.execCommand('copy');
+                layer.msg('已复制到剪贴板');
+            } catch (err) {
+                layer.alert("您的浏览器不支持自动复制，请使用 Ctrl + C 快捷键复制");
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

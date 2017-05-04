@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>即将跳转 -金额宝</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/result.css">
+</head>
+
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--内容 begin-->
+<div class="result-main clearfix">
+    <div class="result-content">
+        #if($yes && "$yes"=="1")
+        <img src="${filePath}/images/result-right.png">
+        #else
+        <img src="${filePath}/images/result-error.png">
+        #end
+
+        <h4>${title}</h4>
+        <p>$!{content}</p>
+        <a href="${redirectUrl}" class="go-btn">立即跳转</a>
+    </div>
+</div>
+
+<!--内容 end-->
+
+#parse("common/footer.html")
+<script>
+    $(function(){
+        var $target = $(".time");
+        var leftSeconds = parseInt($target.html());
+        var timerInterval = setInterval(function () {
+            leftSeconds--;
+            if (leftSeconds === 0) {
+                clearInterval(timerInterval);
+                window.location.href= "${redirectUrl}";
+            }else{
+                $target.html(leftSeconds);
+            }
+        }, 1000);
+    });
+</script>
+</body>
+</html>

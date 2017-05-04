@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册成功 -金额宝</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/result.css">
+</head>
+
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--内容 begin-->
+<div class="result-main clearfix">
+    <div class="result-content">
+        <img src="${filePath}/images/result-right.png">
+        <h4>恭喜您，注册成功！</h4>
+        <p>开通第三方资金账户，即可开始投资</p>
+        <a href="/userfund/register" target="_self" class="go-btn" style="width: 11em;">开通第三方资金账户</a>
+    </div>
+</div>
+<!--内容 end-->
+
+
+#parse("common/footer.html")
+<script src="/content/js/lib/bootstrapValidator.js"></script>
+</body>
+</html>

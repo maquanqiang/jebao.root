@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.loaner.TbRcpMaterialsTempMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.loaner.TbRcpMaterialsTemp" >
+    <id column="rcpmt_id" property="rcpmtId" jdbcType="BIGINT" />
+    <result column="rcpmt_project_id" property="rcpmtProjectId" jdbcType="BIGINT" />
+    <result column="rcpmt_no" property="rcpmtNo" jdbcType="VARCHAR" />
+    <result column="rcpmt_name" property="rcpmtName" jdbcType="VARCHAR" />
+    <result column="rcpmt_remark" property="rcpmtRemark" jdbcType="VARCHAR" />
+    <result column="rcpmt_path" property="rcpmtPath" jdbcType="VARCHAR" />
+    <result column="rcpmt_url" property="rcpmtUrl" jdbcType="VARCHAR" />
+    <result column="rcpmt_create_time" property="rcpmtCreateTime" jdbcType="TIMESTAMP" />
+    <result column="rcpmt_is_del" property="rcpmtIsDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rcpmt_id, rcpmt_project_id, rcpmt_no, rcpmt_name, rcpmt_remark, rcpmt_path, rcpmt_url, 
+    rcpmt_create_time, rcpmt_is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_rcp_materials_temp
+    where rcpmt_id = #{rcpmtId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.loaner.TbRcpMaterialsTemp" >
+    <selectKey resultType="java.lang.Long" keyProperty="rcpmtId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_rcp_materials_temp (rcpmt_project_id, rcpmt_no, rcpmt_name, 
+      rcpmt_remark, rcpmt_path, rcpmt_url, 
+      rcpmt_create_time, rcpmt_is_del)
+    values (#{rcpmtProjectId,jdbcType=BIGINT}, #{rcpmtNo,jdbcType=VARCHAR}, #{rcpmtName,jdbcType=VARCHAR}, 
+      #{rcpmtRemark,jdbcType=VARCHAR}, #{rcpmtPath,jdbcType=VARCHAR}, #{rcpmtUrl,jdbcType=VARCHAR}, 
+      #{rcpmtCreateTime,jdbcType=TIMESTAMP}, #{rcpmtIsDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.loaner.TbRcpMaterialsTemp" >
+    <selectKey resultType="java.lang.Long" keyProperty="rcpmtId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_rcp_materials_temp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rcpmtProjectId != null" >
+        rcpmt_project_id,
+      </if>
+      <if test="rcpmtNo != null" >
+        rcpmt_no,
+      </if>
+      <if test="rcpmtName != null" >
+        rcpmt_name,
+      </if>
+      <if test="rcpmtRemark != null" >
+        rcpmt_remark,
+      </if>
+      <if test="rcpmtPath != null" >
+        rcpmt_path,
+      </if>
+      <if test="rcpmtUrl != null" >
+        rcpmt_url,
+      </if>
+      <if test="rcpmtCreateTime != null" >
+        rcpmt_create_time,
+      </if>
+      <if test="rcpmtIsDel != null" >
+        rcpmt_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rcpmtProjectId != null" >
+        #{rcpmtProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="rcpmtNo != null" >
+        #{rcpmtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtName != null" >
+        #{rcpmtName,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtRemark != null" >
+        #{rcpmtRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtPath != null" >
+        #{rcpmtPath,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtUrl != null" >
+        #{rcpmtUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtCreateTime != null" >
+        #{rcpmtCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcpmtIsDel != null" >
+        #{rcpmtIsDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.loaner.TbRcpMaterialsTemp" >
+    update tb_rcp_materials_temp
+    <set >
+      <if test="rcpmtProjectId != null" >
+        rcpmt_project_id = #{rcpmtProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="rcpmtNo != null" >
+        rcpmt_no = #{rcpmtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtName != null" >
+        rcpmt_name = #{rcpmtName,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtRemark != null" >
+        rcpmt_remark = #{rcpmtRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtPath != null" >
+        rcpmt_path = #{rcpmtPath,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtUrl != null" >
+        rcpmt_url = #{rcpmtUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rcpmtCreateTime != null" >
+        rcpmt_create_time = #{rcpmtCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcpmtIsDel != null" >
+        rcpmt_is_del = #{rcpmtIsDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rcpmt_id = #{rcpmtId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.loaner.TbRcpMaterialsTemp" >
+    update tb_rcp_materials_temp
+    set rcpmt_project_id = #{rcpmtProjectId,jdbcType=BIGINT},
+      rcpmt_no = #{rcpmtNo,jdbcType=VARCHAR},
+      rcpmt_name = #{rcpmtName,jdbcType=VARCHAR},
+      rcpmt_remark = #{rcpmtRemark,jdbcType=VARCHAR},
+      rcpmt_path = #{rcpmtPath,jdbcType=VARCHAR},
+      rcpmt_url = #{rcpmtUrl,jdbcType=VARCHAR},
+      rcpmt_create_time = #{rcpmtCreateTime,jdbcType=TIMESTAMP},
+      rcpmt_is_del = #{rcpmtIsDel,jdbcType=INTEGER}
+    where rcpmt_id = #{rcpmtId,jdbcType=BIGINT}
+  </update>
+    <!--==================================================华丽分割线==================================================-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        update tb_rcp_materials_temp
+        set rcpmt_is_del = 2
+        where rcpmt_id = #{rcpmtId,jdbcType=BIGINT}
+    </update>
+    <update id="deleteByProjectId" parameterType="java.lang.Long" >
+        update tb_rcp_materials_temp
+        set rcpmt_is_del = 2
+        where rcpmt_project_id = #{rcpmtProjectId,jdbcType=BIGINT}
+    </update>
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_rcp_materials_temp
+        order by rcpmt_name asc
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByProjectIdForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_rcp_materials_temp
+        where
+        <include refid="selectByProjectId_Where_Clause"/>
+        order by rcpmt_name asc
+        <if test="pageWhere != null" >
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+        </if>
+    </select>
+    <select id="selectByProjectIdForPageCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_rcp_materials_temp
+        WHERE
+        <include refid="selectByProjectId_Where_Clause"/>
+    </select>
+    <sql id="selectByProjectId_Where_Clause">
+        rcpmt_is_del=1
+        and rcpmt_project_id=#{record.rcpmtProjectId}
+    </sql>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.employee.TbEmployeeLoginMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.employee.TbEmployeeLogin" >
+    <id column="lg_id" property="lgId" jdbcType="INTEGER" />
+    <result column="lg_emp_id" property="lgEmpId" jdbcType="INTEGER" />
+    <result column="lg_username" property="lgUsername" jdbcType="VARCHAR" />
+    <result column="lg_password" property="lgPassword" jdbcType="VARCHAR" />
+    <result column="lg_first_login_time" property="lgFirstLoginTime" jdbcType="TIMESTAMP" />
+    <result column="lg_last_login_time" property="lgLastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="lg_status" property="lgStatus" jdbcType="INTEGER" />
+    <result column="lg_is_del" property="lgIsDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lg_id, lg_emp_id, lg_username, lg_password, lg_first_login_time, lg_last_login_time,
+    lg_status, lg_is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_employee_login
+    where lg_id = #{lgId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLogin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="lgId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_employee_login (lg_emp_id, lg_username, lg_password,
+    lg_first_login_time, lg_last_login_time,
+    lg_status, lg_is_del)
+    values (#{lgEmpId,jdbcType=INTEGER}, #{lgUsername,jdbcType=VARCHAR}, #{lgPassword,jdbcType=VARCHAR},
+    #{lgFirstLoginTime,jdbcType=TIMESTAMP}, #{lgLastLoginTime,jdbcType=TIMESTAMP},
+    #{lgStatus,jdbcType=INTEGER}, #{lgIsDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLogin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="lgId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_employee_login
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lgEmpId != null" >
+        lg_emp_id,
+      </if>
+      <if test="lgUsername != null" >
+        lg_username,
+      </if>
+      <if test="lgPassword != null" >
+        lg_password,
+      </if>
+      <if test="lgFirstLoginTime != null" >
+        lg_first_login_time,
+      </if>
+      <if test="lgLastLoginTime != null" >
+        lg_last_login_time,
+      </if>
+      <if test="lgStatus != null" >
+        lg_status,
+      </if>
+      <if test="lgIsDel != null" >
+        lg_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lgEmpId != null" >
+        #{lgEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="lgUsername != null" >
+        #{lgUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="lgPassword != null" >
+        #{lgPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lgFirstLoginTime != null" >
+        #{lgFirstLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lgLastLoginTime != null" >
+        #{lgLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lgStatus != null" >
+        #{lgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lgIsDel != null" >
+        #{lgIsDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLogin" >
+    update tb_employee_login
+    <set >
+      <if test="lgEmpId != null" >
+        lg_emp_id = #{lgEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="lgUsername != null" >
+        lg_username = #{lgUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="lgPassword != null" >
+        lg_password = #{lgPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lgFirstLoginTime != null" >
+        lg_first_login_time = #{lgFirstLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lgLastLoginTime != null" >
+        lg_last_login_time = #{lgLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lgStatus != null" >
+        lg_status = #{lgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lgIsDel != null" >
+        lg_is_del = #{lgIsDel,jdbcType=BIT},
+      </if>
+    </set>
+    where lg_id = #{lgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLogin" >
+    update tb_employee_login
+    set lg_emp_id = #{lgEmpId,jdbcType=INTEGER},
+    lg_username = #{lgUsername,jdbcType=VARCHAR},
+    lg_password = #{lgPassword,jdbcType=VARCHAR},
+    lg_first_login_time = #{lgFirstLoginTime,jdbcType=TIMESTAMP},
+    lg_last_login_time = #{lgLastLoginTime,jdbcType=TIMESTAMP},
+    lg_status = #{lgStatus,jdbcType=INTEGER},
+    lg_is_del = #{lgIsDel,jdbcType=BIT}
+    where lg_id = #{lgId,jdbcType=INTEGER}
+  </update>
+
+  <!--==================================================华丽分割线==================================================-->
+  <delete id="deleteEmployeeLogin" parameterType="integer">
+    UPDATE tb_employee_login SET lg_is_del=1 WHERE lg_emp_id = #{lgEmpId,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_employee_login
+    where lg_username = #{lgUsername,jdbcType=VARCHAR}
+  </select>
+
+</mapper>
