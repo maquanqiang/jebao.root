@@ -16,7 +16,9 @@ public interface ReportInvestmentServiceInf {
     //查询当前的数量
     int selectPostLoanDetailCount(ReportInvestment reportInvestment);
     //根据实现查询当前阶段的数据
-    List<ReportInvestment> betweenDate(String liCreateTime,String bpRepayTime);
+    List<ReportInvestment> betweenDate(String searchDateSt, String searchDateEnd);
+    //根据标的标号查询相关的数据
+    List<ReportInvestment> getId(String indBpNumber);
 }
 
 

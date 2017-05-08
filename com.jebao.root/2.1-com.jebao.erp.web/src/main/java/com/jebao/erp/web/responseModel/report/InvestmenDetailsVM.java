@@ -3,9 +3,8 @@ package com.jebao.erp.web.responseModel.report;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.jebao.erp.web.responseModel.ViewModel;
-import com.jebao.jebaodb.entity.report.InvestmentReportSM;
+import com.jebao.jebaodb.entity.report.InvestmentDetails;
 import com.jebao.jebaodb.entity.report.ReportInvestment;
-import com.sun.tools.javadoc.Start;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -14,16 +13,15 @@ import java.util.Date;
 /**
  * Created by Administrator on 2017/4/10.
  */
-public class InvestmentReportVM extends ViewModel {
+public class InvestmenDetailsVM extends ViewModel {
+
 
     String[] cycleType = {"","日","月","季","年"};
 
     //封装到当前的对象里面
-    public InvestmentReportVM(ReportInvestment reportInvestment) {
+    public InvestmenDetailsVM(InvestmentDetails reportInvestment) {
 
-        //新字段
-        this.setSearchDateSt(reportInvestment.getSearchDateSt());
-        this.setSearchDateEnd(reportInvestment.getSearchDateEnd());
+//        reportInvestment.getIiMoney() * getBpCycleType();
         this.setIndMoney(reportInvestment.getIndMoney());
         this.setBpRate(reportInvestment.getBpRate());
         //
@@ -56,7 +54,7 @@ public class InvestmentReportVM extends ViewModel {
         }else{
             this.setCreatebpRepayTime(new SimpleDateFormat("yyyy-MM-dd").format(reportInvestment.getBpRepayTime()));
         }
-        this.setIndBpNumber(reportInvestment.getIndBpNumber());
+        this.setBpNumber(reportInvestment.getBpNumber());
         this.setIndTrueName(reportInvestment.getIndTrueName());
         this.setLiCreateTime(reportInvestment.getLiCreateTime());
         this.setIiMoney(reportInvestment.getIiMoney());
@@ -67,31 +65,36 @@ public class InvestmentReportVM extends ViewModel {
         }else{
             this.setCreateTimeStr(  new SimpleDateFormat("yyyy-MM-dd").format(reportInvestment.getLiCreateTime()));
         }
+            double d=reportInvestment.getIiMoney().doubleValue() * reportInvestment.getBpPeriods() /12;
+            BigDecimal bg= new BigDecimal(d);
+           double f=bg.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+            //折标后金额
+            this.setFoldMoney(f);
     }
 
-    //添加的新字段
-    public String searchDateSt;
-    public String searchDateEnd;
+    @JsonPropertyDescription("折标后金额")
+    private double  foldMoney;
 
-    public String getSearchDateSt() {
-        return searchDateSt;
+    public String getBpNumber() {
+        return bpNumber;
     }
 
-    public void setSearchDateSt(String searchDateSt) {
-        this.searchDateSt = searchDateSt;
+    public void setBpNumber(String bpNumber) {
+        this.bpNumber = bpNumber;
     }
 
-    public String getSearchDateEnd() {
-        return searchDateEnd;
+    public String[] getCycleType() {
+
+        return cycleType;
     }
 
-    public void setSearchDateEnd(String searchDateEnd) {
-        this.searchDateEnd = searchDateEnd;
+    public void setCycleType(String[] cycleType) {
+        this.cycleType = cycleType;
     }
 
     //标的编号
     @JsonPropertyDescription("标的编号")
-    private String indBpNumber;
+    private String bpNumber;
     //投资人
     @JsonPropertyDescription("投资人")
     private String indTrueName;
@@ -123,12 +126,25 @@ public class InvestmentReportVM extends ViewModel {
         return liCreateTime;
     }
 
+
     public void setLiCreateTime(Date liCreateTime) {
         this.liCreateTime = liCreateTime;
     }
 
     public Date getBpInterestSt() {
         return bpInterestSt;
+    }
+
+    public double getFoldMoney() {
+        return foldMoney;
+    }
+
+    public void setFoldMoney(double foldMoney) {
+        this.foldMoney = foldMoney;
+    }
+
+    public void setFoldMoney(Integer foldMoney) {
+        this.foldMoney = foldMoney;
     }
 
     public void setBpInterestSt(Date bpInterestSt) {
@@ -213,13 +229,6 @@ public class InvestmentReportVM extends ViewModel {
     @JsonPropertyDescription("到期分红金额(元)")
     private BigDecimal indMoney;
 
-    public String getIndBpNumber() {
-        return indBpNumber;
-    }
-
-    public void setIndBpNumber(String indBpNumber) {
-        this.indBpNumber = indBpNumber;
-    }
 
     public String getIndTrueName() {
         return indTrueName;

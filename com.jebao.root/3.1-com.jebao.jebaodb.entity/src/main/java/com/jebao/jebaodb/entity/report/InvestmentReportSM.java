@@ -10,6 +10,7 @@ import java.util.Date;
  * Created by Administrator on 2017/4/11.
  */
 public class InvestmentReportSM {
+
     private Integer bpPeriods;
 
     public Integer getBpPeriods() {
@@ -25,6 +26,25 @@ public class InvestmentReportSM {
     //投资人
     private String indTrueName;
 
+    //新的属性
+    public String searchDateSt;
+    public String searchDateEnd;
+
+    public String getSearchDateSt() {
+        return searchDateSt;
+    }
+
+    public void setSearchDateSt(String searchDateSt) {
+        this.searchDateSt = searchDateSt;
+    }
+
+    public String getSearchDateEnd() {
+        return searchDateEnd;
+    }
+
+    public void setSearchDateEnd(String searchDateEnd) {
+        this.searchDateEnd = searchDateEnd;
+    }
 
     //投资金额
     private BigDecimal iiMoney;

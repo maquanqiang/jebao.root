@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.jebao.jebaodb.dao.mapper.report.ReportInvestmentMapper">
+
     <resultMap id="ReportresultMap" type="com.jebao.jebaodb.entity.report.ReportInvestment">
         <result column="bp_number" property="indBpNumber"/>
         <result column="ind_true_name" property="indTrueName"/>
@@ -9,14 +11,11 @@
         <result column="li_create_time" property="liCreateTime"/>
         <result column="bp_interest_st" property="bpInterestSt"/>
         <result column="bp_repay_time" property="bpRepayTime"/>
-
         <result column="bp_cycle_type" property="bpCycleType"/>
         <result column="bp_interest_pay_type" property="bpInterestPayType"/>
         <result column="bp_rate" property="bpRate"/>
         <result column="ind_money" property="indMoney"/>
         <result column="bp_periods" property="bpPeriods"/>
-
-
     </resultMap>
     <!--公用的-->
     <sql id="Reportinvestment">
@@ -31,7 +30,6 @@
         LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
         LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
         left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
-
     </select>
     <!--根据分页查询投资人的信息-->
     <!--parameterType="com.jebao.jebaodb.entity.report.InvestmentReportSM"-->
@@ -49,7 +47,11 @@
         <if test="pageWhere.orderBy!=null">
             ORDER BY ${pageWhere.orderBy}
         </if>
+        <if test="report.searchDateSt!=null and report.searchDateSt!=''">
+            or li_create_time between #{report.searchDateSt} and #{report.searchDateEnd}
+        </if>
         LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+        <!--and li_create_time between #{report.searchDateSt} and #{report.searchDateEnd}-->
     </select>
     <!--封装字段-->
     <sql id="selectByCondition_Where_Clause">
@@ -89,9 +91,10 @@
         <if test="report.indMoney != null and report.indMoney !=0">
             AND ind_money= #{report.indMoney}
         </if>
-
+        <if test="report.liCreateTime != null and report.liCreateTime != ''">
+            and li_create_time= #{report.liCreateTime}
+        </if>
     </sql>
-
     <!--&lt;!&ndash;查询当前的数量&ndash;&gt;-->
     <select id="selectPostLoanDetailCount" resultType="java.lang.Integer">
        SELECT
@@ -103,21 +106,29 @@
 		LEFT JOIN tb_invest_info invest ON income.ind_ii_id = invest.ii_id
   </select>
     <!--根据时间段查询相关的数据-->
-    <select id="betweenDate" parameterType="com.jebao.jebaodb.entity.report.ReportInvestment" resultType="java.util.Date">
+    <select id="betweenDate" parameterType="java.util.Map" resultMap="ReportresultMap">
+        <!--SELECT-->
+        <!--*-->
+        <!--FROM-->
+        <!--tb_income_detail income-->
+        <!--LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id-->
+        <!--LEFT JOIN tb_login_info info ON income.ind_login_id = info.li_id-->
+        <!--LEFT JOIN tb_invest_info invest ON income.ind_ii_id = invest.ii_id-->
+        <!--where li_create_time BETWEEN '2016-7-25' and '2016-10-25'-->
+        <!--AND bp_repay_time BETWEEN '2017-7-3' and '2017-7-5'-->
         select
         <include refid="Reportinvestment"/>
         from tb_income_detail income
         LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
         LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
         left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
-       <where>
-           li_create_time between #{liCreateTime} and #{liCreateTime} and bp_repay_time =#{bpRepayTime}
-       </where>
-
-    
+        <!-- <![CDATA[]]>:这是XML语法。在CDATA内部的所有内容都会被解析器忽略。因为这里有 ">"  "<=" 特殊字符所以要使用 <![CDATA[   ]]> 来注释-->
+        where
+          <!--li_create_time >= #{liCreateTime} and bp_repay_time  <![CDATA[ <= ]]> #{bpRepayTime}-->
+            li_create_time between #{searchDateSt} and #{searchDateEnd}
     </select>
     <!--&lt;!&ndash;根据标的编号查询相关的数据&ndash;&gt;-->
-    <select id="getId" parameterType="com.jebao.jebaodb.entity.report.ReportInvestment" resultType="java.lang.String">
+    <select id="getId" parameterType="java.util.Map" resultType="java.lang.String"  resultMap="ReportresultMap">
         select
         <include refid="Reportinvestment" />
         from tb_income_detail income

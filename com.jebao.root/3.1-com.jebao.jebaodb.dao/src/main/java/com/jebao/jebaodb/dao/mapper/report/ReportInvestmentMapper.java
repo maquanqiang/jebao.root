@@ -22,8 +22,9 @@ public interface ReportInvestmentMapper {
     int selectPostLoanDetailCount(ReportInvestment report);
 
 //    ReportInvestment getDate(ReportInvestment reportInvestment);
+//    @Param("liCreateTime")String liCreateTime,@Param("bpRepayTime")String bpRepayTime
     //根据实现查询当前阶段的数据
-    List<ReportInvestment> betweenDate(@Param("liCreateTime") String liCreateTime,@Param("bpRepayTime")String bpRepayTime);
+    List<ReportInvestment> betweenDate(@Param("searchDateSt") String searchDateSt,@Param("searchDateEnd") String searchDateEnd);
     //根据标的标号查询相关的数据
     List<ReportInvestment> getId(String indBpNumber);
 }

@@ -135,6 +135,26 @@ public class ReportInvestment {
         return bpRepayTime;
     }
 
+    //添加的字段
+    public String searchDateSt;
+    public String searchDateEnd;
+
+    public String getSearchDateSt() {
+        return searchDateSt;
+    }
+
+    public void setSearchDateSt(String searchDateSt) {
+        this.searchDateSt = searchDateSt;
+    }
+
+    public String getSearchDateEnd() {
+        return searchDateEnd;
+    }
+
+    public void setSearchDateEnd(String searchDateEnd) {
+        this.searchDateEnd = searchDateEnd;
+    }
+
     public void setBpRepayTime(Date bpRepayTime) {
         this.bpRepayTime = bpRepayTime;
     }

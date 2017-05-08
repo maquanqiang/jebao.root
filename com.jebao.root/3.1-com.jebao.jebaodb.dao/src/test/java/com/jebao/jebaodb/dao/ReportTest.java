@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.sql.RowSet;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,22 +26,28 @@ public class ReportTest extends _BaseUnitTest {
     private RowSet preparedStatement;
 
     @Test
-    public void show(){
+    public void show() throws ParseException {
+
+
         ReportInvestment investment = new ReportInvestment();
 
 //        preparedStatement.setTimestamp(Timestamp.valueOf());
-
-       investment.setBpRepayTime(new Date());
-        investment.setLiCreateTime(new Date());
-        String s=investment.getLiCreateTime().toString();
-        String b=investment.getBpRepayTime().toString();
-//        List<ReportInvestment> list = dao.betweenDate(investment);
+        String a= "2016-7-25";
+        String c="2017-7-3";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse(a);
+        Date r=dateFormat.parse(c);
+        investment.setBpRepayTime(date);
+        ;
+        investment.setLiCreateTime(r);
+//        List<ReportInvestment> list = dao.betweenDate();
 //        System.out.println(list.size());
     }
-    @Test
-    public void select(){
-        List<ReportInvestment> list=dao.getId("ZE1216120001");
-        System.out.println(list.size());
+    //根据编号查询当前的数据
 
+    @Test
+    public void ss(){
+        List<ReportInvestment> reportInvestmentList = dao.getId("ZE0317010004");
+        System.out.println(reportInvestmentList.size());
     }
 }

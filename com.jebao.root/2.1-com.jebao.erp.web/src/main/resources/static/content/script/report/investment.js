@@ -34,8 +34,8 @@ var vm = new Vue({
     data: model,
     beforeCreate:function(){
         //初始化本地数据
-        model.searchObj.searchDateSt = $("#searchDateSt").val();
-         model.searchObj.searchDateEnd = $("#searchDateEnd").val();
+        model.searchObj.liCreateTime = $("#searchDateSt").val();
+         model.searchObj.bpRepayTime = $("#searchDateEnd").val();
          model.searchObj.indBpNumber=$("#indBpNumber").val();
         model.searchObj = $("#defaultForm").serializeObject(); //初始化 model.search 对象
         model.searchObj.bpStatusSear = '(7,10)';
@@ -49,13 +49,13 @@ var vm = new Vue({
           this.search();
     },
     methods: {
-        search:function(event,searchDateSt,searchDateEnd,indBpNumber){
-                var searchDateSt= $("#searchDateSt").val();
-                var searchDateEnd=$("#searchDateEnd").val();
+        search:function(event,liCreateTime,bpRepayTime,indBpNumber){
+                var liCreateTime= $("#searchDateSt").val();
+                var bpRepayTime=$("#searchDateEnd").val();
                 var indBpNumber=$("#indBpNumber").val();
              if((model.searchObj.searchDateSt!=null && model.searchObj.searchDateSt!= "")
               ||(model.searchObj.searchDateEnd!=null && model.searchObj.searchDateEnd!="")){
-                          $.get("/api/report/betweenDate",{searchDateSt:searchDateSt,searchDateEnd:searchDateEnd},function(response){
+                          $.get("/api/report/getDate",{liCreateTime:liCreateTime,bpRepayTime:bpRepayTime},function(response){
                             if(response.success_is_ok){
                                 vm.reportDetailList=response.data;
                             }
@@ -69,11 +69,11 @@ var vm = new Vue({
                      }else{
                        var form = $("#defaultForm").serializeObject();
                                     //查看当前的数量
-                                    $.get("/api/report/pagingSelect",model.searchObj,function(response) {
-                                     alert(response.count);
+                                    $.get("/api/report/pagingSelectDetails",model.searchObj,function(response) {
                                         if (response.success_is_ok) {
                                             vm.reportDetailList = response.data;
                                             if (response.count>0){
+
                                                 var pageCount = Math.ceil(response.count / model.searchObj.pageSize);
                                                 //调用分页
                                                 laypage({

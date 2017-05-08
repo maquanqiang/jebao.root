@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Administrator on 2017/4/10.
@@ -26,7 +27,6 @@ public class ReportInvestmentController {
      */
     @RequestMapping("pagingSelect")
     public String pagingSelect(){
-        System.out.println("走这里吗?");
         return "report/index";
 
     }
@@ -42,16 +42,17 @@ public class ReportInvestmentController {
 //    }
     /**
      * 根据时间查询当前的数据
+     * @PathVariable:
      */
-    @RequestMapping("betweenDate")
-    public String betweenDate(@PathVariable("liCreateTime")String liCreateTime, @PathVariable("bpRepayTime")String bpRepayTime,Model model){
-        //添加到model模型中
-        System.out.println("呵呵");
-        model.addAttribute("liCreateTime",liCreateTime);
-        model.addAttribute("bpRepayTime",bpRepayTime);
-        return "report/index";
-
-    }
+//    @RequestMapping("betweenDate")
+//    public String betweenDate(@PathVariable("liCreateTime")String liCreateTime, @PathVariable("bpRepayTime") String bpRepayTime, Model model){
+//
+//        System.out.println("呵呵");
+//        model.addAttribute("liCreateTime",liCreateTime);
+//        model.addAttribute("bpRepayTime",bpRepayTime);
+//        return "report/index";
+//
+//    }
 
 
 }

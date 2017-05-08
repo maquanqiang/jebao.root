@@ -51,6 +51,7 @@
     </Appenders>
 
     <Loggers>
+
         <!-- 全局配置，默认所有的Logger都继承此配置 -->
         <AsyncRoot level="info" additivity="false">
             <AppenderRef ref="console"/>

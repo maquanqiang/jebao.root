@@ -54,8 +54,13 @@ public class ReportInvestmentServiceImpl implements ReportInvestmentServiceInf {
      *
      */
     @Override
-    public List<ReportInvestment> betweenDate(String liCreateTime,String bpRepayTime) {
-        return reportInvestmentDao.betweenDate(liCreateTime,bpRepayTime);
+    public List<ReportInvestment> betweenDate(String searchDateSt, String searchDateEnd) {
+        return reportInvestmentDao.betweenDate(searchDateSt,searchDateEnd);
+    }
+
+    @Override
+    public List<ReportInvestment> getId(String indBpNumber) {
+        return reportInvestmentDao.getId(indBpNumber);
     }
 
 }
