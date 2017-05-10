@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录 -金额宝</title>
+    #parse("common/head.html")
+    <!--表单验证-->
+    <link rel="stylesheet" href="${filePath}/css/lib/bootstrapValidator.css">
+    <link rel="stylesheet" href="${filePath}/css/login.css">
+</head>
+
+<body>
+
+<!--顶部logo---start-->
+<div class="header-menu">
+    <div class="header-main clearfix">
+        <h1 class="logo fl">
+            <a href="/">
+                <img src="${filePath}/images/logo.png">
+            </a>
+        </h1>
+        <div class="slogan fl">
+            <a href="#">
+                <img src="${filePath}/images/slogan.png">
+            </a>
+        </div>
+    </div>
+</div>
+<!--登陆内容-->
+<div class="login-main clearfix">
+    <div class="login-in">
+        <div class="login-in-tit clearfix">
+            <h2>登录</h2>
+            <p>没有账号？<a href="/account/register">立即注册</a></p>
+        </div>
+        <form action="/api/account/doLogin" method="post" id="loginForm">
+            <div class="userName form-group clearfix">
+                <em></em><input type="text" value="" placeholder="请输入手机号码" name="jebUsername">
+            </div>
+            <div class="userPassword form-group clearfix">
+                <em></em><input type="password" value="" placeholder="请输入登录密码" name="password">
+                <div class="form-group clearfix has-error none" id="login_message">
+                    <p class="help-block"><i class="icon"></i>
+                        <span>登录返回错误</span>
+                    </p>
+                </div>
+            </div>
+            <input type="checkbox" name="remember" value="1"><i class="remember">记住用户</i>
+
+            <a href="#" class="login-in-btn">登录</a>
+            <p class="login-link"><a href="/account/forgot">忘记密码</a></p>
+        </form>
+    </div>
+</div>
+
+#parse("common/footer.html")
+<script src="/content/js/lib/jquery.cookie.min.js"></script>
+<script src="/content/js/lib/bootstrapValidator.js"></script>
+<script src=$UrlHelperTool.href("/content/script/account/login.js")></script>
+</body>
+</html>

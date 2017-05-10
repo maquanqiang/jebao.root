@@ -1,0 +1,51 @@
+<!--顶部logo---start-->
+<div class="header-menu">
+    <div class="header-main clearfix">
+        <h1 class="logo fl">
+            <a href="/">
+                <img src="${filePath}/images/logo.png">
+            </a>
+        </h1>
+        <div class="slogan fl">
+            <a href="#">
+                <img src="${filePath}/images/slogan.png">
+            </a>
+        </div>
+        <ul class="header_nav fr">
+            <li>
+                <a href="/" class="active">首页</a>
+            </li>
+            <li>
+                <a href="/html/product"><img src="${filePath}/images/fire.gif" class="right">我要投资<img src="${filePath}/images/fire.gif" class="left"></a>
+            </li>
+            <li>
+                <a href="/html/secure">安全保障</a>
+            </li>
+            <li>
+                <a href="/user/index">我的账户</a>
+            </li>
+            <!--<li>-->
+                <!--<a href="${filePath}/yybg/index.html">运营报告</a>-->
+            <!--</li>-->
+            <li>
+                <a href="http://oww.jebao.net/" target="_blank">进入老系统</a>
+            </li>
+        </ul>
+        #if(!$_loginUser_header_.isLogin)
+        <div class="header_right">
+            <a href="/account/register">注册送红包</a>
+        </div>
+        #end
+    </div>
+</div>
+<script>
+    var path = location.pathname;
+    $(".header_nav a").each(function(){
+        var hrefVal = $(this).attr("href");
+        if(path == hrefVal){
+            $(this).addClass("active");
+        }else{
+            $(this).removeClass();
+        }
+    })
+</script>

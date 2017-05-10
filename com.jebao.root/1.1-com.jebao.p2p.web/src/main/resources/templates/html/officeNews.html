@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 平台公告 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/index.css">
+    <link rel="stylesheet" href="${filePath}/css/lib/swiper.css">
+</head>
+
+<body>
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--关于我们导航-->
+<div class="aboutUs-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">平台公告</a>
+    </p>
+</div>
+<!--关于我们内容-->
+<div class="aboutUs-main clearfix">
+    <!--关于我们--左侧导航-->
+    #parse("common/sidebar-about.html")
+    <!--关于我们--右侧主要内容-->
+    <div class="aboutUs-content fr">
+        <h2>平台公告</h2>
+        <ul class="trends-list">
+            <li v-for="item in officeNews">
+                <a :href="getDetailHref(item.id)" class="clearfix">
+                    <p><i>●</i>{{ item.title }}</p>
+                    <span>{{ item.editDate }}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="page"></div>
+    </div>
+</div>
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/article/officeNews.js")></script>
+</body>
+</html>

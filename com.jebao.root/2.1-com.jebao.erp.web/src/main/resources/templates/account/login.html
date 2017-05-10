@@ -1,0 +1,37 @@
+<html lang="zh">
+<head>
+    <title>信投资本综合管理系统</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="/content/css/login.css?20161102">
+</head>
+<body>
+<div class="login">
+    <div class="row">
+        <div class="title">信投资本综合管理系统</div>
+        <form action="/api/account/login"  method="post" id="defaultForm">
+            <div class="form-group">
+                <input name="username" placeholder="用户名"type="text" id="user">
+            </div>
+            <div class="form-group">
+                <input name="password" placeholder="密码"  type="password" id="password">
+            </div>
+            <div class="form-group">
+                <input name="verifyCode" placeholder="验证码" type="text" id="photokey">
+            </div>
+            <div class="form-group" style="margin-bottom: 0">
+                <img src="/captcha/getCode"  class="verification" style="cursor: hand">
+            </div>
+            <div>
+                <span class="error" id="error_place_id"></span>
+            </div>
+            <input value="登录" type="button" id="submitBtn" name="submit">
+        </form>
+    </div>
+</div>
+<script src="/content/AdminLTE-2.2.0/plugins/jQuery/jQuery-2.1.4.min.js?20161102"></script>
+<script src="/content/js/lib/bootstrapValidator.js?20161102"></script>
+<script src="/content/js/lib/common.js?20161102"></script>
+<script src="/content/js/lib/ajaxHelper.js?20161102"></script>
+<script src=$UrlHelperTool.href("/content/script/account/login.js")></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<footer>
+    <ul id="footerui">
+        <li><a href="/"><img src="${filePath}/images/footer-index-bg.png"><p  class="choosed">首页</p></a></li>
+        #if($_loginUser_header_.isLogin)
+        <li><a href="/account/"><img src="${filePath}/images/footer-money.png"><p>财富</p></a> </li>
+        <li><a href="/account/setting"><img src="${filePath}/images/footer-set.png"><p>设置</p></a> </li>
+        #else
+        <li><a href="/account/login?redirect=/account/"><img src="${filePath}/images/footer-money.png"><p>财富</p></a> </li>
+        <li><a href="/account/login?redirect=/account/setting"><img src="${filePath}/images/footer-set.png"><p>设置</p></a> </li>
+        #end
+    </ul>
+</footer>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src="${filePath}/js/lib/base.js"></script>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>贷后管理</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content" onload="">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <form action="" class="form-inline" id="defaultForm" method="post" novalidate="novalidate">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    <div class="input-group-addon">标的编号</div>
+                                    <input type="text" class="form-control" placeholder="" v-model="searchObj.indBpNumber" id="indBpNumber">
+                                </div>
+                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<div class="input-group margin">-->
+                                    <!--<div class="input-group-addon">标的状态</div>-->
+                                    <!--<select class="form-control" style="width: 120px;" >-->
+                                        <!--<option value="(7,10)">全部</option>-->
+                                        <!--<option value="(7)">还款中</option>-->
+                                        <!--<option value="(10)">已还款</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">时间</div>
+                                    <input type="text" placeholder="" class="form-control chooseDate" id="searchDateSt"  v-model="searchObj.searchDateSt" name="searchDateSt"/>
+                                </div>
+                                <div class="input-group" style="margin-left:-5px;">
+                                    <div class="input-group-addon">至</div>
+                                    <input type="text" placeholder="" class="form-control chooseDate"  id="searchDateEnd"  v-model="searchObj.searchDateEnd" name="searchDateEnd"/>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group  margin">
+                                    <!--prevent:阻止-->
+                                    <a href="javascript:void(0);" class="btn btn-primary " role="button" id="excel" @click.prevent="excel">导出Excel</a>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <!--@click.prevent="search"-->
+                                <a href="javascript:void(0);" class="btn btn-primary " role="button" id="searchBtn" @click.prevent="search">搜索</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--表格内容-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="orderlist_table" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">标的编号</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">投资人</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">联系电话</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">投资金额</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">投资日期</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">起息日期</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">到期日期</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">投资期限</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">付息方式</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">年化收益率(%)</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">到期分红(元)</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">折标后金额(元)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" class="odd" v-for="data in reportDetailList">
+                                            <td>{{data.bpNumber}}</td>
+                                            <td>{{data.indTrueName}}</td>
+                                            <td>{{data.liLoginName}}</td>
+                                            <td>{{data.liCreateTime}}</td>
+                                            <td>{{data.iiMoney}}</td>
+                                            <td>{{data.bpInterestSt}}</td>
+                                            <td>{{data.bpRepayTime}}</td>
+                                            <td>{{data.bpPeriods}}{{CycleType[data.bpCycleType]}}</td>
+                                            <td>{{InterestPayType[data.bpInterestPayType]}}</td>
+                                            <td>{{data.bpRate}}</td>
+                                            <td>{{data.indMoney}}</td>
+                                            <td>{{data.foldMoney}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 pagination">
+                                    <div id="pageNum"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/report/investment.js")></script>
+<script src=$UrlHelperTool.href("/content/layer/layer.js")></script>
+</body>
+</html>

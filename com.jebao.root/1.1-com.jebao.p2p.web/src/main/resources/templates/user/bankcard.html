@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的银行卡-我的账户</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+</head>
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">我的银行卡</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--我的银行卡-->
+        <div class="my-account">
+            <div class="my-account-title">
+                <h2>我的银行卡</h2>
+            </div>
+        </div>
+
+        <!--添加银行卡-->
+        <div class="project" v-if="hasFundAccount">
+            <div class="account-bankImg ml0 clearfix">
+                <img src="${filePath}/images/account-bank.png" class="fl">
+                <div class="account-bankDetail fl">
+                    <h5 v-text="bankName"></h5>
+                    <p class="card-type">储蓄卡</p>
+                    <p class="card-num" v-text="bankCardNo"></p>
+                    <a href="#"></a>
+                </div>
+            </div>
+            <div class="changeCard">
+                <a href="javascript:void(0);" @click.prevent="goChangeCard">
+                    <img src="${filePath}/images/account-changeCard.png">
+                    <p v-if="newBankCardNo">更换银行卡审核中</p>
+                    <p v-else>更换银行卡</p>
+                </a>
+            </div>
+            <div class="card-reminder reminder">
+                <h4>温馨提示</h4>
+                <p>1.更换的银行卡须是本人为户名的银行卡。</p>
+                <p>2.更换操作成功后，由富友人工审核。</p>
+                <p>3.审核时间：操作成功后的下一个工作日。</p>
+                <p>4.如果您在更换银行卡过程中遇到任何问题，可以直接致电010-65006966或咨询在线客服寻求帮助。</p>
+            </div>
+        </div>
+        <div class="my-account" v-else>
+            <div class="account-install-list">
+                <div class="account-install-item clearfix">
+                    <img src="${filePath}/images/account-error.png">
+                    <h5>资金托管账户</h5>
+                    <p class="pt5">由第三方（富友）提供资金托管服务，保障资金独立与安全</p>
+                    <a href="/userfund/register" class="account-open open-btn">开通</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--内容 end-->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/user/bankcard.js")></script>
+</body>
+</html>

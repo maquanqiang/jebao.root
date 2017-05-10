@@ -1,0 +1,191 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>项目详情</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/project-detail.css">
+
+</head>
+#set($_loginUser_header_=$LoginUserTool.getUser())
+<body>
+<div class="wrap">
+    <form action="/api/product/productDetail" method="post" id="defaultForm">
+        <input id="bpId" name="bpId" type="hidden" value="${bpId}">
+    </form>
+    <header>
+        <div class="plan-title">
+            <p>{{product.bpName}}<span>{{product.bpNumber}}</span></p>
+            <div class="plan-number">{{product.bpRate}}%</div>
+        </div>
+        <div class="plan-progress">
+            <div class="plan-line">
+                <div class="plan-bar" :style="'width:'+ product.progress+'%;'">
+                    <i></i>
+                </div>
+            </div>
+            <div class="num">{{product.progress}}%</div>
+        </div>
+        <div class="plan-value">
+            <div class="plan-info">
+                <div>借款金额（元）</div>
+                <p>{{product.bpBidMoney}}</p>
+            </div>
+            <div class="plan-info">
+                <div>可投金额（元）</div>
+                <p>{{product.bpSurplusMoney}}</p>
+            </div>
+        </div>
+    </header>
+    <!--选项卡-->
+    <div class="project-detail">
+        <div class="project-detail-tit">
+            <h4 class="active">项目信息</h4>
+            <h4>风险控制</h4>
+            <h4>投资记录</h4>
+        </div>
+        <div class="project-detail-list">
+            <div class="project-detail-box active">
+                <div class="project-detail-item">
+                    <p>年化收益</p>
+                    <div class="blue">{{product.bpRate}}%</div>
+                </div>
+                <div class="project-detail-item">
+                    <p>项目期限</p>
+                    <div class="blue">{{product.bpPeriodsDisplay}}{{cycleType[product.bpCycleType]}}</div>
+                </div>
+                <div class="project-detail-item">
+                    <p>还款方式</p>
+                    <div>{{bpInterestPayTypeArr[product.bpInterestPayType]}}</div>
+                </div>
+                <div class="project-detail-item">
+                    <p>起息日期</p>
+                    <div>满标日计息</div>
+                </div>
+                <a :href="'/product/productimg/'+product.bpId" class="project-detail-item">
+                    <p>认证文件</p>
+                    <img src="${filePath}/images/more.png">
+                </a>
+                <div class="project-detail-info">
+                    <p>借款描述</p>
+                    <div>借款人姓名：{{loanerInfo.lTrueName}} <br/> 性别：{{sex[loanerInfo.lSex]}}<br/> 年龄：{{loanerInfo.lAge}}<br/> 身份证号：{{loanerInfo.lIdNumber}}<br/>工作地：{{loanerInfo.lWorkCity}}</div>
+                </div>
+                <div class="project-detail-info">
+                    <p>资金用途</p>
+                    <div  id="bpFundsPurpose"></div>
+                </div>
+                <div class="project-detail-info" style="border-bottom: 0">
+                    <p>个人征信</p>
+                    <div id="bpPersonalCredit"></div>
+                </div>
+                <div v-if="product.bpStatus!=2" >
+                    <a href="javascript:void(0)"   class="project-detail-btn">
+                        <!--满标后不可点击，背景为灰色-->
+                        <button type="button" class="btn-disable">{{bpStatusArr[product.bpStatus]}}</button>
+                    </a>
+                </div>
+                <div v-else>
+                    <div v-if="flag">
+                        #if($_loginUser_header_.isLogin)
+                              #if($_loginUser_header_.isFundAccount)
+                              <a :href="'/product/invest/'+product.bpId"   class="project-detail-btn">
+                            <button type="button"   >立即加入</button>
+                              </a>
+                              #else
+                              <a href="javascript:void(0)"  @click.prevent="validAccount"  class="project-detail-btn">
+                            <button type="button"   >立即加入</button>
+                             </a>
+                             #end
+                        #else
+                        <a :href="'/account/login?redirect=/product/detail/'+product.bpId"    class="project-detail-btn">
+                            <button type="button"   >立即加入</button>
+                        </a>
+                        #end
+                    </div>
+                    <div v-else>
+                        <a href="javascript:void(0);" class="project-detail-btn"> <button type="button"   >倒计时中</button></a>
+                    </div>
+
+                    </a>
+                </div>
+            </div>
+            <div class="project-detail-box">
+                <div class="project-detail-info">
+                    <p>抵押物信息</p>
+                    <div id="bpMortgageInfohtml"></div>
+                </div>
+                <div class="project-detail-info">
+                    <p>还款来源</p>
+                    <div id="bpRepayingSource"></div>
+                </div>
+                <div class="project-detail-info" style="border-bottom: 0">
+                    <p>风控意见</p>
+                    <div  id="bpRiskOpinion"></div>
+                </div>
+                <div v-if="product.bpStatus!=2" >
+                    <a href="javascript:void(0)"   class="project-detail-btn">
+                        <!--满标后不可点击，背景为灰色-->
+                        <button type="button" class="btn-disable">{{bpStatusArr[product.bpStatus]}}</button>
+                    </a>
+                </div>
+                <div v-else>
+                    <div v-if="flag">
+                        #if($_loginUser_header_.isLogin)
+                        #if($_loginUser_header_.isFundAccount)
+                        <a  :href="'/product/invest/'+product.bpId"      class="project-detail-btn">
+                            <button type="button"   >立即加入</button>
+                        </a>
+                        #else
+                        <a href="javascript:void(0)"  @click.prevent="validAccount"  class="project-detail-btn">
+                            <button type="button"   >立即加入</button>
+                        </a>
+                        #end
+                        #else
+                        <a :href="'/account/login?redirect=/product/detail/'+product.bpId"    class="project-detail-btn">
+                            <button type="button"   >立即加入</button>
+                        </a>
+                        #end
+                    </div>
+                    <div v-else>
+                        <a href="javascript:void(0);" class="project-detail-btn"> <button type="button"   >倒计时中</button></a>
+                    </div>
+
+                    </a>
+                </div>
+            </div>
+            <div class="project-detail-box">
+
+                <table class="project-recode">
+                    <thead>
+                    <tr>
+                        <th>用户</th>
+                        <th>投资金额（元）</th>
+                        <th>投资时间</th>
+                    </tr>
+                    </thead>
+                    <tbody  v-if="investInfoList.length!=0"   >
+                    <tr  v-for="(data, index) in investInfoList">
+                        <td>{{data.loginName}}</td>
+                        <td>{{data.money}}</td>
+                        <td>{{data.createTime}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div  v-if="investInfoList.length==0" class="noProject">
+                    <p>暂无记录...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/product/productDetail.js")></script>
+<script src="${filePath}/js/lib/zepto.js"></script>
+<script src="${filePath}/js/lib/base.js"></script>
+<script src="${filePath}/js/assembly/layer/layer.js"></script>
+</html>

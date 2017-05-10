@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.report.InvestmentDetailsMapper">
+
+    <resultMap id="InvestmentMap" type="com.jebao.jebaodb.entity.report.InvestmentDetails">
+        <result column="bp_number" property="bpNumber"/>
+        <result column="ind_true_name" property="indTrueName"/>
+        <result column="ind_money" property="indMoney"/>
+        <result column="li_login_name" property="liLoginName"/>
+        <result column="li_create_time" property="liCreateTime"/>
+        <result column="bp_interest_st" property="bpInterestSt"/>
+        <result column="bp_repay_time" property="bpRepayTime"/>
+        <result column="ii_money" property="iiMoney"/>
+        <result column="bp_cycle_type" property="bpCycleType"/>
+        <result column="bp_interest_pay_type" property="bpInterestPayType"/>
+        <result column="bp_rate" property="bpRate"/>
+        <result column="bp_periods" property="bpPeriods"/>
+    </resultMap>
+    <sql id="InvestmentDetails">
+
+      bp_number, ind_true_name, ind_money, li_login_name, li_create_time, bp_interest_st, bp_repay_time,
+      ii_money, bp_cycle_type, bp_interest_pay_type, bp_rate, bp_periods
+    </sql>
+    <select id="selectByConditionForPage" resultMap="InvestmentMap" parameterType="java.util.Map" >
+        select
+        <include refid="InvestmentDetails"/>
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+        <where>
+            <include refid="selectByCondition_Where_Clause"/>
+
+
+            <if test="investment.searchDateSt!=null and investment.searchDateSt!=''">
+              and li_create_time between #{searchDateSt} and #{searchDateEnd}
+            </if>
+        </where>
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        <if test="pageWhere.begin!=null and pageWhere.pageSize!=null">
+            LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+        </if>
+    </select>
+    <sql id="selectByCondition_Where_Clause">
+        <if test="investment.bpPeriods != null and investment.bpPeriods !=0">
+            AND bp_periods = #{investment.bpPeriods}
+        </if>
+        <if test="investment.bpNumber != null and investment.bpNumber  !=''">
+            AND bp_number = #{investment.bpNumber}
+        </if>
+        <if test="investment.indTrueName != null and investment.indTrueName !=''">
+            AND ind_tree_name = #{investment.indTrueName}
+        </if>
+        <if test="investment.iiMoney != null and investment.iiMoney !=0">
+            AND ii_money= #{investment.iiMoney}
+        </if>
+        <if test="investment.liLoginName != null and investment.liLoginName !=''">
+            AND li_login_name = #{investment.liLoginName}
+        </if>
+        <if test="investment.bpInterestSt != null and investment.bpInterestSt !=''">
+            AND bp_interest_st = #{investment.bpInterestSt}
+        </if>
+        <if test="investment.bpCycleType != null and investment.bpCycleType !=0">
+            AND bp_cycle_type = #{investment.bpCycleType}
+        </if>
+        <if test="investment.bpRepayTime != null and investment.bpRepayTime !=''">
+            AND by_repay_time = #{investment.bpRepayTime}
+        </if>
+        <if test="investment.bpInterestPayType != null and investment.bpInterestPayType !=0">
+            AND bp_interest_pay_type = #{investment.bpInterestPayType}
+        </if>
+        <if test="investment.bpRate != null and investment.bpRate !=''">
+            AND bp_rate = #{investment.bpRate}
+        </if>
+        <if test="investment.indMoney != null and investment.indMoney !=0">
+            AND ind_money= #{investment.indMoney}
+        </if>
+        <if test="investment.liCreateTime != null and investment.liCreateTime != ''">
+            and li_create_time= #{investment.liCreateTime}
+        </if>
+
+    </sql>
+
+    <!--查询当前的数量-->
+    <select id="selectPostLoanDetailCount" resultType="java.lang.Integer">
+        select
+        count(*)
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+
+    </select>
+
+    <!--根据日期查询当前的信息-->
+    <select id="getDate" resultMap="InvestmentMap" parameterType="java.util.Map" >
+        select
+        <include refid="InvestmentDetails"/>
+
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+        where
+        li_create_time between #{searchDateSt} and #{searchDateEnd}
+    </select>
+    <!--&lt;!&ndash;根据标的编号查询相关的数据&ndash;&gt;-->
+    <select id="getId" parameterType="java.util.Map" resultType="java.lang.String" resultMap="InvestmentMap">
+        select
+        <include refid="InvestmentDetails" />
+        from tb_income_detail income
+        LEFT JOIN tb_bid_plan bid ON income.ind_bp_id = bid.bp_id
+        LEFT JOIN tb_login_info info ON income.ind_login_id=info.li_id
+        left join tb_invest_info invest on income.ind_ii_id=invest.ii_id
+        <where>
+            bp_number= #{indBpNumber}
+        </where>
+    </select>
+</mapper>

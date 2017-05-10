@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.article.TbArticleMapper" >
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.article.TbArticle" >
+        <id column="a_id" property="aId" jdbcType="BIGINT" />
+        <result column="a_type_id" property="aTypeId" jdbcType="INTEGER" />
+        <result column="a_title" property="aTitle" jdbcType="VARCHAR" />
+        <result column="a_edit_date" property="aEditDate" jdbcType="TIMESTAMP" />
+        <result column="a_edit_user" property="aEditUser" jdbcType="VARCHAR" />
+        <result column="a_create_user_id" property="aCreateUserId" jdbcType="INTEGER" />
+        <result column="a_create_time" property="aCreateTime" jdbcType="TIMESTAMP" />
+        <result column="a_update_time" property="aUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="a_weight" property="aWeight" jdbcType="INTEGER" />
+        <result column="a_is_del" property="aIsDel" jdbcType="INTEGER" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jebao.jebaodb.entity.article.TbArticle" extends="BaseResultMap" >
+        <result column="a_content" property="aContent" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        a_id, a_type_id, a_title, a_edit_date, a_edit_user, a_create_user_id, a_create_time,
+        a_update_time, a_weight, a_is_del
+    </sql>
+    <sql id="Blob_Column_List" >
+        a_content
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from tb_article
+        where a_id = #{aId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.article.TbArticle" >
+        <selectKey resultType="java.lang.Long" keyProperty="aId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_article (a_type_id, a_title, a_edit_date,
+        a_edit_user, a_create_user_id, a_create_time,
+        a_update_time, a_weight, a_is_del,
+        a_content)
+        values (#{aTypeId,jdbcType=INTEGER}, #{aTitle,jdbcType=VARCHAR}, #{aEditDate,jdbcType=TIMESTAMP},
+        #{aEditUser,jdbcType=VARCHAR}, #{aCreateUserId,jdbcType=INTEGER}, #{aCreateTime,jdbcType=TIMESTAMP},
+        #{aUpdateTime,jdbcType=TIMESTAMP}, #{aWeight,jdbcType=INTEGER}, #{aIsDel,jdbcType=INTEGER},
+        #{aContent,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.article.TbArticle" >
+        <selectKey resultType="java.lang.Long" keyProperty="aId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_article
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="aTypeId != null" >
+                a_type_id,
+            </if>
+            <if test="aTitle != null" >
+                a_title,
+            </if>
+            <if test="aEditDate != null" >
+                a_edit_date,
+            </if>
+            <if test="aEditUser != null" >
+                a_edit_user,
+            </if>
+            <if test="aCreateUserId != null" >
+                a_create_user_id,
+            </if>
+            <if test="aCreateTime != null" >
+                a_create_time,
+            </if>
+            <if test="aUpdateTime != null" >
+                a_update_time,
+            </if>
+            <if test="aWeight != null" >
+                a_weight,
+            </if>
+            <if test="aIsDel != null" >
+                a_is_del,
+            </if>
+            <if test="aContent != null" >
+                a_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="aTypeId != null" >
+                #{aTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="aTitle != null" >
+                #{aTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="aEditDate != null" >
+                #{aEditDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aEditUser != null" >
+                #{aEditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="aCreateUserId != null" >
+                #{aCreateUserId,jdbcType=INTEGER},
+            </if>
+            <if test="aCreateTime != null" >
+                #{aCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aUpdateTime != null" >
+                #{aUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aWeight != null" >
+                #{aWeight,jdbcType=INTEGER},
+            </if>
+            <if test="aIsDel != null" >
+                #{aIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="aContent != null" >
+                #{aContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.article.TbArticle" >
+        update tb_article
+        <set >
+            <if test="aTypeId != null" >
+                a_type_id = #{aTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="aTitle != null" >
+                a_title = #{aTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="aEditDate != null" >
+                a_edit_date = #{aEditDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aEditUser != null" >
+                a_edit_user = #{aEditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="aCreateUserId != null" >
+                a_create_user_id = #{aCreateUserId,jdbcType=INTEGER},
+            </if>
+            <if test="aCreateTime != null" >
+                a_create_time = #{aCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aUpdateTime != null" >
+                a_update_time = #{aUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aWeight != null" >
+                a_weight = #{aWeight,jdbcType=INTEGER},
+            </if>
+            <if test="aIsDel != null" >
+                a_is_del = #{aIsDel,jdbcType=INTEGER},
+            </if>
+            <if test="aContent != null" >
+                a_content = #{aContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where a_id = #{aId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jebao.jebaodb.entity.article.TbArticle" >
+        update tb_article
+        set a_type_id = #{aTypeId,jdbcType=INTEGER},
+        a_title = #{aTitle,jdbcType=VARCHAR},
+        a_edit_date = #{aEditDate,jdbcType=TIMESTAMP},
+        a_edit_user = #{aEditUser,jdbcType=VARCHAR},
+        a_create_user_id = #{aCreateUserId,jdbcType=INTEGER},
+        a_create_time = #{aCreateTime,jdbcType=TIMESTAMP},
+        a_update_time = #{aUpdateTime,jdbcType=TIMESTAMP},
+        a_weight = #{aWeight,jdbcType=INTEGER},
+        a_is_del = #{aIsDel,jdbcType=INTEGER},
+        a_content = #{aContent,jdbcType=LONGVARCHAR}
+        where a_id = #{aId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.article.TbArticle" >
+        update tb_article
+        set a_type_id = #{aTypeId,jdbcType=INTEGER},
+        a_title = #{aTitle,jdbcType=VARCHAR},
+        a_edit_date = #{aEditDate,jdbcType=TIMESTAMP},
+        a_edit_user = #{aEditUser,jdbcType=VARCHAR},
+        a_create_user_id = #{aCreateUserId,jdbcType=INTEGER},
+        a_create_time = #{aCreateTime,jdbcType=TIMESTAMP},
+        a_update_time = #{aUpdateTime,jdbcType=TIMESTAMP},
+        a_weight = #{aWeight,jdbcType=INTEGER},
+        a_is_del = #{aIsDel,jdbcType=INTEGER}
+        where a_id = #{aId,jdbcType=BIGINT}
+    </update>
+    <!--==================================================华丽分割线==================================================-->
+    <resultMap id="ArticleResultMap" type="com.jebao.jebaodb.entity.article.ArticleInfo">
+        <id column="a_id" property="aId" jdbcType="BIGINT"/>
+        <result column="a_type_id" property="aTypeId" jdbcType="INTEGER"/>
+        <result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+        <result column="a_title" property="aTitle" jdbcType="VARCHAR"/>
+        <result column="a_edit_date" property="aEditDate" jdbcType="TIMESTAMP"/>
+        <result column="a_edit_user" property="aEditUser" jdbcType="VARCHAR"/>
+        <result column="a_create_user_id" property="aCreateUserId" jdbcType="INTEGER"/>
+        <result column="a_create_time" property="aCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="a_update_time" property="aUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="a_weight" property="aWeight" jdbcType="INTEGER"/>
+    </resultMap>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        update tb_article
+        set a_is_del = 2
+        where a_id = #{aId,jdbcType=BIGINT}
+    </update>
+    <select id="selectByParamsForPageExt" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from tb_article a
+        where
+        <include refid="selectByParams_Where_Clause"/>
+        order by a.a_weight desc, a.a_edit_date desc
+        limit #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByParamsForPage" resultMap="ArticleResultMap">
+        select
+        a.a_id,
+        a.a_type_id,
+        at.at_name as type_name,
+        a.a_title,
+        a.a_edit_date,
+        a.a_edit_user,
+        a.a_create_user_id,
+        a.a_create_time,
+        a.a_update_time,
+        a.a_weight
+        from tb_article a
+        left join tb_article_type at on a.a_type_id = at.at_id
+        where
+        <include refid="selectByParams_Where_Clause"/>
+        order by a.a_weight desc, a.a_edit_date desc
+        limit #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByParamsForPageCount" resultType="java.lang.Integer">
+        select count(1)
+        from tb_article a
+        where
+        <include refid="selectByParams_Where_Clause"/>
+    </select>
+    <sql id="selectByParams_Where_Clause">
+        a.a_is_del = 1
+        <if test="record.aTitle != null and record.aTitle != ''">
+            and a.a_title = #{record.aTitle}
+        </if>
+        <if test="record.aTypeId != null and record.aTypeId != 0">
+            and a.a_type_id = #{record.aTypeId}
+        </if>
+    </sql>
+</mapper>

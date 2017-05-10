@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.loaner.TbRiskCtlPrjTempMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" >
+    <id column="rcpt_id" property="rcptId" jdbcType="BIGINT" />
+    <result column="rcpt_loaner_id" property="rcptLoanerId" jdbcType="BIGINT" />
+    <result column="rcpt_name" property="rcptName" jdbcType="VARCHAR" />
+    <result column="rcpt_borrow_desc" property="rcptBorrowDesc" jdbcType="VARCHAR" />
+    <result column="rcpt_funds_purpose" property="rcptFundsPurpose" jdbcType="VARCHAR" />
+    <result column="rcpt_repaying_source" property="rcptRepayingSource" jdbcType="VARCHAR" />
+    <result column="rcpt_mortgage_info" property="rcptMortgageInfo" jdbcType="VARCHAR" />
+    <result column="rcpt_personal_credit" property="rcptPersonalCredit" jdbcType="VARCHAR" />
+    <result column="rcpt_opinion" property="rcptOpinion" jdbcType="VARCHAR" />
+    <result column="rcpt_create_time" property="rcptCreateTime" jdbcType="TIMESTAMP" />
+    <result column="rcpt_update_time" property="rcptUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="rcpt_is_del" property="rcptIsDel" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" extends="BaseResultMap" >
+    <result column="rcpt_desc" property="rcptDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rcpt_id, rcpt_loaner_id, rcpt_name, rcpt_borrow_desc, rcpt_funds_purpose, rcpt_repaying_source, 
+    rcpt_mortgage_info, rcpt_personal_credit, rcpt_opinion, rcpt_create_time, rcpt_update_time, 
+    rcpt_is_del
+  </sql>
+  <sql id="Blob_Column_List" >
+    rcpt_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_risk_ctl_prj_temp
+    where rcpt_id = #{rcptId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" >
+    <selectKey resultType="java.lang.Long" keyProperty="rcptId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_risk_ctl_prj_temp (rcpt_loaner_id, rcpt_name, rcpt_borrow_desc, 
+      rcpt_funds_purpose, rcpt_repaying_source, rcpt_mortgage_info, 
+      rcpt_personal_credit, rcpt_opinion, rcpt_create_time, 
+      rcpt_update_time, rcpt_is_del, rcpt_desc
+      )
+    values (#{rcptLoanerId,jdbcType=BIGINT}, #{rcptName,jdbcType=VARCHAR}, #{rcptBorrowDesc,jdbcType=VARCHAR}, 
+      #{rcptFundsPurpose,jdbcType=VARCHAR}, #{rcptRepayingSource,jdbcType=VARCHAR}, #{rcptMortgageInfo,jdbcType=VARCHAR}, 
+      #{rcptPersonalCredit,jdbcType=VARCHAR}, #{rcptOpinion,jdbcType=VARCHAR}, #{rcptCreateTime,jdbcType=TIMESTAMP}, 
+      #{rcptUpdateTime,jdbcType=TIMESTAMP}, #{rcptIsDel,jdbcType=INTEGER}, #{rcptDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" >
+    <selectKey resultType="java.lang.Long" keyProperty="rcptId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_risk_ctl_prj_temp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rcptLoanerId != null" >
+        rcpt_loaner_id,
+      </if>
+      <if test="rcptName != null" >
+        rcpt_name,
+      </if>
+      <if test="rcptBorrowDesc != null" >
+        rcpt_borrow_desc,
+      </if>
+      <if test="rcptFundsPurpose != null" >
+        rcpt_funds_purpose,
+      </if>
+      <if test="rcptRepayingSource != null" >
+        rcpt_repaying_source,
+      </if>
+      <if test="rcptMortgageInfo != null" >
+        rcpt_mortgage_info,
+      </if>
+      <if test="rcptPersonalCredit != null" >
+        rcpt_personal_credit,
+      </if>
+      <if test="rcptOpinion != null" >
+        rcpt_opinion,
+      </if>
+      <if test="rcptCreateTime != null" >
+        rcpt_create_time,
+      </if>
+      <if test="rcptUpdateTime != null" >
+        rcpt_update_time,
+      </if>
+      <if test="rcptIsDel != null" >
+        rcpt_is_del,
+      </if>
+      <if test="rcptDesc != null" >
+        rcpt_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rcptLoanerId != null" >
+        #{rcptLoanerId,jdbcType=BIGINT},
+      </if>
+      <if test="rcptName != null" >
+        #{rcptName,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptBorrowDesc != null" >
+        #{rcptBorrowDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptFundsPurpose != null" >
+        #{rcptFundsPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptRepayingSource != null" >
+        #{rcptRepayingSource,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptMortgageInfo != null" >
+        #{rcptMortgageInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptPersonalCredit != null" >
+        #{rcptPersonalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptOpinion != null" >
+        #{rcptOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptCreateTime != null" >
+        #{rcptCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcptUpdateTime != null" >
+        #{rcptUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcptIsDel != null" >
+        #{rcptIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="rcptDesc != null" >
+        #{rcptDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" >
+    update tb_risk_ctl_prj_temp
+    <set >
+      <if test="rcptLoanerId != null" >
+        rcpt_loaner_id = #{rcptLoanerId,jdbcType=BIGINT},
+      </if>
+      <if test="rcptName != null" >
+        rcpt_name = #{rcptName,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptBorrowDesc != null" >
+        rcpt_borrow_desc = #{rcptBorrowDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptFundsPurpose != null" >
+        rcpt_funds_purpose = #{rcptFundsPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptRepayingSource != null" >
+        rcpt_repaying_source = #{rcptRepayingSource,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptMortgageInfo != null" >
+        rcpt_mortgage_info = #{rcptMortgageInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptPersonalCredit != null" >
+        rcpt_personal_credit = #{rcptPersonalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptOpinion != null" >
+        rcpt_opinion = #{rcptOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="rcptCreateTime != null" >
+        rcpt_create_time = #{rcptCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcptUpdateTime != null" >
+        rcpt_update_time = #{rcptUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcptIsDel != null" >
+        rcpt_is_del = #{rcptIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="rcptDesc != null" >
+        rcpt_desc = #{rcptDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where rcpt_id = #{rcptId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" >
+    update tb_risk_ctl_prj_temp
+    set rcpt_loaner_id = #{rcptLoanerId,jdbcType=BIGINT},
+      rcpt_name = #{rcptName,jdbcType=VARCHAR},
+      rcpt_borrow_desc = #{rcptBorrowDesc,jdbcType=VARCHAR},
+      rcpt_funds_purpose = #{rcptFundsPurpose,jdbcType=VARCHAR},
+      rcpt_repaying_source = #{rcptRepayingSource,jdbcType=VARCHAR},
+      rcpt_mortgage_info = #{rcptMortgageInfo,jdbcType=VARCHAR},
+      rcpt_personal_credit = #{rcptPersonalCredit,jdbcType=VARCHAR},
+      rcpt_opinion = #{rcptOpinion,jdbcType=VARCHAR},
+      rcpt_create_time = #{rcptCreateTime,jdbcType=TIMESTAMP},
+      rcpt_update_time = #{rcptUpdateTime,jdbcType=TIMESTAMP},
+      rcpt_is_del = #{rcptIsDel,jdbcType=INTEGER},
+      rcpt_desc = #{rcptDesc,jdbcType=LONGVARCHAR}
+    where rcpt_id = #{rcptId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.loaner.TbRiskCtlPrjTemp" >
+    update tb_risk_ctl_prj_temp
+    set rcpt_loaner_id = #{rcptLoanerId,jdbcType=BIGINT},
+      rcpt_name = #{rcptName,jdbcType=VARCHAR},
+      rcpt_borrow_desc = #{rcptBorrowDesc,jdbcType=VARCHAR},
+      rcpt_funds_purpose = #{rcptFundsPurpose,jdbcType=VARCHAR},
+      rcpt_repaying_source = #{rcptRepayingSource,jdbcType=VARCHAR},
+      rcpt_mortgage_info = #{rcptMortgageInfo,jdbcType=VARCHAR},
+      rcpt_personal_credit = #{rcptPersonalCredit,jdbcType=VARCHAR},
+      rcpt_opinion = #{rcptOpinion,jdbcType=VARCHAR},
+      rcpt_create_time = #{rcptCreateTime,jdbcType=TIMESTAMP},
+      rcpt_update_time = #{rcptUpdateTime,jdbcType=TIMESTAMP},
+      rcpt_is_del = #{rcptIsDel,jdbcType=INTEGER}
+    where rcpt_id = #{rcptId,jdbcType=BIGINT}
+  </update>
+    <!--==================================================华丽分割线==================================================-->
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        update tb_risk_ctl_prj_temp
+        set rcpt_is_del = 2
+        where rcpt_id = #{rcptId,jdbcType=BIGINT}
+    </update>
+    <update id="deleteByLoanerId" parameterType="java.lang.Long" >
+        update tb_risk_ctl_prj_temp
+        set rcpt_is_del = 2
+        where rcpt_loaner_id = #{rcptLoanerId,jdbcType=BIGINT}
+    </update>
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_risk_ctl_prj_temp
+        order by rcpt_id DESC
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByLoanerIdForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_risk_ctl_prj_temp
+        WHERE
+        <include refid="selectByLoanerId_Where_Clause"/>
+        order by rcpt_id DESC
+        <if test="pageWhere != null" >
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+        </if>
+    </select>
+    <select id="selectByLoanerIdForPageCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_risk_ctl_prj_temp
+        WHERE
+        <include refid="selectByLoanerId_Where_Clause"/>
+    </select>
+    <sql id="selectByLoanerId_Where_Clause">
+        rcpt_is_del=1
+        and rcpt_loaner_id = #{record.rcptLoanerId}
+    </sql>
+</mapper>

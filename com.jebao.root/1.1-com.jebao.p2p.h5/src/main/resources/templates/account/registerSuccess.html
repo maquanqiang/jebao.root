@@ -1,0 +1,22 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>注册成功</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/result.css">
+</head>
+<body>
+<div class="wrap result-main">
+    <img src="${filePath}/images/success-img.jpg">
+    <h3>金额宝账户申请成功</h3>
+    <p>请开通第三方支付账户保障资金安全</p>
+    <a href="/userfund/register" class="goBlue">立即开通</a>
+    <a href="/account/" class="goBlack">我的财富</a>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

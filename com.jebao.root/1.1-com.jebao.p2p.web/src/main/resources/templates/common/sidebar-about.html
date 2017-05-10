@@ -1,0 +1,50 @@
+<!--关于我们--左侧导航-->
+<link rel="stylesheet" href="${filePath}/css/sidebar.css">
+<link rel="stylesheet" href="${filePath}/css/aboutUs.css">
+<div class="aboutUs-sidebar fl">
+    <ul class="sidebar-menu">
+        <li>
+            <a href="/html/company" class="on">
+                <em class="about-company"></em>公司简介
+            </a>
+        </li>
+        <li>
+            <a href="/html/game">
+                <em class="about-team"></em>团队介绍
+            </a>
+        </li>
+        <li>
+            <a href="/html/activity">
+                <em class="about-trends"></em>公司动态
+            </a>
+        </li>
+        <li>
+            <a href="/html/officeNews">
+                <em class="about-notice"></em>平台公告
+            </a>
+        </li>
+        <li>
+            <a href="/html/mediaNews">
+                <em class="about-media"></em>媒体报道
+            </a>
+        </li>
+        <li>
+            <a href="/html/contactUs">
+                <em class="about-contact"></em>联系我们
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    var path = location.pathname;
+    path = path.split('/')[2];
+    $(".sidebar-menu a").each(function(){
+        var hrefVal = $(this).attr("href");
+        hrefVal = hrefVal.split('/')[2];
+        if(path == hrefVal){
+            $(this).addClass("on")
+        }else{
+            $(this).removeClass();
+        }
+    })
+</script>

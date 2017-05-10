@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 公司介绍 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/index.css">
+    <link rel="stylesheet" href="${filePath}/css/lib/swiper.css">
+</head>
+
+<body>
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--关于我们导航-->
+<div class="aboutUs-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">公司简介</a>
+    </p>
+</div>
+<!--关于我们内容-->
+<div class="aboutUs-main clearfix">
+    <!--关于我们--左侧导航-->
+    #parse("common/sidebar-about.html")
+    <!--关于我们--右侧主要内容-->
+    <div class="aboutUs-content fr">
+        <h2>公司介绍</h2>
+        <p class="aboutUs-text">金额宝互联网信息科技（北京）有限公司成立于2015年12月，位于北京CBD金融商圈，注册资本金3000万。</p>
+        <p class="aboutUs-text">金额宝是一家专注于互联网借贷信息咨询及信息中介服务的平台，拥有完整的产品、研发、风控等职能体系，是一家具备优秀的自主研发能力的金融创新型企业。</p>
+        <p class="aboutUs-text">自成立以来，金额宝始终秉承“诚信、规范、专业、透明”的经营理念，通过将大数据、金融云服务、移动互联网等先进的科技与金融服务相融合，努力推动中国普惠金融的创新与发展，致力于为有资金需求的个人及中小微企业提供有效的撮合服务，为广大投资人提供最诚信安全的互联网金融理财服务，促进互联网金融健康发展。</p>
+        <!--<p class="aboutUs-text">金额宝是基于“互联网+”概念的金融信息服务平台，以科技创新的方式推动金融服务的变革，通过大数据、金融云服务、移动互联网等先进的科技与金融技术，为广大高成长性企业带来简单、安全、高效的普惠金融及财富管理服务。</p>-->
+        <!--<p class="aboutUs-text">金额宝由金额宝互联网信息科技（北京）有限公司运营，于2015年11月正式上线，位于北京世纪财富中心。</p>-->
+        <!--<p class="aboutUs-text">创始人及核心管理团队由来自国内知名互联网企业或财富管理机构，在技术研发、金融产品、风险控制等方面积累了丰富经验。金额宝的员工，90%以上具有金融、投资、法律、财务、管理等专业背景和从业经验。</p>-->
+        <!--<p class="aboutUs-text">金额宝独创P2C平台与内部业务系统无缝对接，实现了内部风控审核流程安全可视、透明，成功整合线上与线下业务，是一家优秀的一站式服务的互联网金融服务商。</p>-->
+        <div class="aboutUs-img clearfix">
+            <img src="${filePath}/images/aboutUs-logo.jpg" class="fl">
+            <img src="${filePath}/images/aboutUs-img.jpg" class="fr">
+        </div>
+    </div>
+</div>
+#parse("common/footer.html")
+</body>
+</html>

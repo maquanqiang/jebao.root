@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>金额宝 - 认证文件 </title>
+    #parse("common/head.html")
+    <style>
+        ul,li{margin:0;padding:0;}
+        @media screen and (min-width:240px) {
+            html, body{
+                font-size:9px;
+            }
+        }
+        @media screen and (min-width:320px) {
+            html, body{
+                font-size:12px;
+            }
+        }
+        @media screen and (min-width:480px) {
+            html, body{
+                font-size:18px;
+            }
+        }
+        @media screen and (min-width:640px) {
+            html, body{
+                font-size:24px;
+            }
+        }
+        @media screen and (min-width:960px) {
+            html, body{
+                font-size:36px;
+            }
+        }
+        div.imgbox{width:25rem;overflow:hidden;margin:0 auto;}
+        div.imgbox ul{clear:both;width:75rem;display: inline-block;margin-top: 5rem;}
+        div.imgbox ul li{float:left;width:25rem;overflow:hidden;text-align:center;}
+        div.imgbox ul li img{width:24rem;height:40rem;}
+        #page{color:#4c7ee9;font-size: 1.5rem;}
+        .text-page{text-align: center;font-size: 1.5rem;margin-top: 3rem;color: #303030;}
+    </style>
+</head>
+<body >
+<div class="cert" >
+    <div  v-if="riskDataList.length>0">
+<div  class="imgbox">
+    <input id="bpId" name="bpId" type="hidden" value="${bpId}">
+    <ul>
+        <li v-for="data in riskDataList"><a href="javascript:void(0)"><img :src="data.brdPath"></a></li>
+    </ul>
+</div>
+
+<div  class="text-page"><span id="page">1</span>/{{riskDataList.length}}</div>
+    </div>
+
+<div  v-else>
+    <h3 style="text-align: center;font-size: 1.5rem;margin-top: 3rem;color: #303030;">暂无数据</h3>
+</div>
+</div>
+<script src=$UrlHelperTool.href("/content/script/product/slider-H5.js")></script>
+<script>
+
+</script>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/product/productimg.js")></script>
+</body>
+</html>

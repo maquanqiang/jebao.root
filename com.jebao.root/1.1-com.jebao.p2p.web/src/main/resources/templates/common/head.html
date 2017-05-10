@@ -1,0 +1,38 @@
+#set($filePath = $UrlHelperTool.getStaticFilePath())
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1" >
+<meta name="keywords" content="金额宝,投资,金融,高息,理财,理财产品,稳健" />
+<meta name="description" content="专业的p2p投融资平台" />
+<meta name="author" content="金额宝" />
+<meta name="Copyright" content="金额宝网版权所有" />
+
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="stylesheet" href="${filePath}/css/lib/base.css">
+<script src="/content/js/lib/jquery.js"></script>
+<style>
+    .none{display: none!important;}
+    .hidden{visibility: hidden!important;}
+    .form-control[disabled],
+    .form-control[readonly]{
+        cursor: not-allowed;
+        background-color: #eee;
+        opacity: 1;
+    }
+    [v-cloak] {
+        display: none;
+    }
+    .disabled {
+        background-color: #ffffff;
+        border-color: #cccccc;
+    }
+    .btn.disabled, input[disabled],textarea[disabled] {
+        pointer-events: none;
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .65;
+    }
+</style>

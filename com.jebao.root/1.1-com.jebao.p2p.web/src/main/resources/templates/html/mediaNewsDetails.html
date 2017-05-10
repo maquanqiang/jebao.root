@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 媒体报道 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/index.css">
+    <link rel="stylesheet" href="${filePath}/css/lib/swiper.css">
+</head>
+
+<body>
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--关于我们导航-->
+<div class="aboutUs-nav">
+    <p>
+        <a href="/">首页</a><a href="/html/mediaNews" class="red">媒体报道</a><a href="javascript:void(0);" class="red">正文</a>
+    </p>
+</div>
+<!--关于我们内容-->
+<div class="aboutUs-main clearfix">
+    <!--关于我们--左侧导航-->
+    #parse("common/sidebar-about.html")
+    <!--关于我们--右侧主要内容-->
+    <div class="aboutUs-content fr">
+        <form id="defaultForm"><input type="hidden" name="aId" value="${aId}"/></form>
+        <h3>{{ mediaNew.title }}</h3>
+        <p class="release-time">时间：{{ mediaNew.updateTime }}</p>
+        <div id="id_content" class="aboutUs-text"></div>
+        <p class="aboutUs-company">{{ mediaNew.editUser }}</p>
+        <p class="aboutUs-time">{{ mediaNew.editDate }}</p>
+    </div>
+</div>
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/article/mediaNewsDetails.js")></script>
+</body>
+</html>

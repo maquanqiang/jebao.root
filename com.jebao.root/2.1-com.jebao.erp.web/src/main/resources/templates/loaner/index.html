@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>借款人管理</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content" id="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <form action="" class="form-inline" id="search_form" novalidate="novalidate">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    <div class="input-group-addon">用户名</div>
+                                    <input type="text" class="form-control" placeholder="" name="nickName" v-model="searchObj.nickName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    <div class="input-group-addon">手机号</div>
+                                    <input type="text" class="form-control" placeholder="" name="phone" v-model="searchObj.phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    <div class="input-group-addon">姓名</div>
+                                    <input type="text" class="form-control" placeholder="" name="trueName" v-model="searchObj.trueName">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="input-group  margin">
+                                    <a href="javascript:void(0);" class="btn btn-primary" role="button" id="btnSearch" @click.prevent="search">搜索</a>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <a href="javascript:void(0);" class="btn btn-primary" role="button" id="add-people" @click.prevent="openPostForm">添加借款人</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--表格内容-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="orderlist_table" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">用户名</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">姓名</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">手机号</th>
+                                            <th width="15%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">注册时间</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">实际借款笔数</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">实际借款金额</th>
+                                            <th width="25%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" v-for="item in loaners">
+                                                <td>{{item.nickName}}</td>
+                                                <td>{{item.trueName}}</td>
+                                                <td>{{item.phone}}</td>
+                                                <td>{{item.registerTime}}</td>
+                                                <td>{{item.borrowCount}}</td>
+                                                <td>{{item.borrowAmount}}</td>
+                                                <td>
+                                                    <a href="javascript:void(0);" class="btn btn-default btn-xs" role="button" @click.prevent="openEditForm(item.id)">修改</a>
+                                                    <a :href="'/loaner/details/'+item.id" class="btn btn-default btn-xs" role="button" target="_blank">查看详情</a>
+                                                    <a :href="'/loaner/funds/'+item.loginId" class="btn btn-default btn-xs" role="button" target="_blank">资金信息</a>
+                                                    <a :href="'/loaner/loanrecord/'+item.id" class="btn btn-default btn-xs" role="button" target="_blank">借款信息</a>
+                                                    <a :href="'/loaner/risk/index/'+item.id" class="btn btn-default btn-xs" role="button" target="_blank">风控信息</a>
+                                                    <a href="javascript:void(0);" class="btn btn-default btn-xs remove-msg" role="button" @click.prevent="openDeleteWin(item.id)">删除</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 pagination">
+                                    <div id="pageNum"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--提示框-->
+<!--添加个人借款用户-->
+<div class="modal col-xs-12" id="addInforModal">
+    <form class="form-horizontal">
+        <div class="box-body">
+            <div class="row form-group">
+                <input type="hidden" name="id">
+                <label class="col-sm-4 control-label"><span class="text-red">*</span>注册手机号:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control import-phone" placeholder="" name="phone">
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" class="import-btn" placeholder="" value="导入用户信息" @click="doImport">
+                </div>
+            </div>
+        </div>
+        <div class="box-title">
+            <h5>基本资料</h5>
+        </div>
+        <div class="box-body" id="Template-UserInfoView">
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-4">
+                    <input type="hidden" name="id" value="0">
+                    <input type="text" class="form-control" placeholder="" name="nickName" v-model="userInfo.nickName" readonly>
+                </div>
+                <label class="col-sm-2 control-label">真实姓名</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="trueName" v-model="userInfo.trueName" readonly>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">身份证号</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="idNumber" v-model="userInfo.idNumber" readonly>
+                </div>
+                <label class="col-sm-2 control-label">性别</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="sex" v-model.number="userInfo.sex" disabled>
+                        <option value="0">请选择</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">年龄</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="age" v-model="userInfo.age" readonly>
+                </div>
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="email" v-model="userInfo.email" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="box-title">
+            <h5>详细资料</h5>
+        </div>
+        <div class="box-body">
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">婚姻状况</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="maritalStatus">
+                        <option value="0">请选择</option>
+                        <option value="1">已婚</option>
+                        <option value="2">未婚</option>
+                        <option value="3">离异</option>
+                        <option value="4">丧偶</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">常住地址</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="homeAdd">
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">户口所在地</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="hkadr">
+                </div>
+                <label class="col-sm-2 control-label">政治面貌</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="politicsStatus">
+                        <option value="0">请选择</option>
+                        <option value="1">团员</option>
+                        <option value="2">党员</option>
+                        <option value="3">群众</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">学历</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="education">
+                        <option value="0">请选择</option>
+                        <option value="1">小学</option>
+                        <option value="2">初中</option>
+                        <option value="3">高中</option>
+                        <option value="4">大专</option>
+                        <option value="5">本科</option>
+                        <option value="6">硕士</option>
+                        <option value="7">博士</option>
+                        <option value="8">其他</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">信用状况</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="creditStatus">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">月收入</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="monthlySalary">
+                </div>
+                <label class="col-sm-2 control-label">工作城市</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="workCity">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">名下是否有房</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="ishaveHouse">
+                        <option value="0">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">是否有车</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="ishaveCar">
+                        <option value="0">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </div>
+            </div>
+            <div class="has-error" :class="{hide:error.hide }">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-8">
+                    <small class="help-block">{{error.message}}</small>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--修改个人借款用户-->
+<div class="modal col-xs-12" id="modInforInfModal">
+    <form class="form-horizontal">
+        <div class="box-title">
+            <h5>基本资料</h5>
+        </div>
+        <div class="box-body">
+            <div class="row form-group">
+                <input type="hidden" name="id" v-model.number="formData.id">
+                <label class="col-sm-2 control-label">手机号</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="phone" v-model="formData.phone" readonly>
+                </div>
+                <label class="col-sm-2 control-label">角色</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" value="借款人" readonly>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="nickName" v-model="formData.nickName" readonly>
+                </div>
+                <label class="col-sm-2 control-label">真实姓名</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="trueName" v-model="formData.trueName" readonly>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">身份证号</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder=""  name="idNumber" v-model="formData.idNumber" readonly>
+                </div>
+                <label class="col-sm-2 control-label">性别</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="sex" v-model.number="formData.sex" disabled>
+                        <option value="0">请选择</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">年龄</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="age" v-model="formData.age" readonly>
+                </div>
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="email" v-model="formData.email" readonly>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">注册时间</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="registerTime" v-model="formData.registerTime" readonly>
+                </div>
+                <label class="col-sm-2 control-label">最后一次登录</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="lastLoginTime" v-model="formData.lastLoginTime" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="box-title">
+            <h5>详细资料</h5>
+        </div>
+        <div class="box-body">
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">婚姻状况</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="maritalStatus" v-model.number="formData.maritalStatus">
+                        <option value="0">请选择</option>
+                        <option value="1">已婚</option>
+                        <option value="2">未婚</option>
+                        <option value="3">离异</option>
+                        <option value="4">丧偶</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">常住地址</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="homeAdd" v-model="formData.homeAdd">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">户口所在地</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="hkadr" v-model="formData.hkadr">
+                </div>
+                <label class="col-sm-2 control-label">政治面貌</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="politicsStatus" v-model.number="formData.politicsStatus">
+                        <option value="0">请选择</option>
+                        <option value="1">团员</option>
+                        <option value="2">党员</option>
+                        <option value="3">群众</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">学历</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="education" v-model.number="formData.education">
+                        <option value="0">请选择</option>
+                        <option value="1">小学</option>
+                        <option value="2">初中</option>
+                        <option value="3">高中</option>
+                        <option value="4">大专</option>
+                        <option value="5">本科</option>
+                        <option value="6">硕士</option>
+                        <option value="7">博士</option>
+                        <option value="8">其他</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">信用状况</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="creditStatus" v-model="formData.creditStatus">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">月收入</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="monthlySalary" v-model="formData.monthlySalary">
+                </div>
+                <label class="col-sm-2 control-label">工作城市</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="" name="workCity" v-model="formData.workCity">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">名下是否有房</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="ishaveHouse" v-model.number="formData.ishaveHouse">
+                        <option value="0">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">是否有车</label>
+                <div class="col-sm-4">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;" name="ishaveCar" v-model.number="formData.ishaveCar">
+                        <option value="0">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </div>
+            </div>
+            <div class="has-error" :class="{hide:error.hide }">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-8">
+                    <small class="help-block">{{error.message}}</small>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/loaner/index.js")></script>
+</body>
+</html>

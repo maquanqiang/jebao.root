@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的红包-我的账户</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+    <style type="text/css">
+        .imgbox{position: relative;
+            width: 100px;
+            height: 108px;
+            margin: 0 auto;}
+        .imgbox .imgmoney{ position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 34px;
+            line-height:34px;
+            margin-left: -50px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;}
+        /*样式修改*/
+        td{border-color:#fff;border-width:10px;}
+       .lijishiyong{width: 128px; display: inline-block; text-align: center;height: 30px;
+           line-height: 30px; border: 1px solid #0491f4; border-radius: 6px;color:#0491f4}
+        .lijishiyong:hover{background-color:#0491f4;color:#fff;border-color:#0491f4; transition: all 0.2s ease-in-out;}
+        .xinyonghu_strong{color:#333;font-size:16px;font-weight:600;}
+        .xinyonghu_b{color:#e94615;font-size:12px;}
+        .youxiaoqi_b{color:#ffad30;font-size:12px;}
+
+    </style>
+</head>
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">我的红包</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--我的红包-->
+        <div class="my-account">
+            <h2>我的红包</h2>
+        </div>
+        <!--可使用红包-->
+        <div class="project">
+            <div class="project-menu clearfix">
+                <h4 class="active" @click="searchList(0)">未使用</h4>
+                <h4 @click="searchList(1)">已使用</h4>
+                <h4 @click="searchList(2)">已过期</h4>
+            </div>
+            <div class="project-list">
+                <div class="voucher-item active">
+                    <table class="voucher"  width="800">
+                        <tbody v-show="isHasData">
+                        <tr v-for="item in voucherList">
+                            <td v-if="searchObj.vStatus==0">
+                                <div class="imgbox">
+                                    <img src="${filePath}/images/en-voucher-pc.png">
+                                    <div class="imgmoney">{{item.vAmount}}元</div>
+                                </div>
+
+                            </td>
+                            <td v-if="searchObj.vStatus==1">
+                                <div class="imgbox">
+                                    <img src="${filePath}/images/dis-voucher-pc.png">
+                                    <div class="imgmoney">{{item.vAmount}}元</div>
+                                </div>
+                            </td>
+                            <td v-if="searchObj.vStatus==2">
+                                <div class="imgbox">
+                                    <img src="${filePath}/images/dis-voucher-pc.png">
+                                    <div class="imgmoney">{{item.vAmount}}元</div>
+                                </div>
+                            </td>
+                            <!--<td>{{ item.vName }}</td>-->
+                            <td align="left" style="line-height:180%"><strong class="xinyonghu_strong">&nbsp&nbsp投{{ item.vMinPrice }}返{{ item.vAmount }}元<b class="xinyonghu_b">（{{item.channelType}}）</b></strong><br/>
+                                &nbsp&nbsp使用范围：仅限投资{{ item.vMinCycle }}月及以上标的可用<br/>
+                                &nbsp&nbsp使用规则：单笔投资额在{{ item.vMinPrice }}（含）以上，立返{{ item.vAmount }}元<br/>
+                                <span v-if="searchObj.vStatus==1">&nbsp&nbsp使用时间：{{ item.vUpdatetime }}</span>
+                                <span v-else>&nbsp&nbsp有效期限：<b class="youxiaoqi_b">{{ item.vEndtime }}</b>前有效</span>
+                            </td>
+                            <td v-if="searchObj.vStatus==0"><a href="/html/product" class="lijishiyong">立即使用</a></td>
+                            <td v-if="searchObj.vStatus==1"><img src="${filePath}/images/used-pc.png"></td>
+                            <td v-if="searchObj.vStatus==2"><img src="${filePath}/images/due-pc.png"></td>
+                            </td>
+                        </tr>
+                        <!--<span style="width:100%;border-bottom:1px solid #E5E5E5;display: block;"></span>-->
+                        </tbody>
+                    </table>
+                    <!--无投资项目-->
+                    <div v-show="!isHasData" class="noProject">
+                        <p>
+                            暂无
+                        </p>
+                    </div>
+                    <div class="page" id="pageNum">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容 end-->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/user/voucher.js")></script>
+</body>
+</html>

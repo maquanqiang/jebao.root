@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 主页金额宝 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/result.css">
+
+</head>
+#set($_loginUser_header_=$LoginUserTool.getUser())
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--结果内容-->
+<div class="result-main clearfix">
+    <div class="result-content">
+        <img src="${filePath}/images/result-right.png">
+        <h4>投标成功！</h4>
+        <p>您的投标金额为<span class="money">${investMoney}</span>元，<span class="time">3</span>秒后返回<a href="/user/index" class="myAccount">我的账户</a></p>
+        <a href="/html/product" class="function-btn">继续投资</a>
+    </div>
+</div>
+#parse("common/footer.html")
+<script>
+    //设定倒数秒数
+    var t = 3;
+    //显示倒数秒数
+    function showTime(){
+        t -= 1;
+        $(".time").html(t);
+        if(t==0){
+            location.href='/user/index';
+        }
+        //每秒执行一次,showTime()
+        setTimeout("showTime()",1000);
+    }
+    //执行showTime()
+    showTime();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>实名信息 -金额宝</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/lib/bootstrapValidator.css">
+    <link rel="stylesheet" href="${filePath}/css/realName.css">
+</head>
+
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--内容 begin-->
+<div class="realName-main clearfix">
+
+    <!--步骤-->
+    <div class="step">
+        <ul class="clearfix">
+            <li class="line">
+                <i class="step-one"></i>实名认证
+            </li>
+            <li>
+                <i class="step-two"></i>绑卡
+            </li>
+            <li>
+                <i class="step-complete"></i>完成
+            </li>
+        </ul>
+    </div>
+    <div class="realName-content">
+        <h4>开通富友</h4>
+        <form action="/api/userfund/goregister"  method="post" id="defaultForm" autocomplete="off">
+            <div class="userName form-group clearfix">
+                <div>真实姓名</div>
+                <input type="text" placeholder="请输入真实姓名" name="realName" value="$!{realName}">
+            </div>
+            <div class="userId  form-group clearfix">
+                <div>身份证号</div>
+                <input type="text" placeholder="请输入身份证号" name="idCard" value="$!{idCard}">
+            </div>
+            <div class="realName-detail">
+                <a href="javascript:void(0);" class="authenticate" @click.prevent="submit">立即开通</a>
+                <p class="tip"><em></em>温馨提示：</p>
+                <p class="pay-partner">开通富友资金账户，才能进行投资。</p>
+                <p class="pay-partner">富友支付是金额宝平台的第三方支付及资金托管合作方，于2011年获得中国人民银行颁发的《支付业务许可证》，2014年成为“上海市网络信贷服务业企业联盟”成员单位。</p>
+            </div>
+        </form>
+        <input type="hidden" id="real_name_error" value="$!{realName_error}">
+        <input type="hidden" id="id_card_error" value="$!{idCard_error}">
+    </div>
+
+</div>
+<!--内容 end-->
+
+
+#parse("common/footer.html")
+<script src="/content/js/lib/bootstrapValidator.js"></script>
+<script src="/content/js/lib/bootstrapValidator.ext.js"></script>
+<script src="/content/script/userfund/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.employee.TbEmployeeLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.employee.TbEmployeeLog" >
+    <id column="el_id" property="elId" jdbcType="INTEGER" />
+    <result column="el_emp_id" property="elEmpId" jdbcType="INTEGER" />
+    <result column="el_content" property="elContent" jdbcType="VARCHAR" />
+    <result column="el_operator" property="elOperator" jdbcType="INTEGER" />
+    <result column="el_operate_time" property="elOperateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    el_id, el_emp_id, el_content, el_operator, el_operate_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_employee_log
+    where el_id = #{elId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLog" >
+    <selectKey resultType="java.lang.Integer" keyProperty="elId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_employee_log (el_emp_id, el_content, el_operator, 
+      el_operate_time)
+    values (#{elEmpId,jdbcType=INTEGER}, #{elContent,jdbcType=VARCHAR}, #{elOperator,jdbcType=INTEGER}, 
+      #{elOperateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLog" >
+    <selectKey resultType="java.lang.Integer" keyProperty="elId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_employee_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="elEmpId != null" >
+        el_emp_id,
+      </if>
+      <if test="elContent != null" >
+        el_content,
+      </if>
+      <if test="elOperator != null" >
+        el_operator,
+      </if>
+      <if test="elOperateTime != null" >
+        el_operate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="elEmpId != null" >
+        #{elEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="elContent != null" >
+        #{elContent,jdbcType=VARCHAR},
+      </if>
+      <if test="elOperator != null" >
+        #{elOperator,jdbcType=INTEGER},
+      </if>
+      <if test="elOperateTime != null" >
+        #{elOperateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLog" >
+    update tb_employee_log
+    <set >
+      <if test="elEmpId != null" >
+        el_emp_id = #{elEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="elContent != null" >
+        el_content = #{elContent,jdbcType=VARCHAR},
+      </if>
+      <if test="elOperator != null" >
+        el_operator = #{elOperator,jdbcType=INTEGER},
+      </if>
+      <if test="elOperateTime != null" >
+        el_operate_time = #{elOperateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where el_id = #{elId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.employee.TbEmployeeLog" >
+    update tb_employee_log
+    set el_emp_id = #{elEmpId,jdbcType=INTEGER},
+      el_content = #{elContent,jdbcType=VARCHAR},
+      el_operator = #{elOperator,jdbcType=INTEGER},
+      el_operate_time = #{elOperateTime,jdbcType=TIMESTAMP}
+    where el_id = #{elId,jdbcType=INTEGER}
+  </update>
+</mapper>

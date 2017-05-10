@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>信投资本综合管理系统</title>
+    #parse("common/head.html")
+    <link href="/content/plugins/fileinput/css/fileinput.min.css" rel="stylesheet">
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部菜单 -->
+    #parse("common/main-header.html")
+    <!-- 左侧菜单 -->
+    #parse("common/main-sidebar.html")
+    <!-- 页面主内容 -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>批量上传员工信息</h1>
+        </section>
+        <section class="content">
+            <!--write something -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">选择上传文件</h3>
+                        </div><!-- /.box-header -->
+                        <form id="form1" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="col-md-8">
+                                    <!-- Custom icons for docx, xlsx, pptx, jpg, pdf, zip -->
+                                    <input type="file" id="upfile" name="upfile"/>
+                                    <input type="hidden" name="dir" value="image">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <a href="/employee/uploadtemplate" class="btn btn-primary" target="_blank">模板下载</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">数据预览</h3>
+                        </div><!-- /.box-header -->
+
+                        <div class="box-body">
+
+                            <table class="table table-bordered table-hover dataTable">
+                                <thead>
+                                <tr>
+                                    <th v-for="cellItem in theads">{{cellItem}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <template v-for="rowItem in tbodies">
+                                    <tr>
+                                        <td v-for="cellItem in rowItem">{{cellItem}}</td>
+                                    </tr>
+                                </template>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+    <!-- /.content-wrapper -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+#include("common/footer.html")
+<script src="/content/plugins/fileinput/fileinput.min.js"></script>
+<script src="/content/script/employee/upload.js"></script>
+</body>
+</html>

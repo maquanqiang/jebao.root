@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.user.TbBankCityMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.user.TbBankCity" >
+    <id column="bc_city_id" property="bcCityId" jdbcType="INTEGER" />
+    <result column="bc_provinces_code" property="bcProvincesCode" jdbcType="VARCHAR" />
+    <result column="bc_city_code" property="bcCityCode" jdbcType="VARCHAR" />
+    <result column="bc_city_name" property="bcCityName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bc_city_id, bc_provinces_code, bc_city_code, bc_city_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bank_city
+    where bc_city_id = #{bcCityId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.user.TbBankCity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bcCityId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_bank_city (bc_provinces_code, bc_city_code, bc_city_name
+      )
+    values (#{bcProvincesCode,jdbcType=VARCHAR}, #{bcCityCode,jdbcType=VARCHAR}, #{bcCityName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.user.TbBankCity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bcCityId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_bank_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcProvincesCode != null" >
+        bc_provinces_code,
+      </if>
+      <if test="bcCityCode != null" >
+        bc_city_code,
+      </if>
+      <if test="bcCityName != null" >
+        bc_city_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcProvincesCode != null" >
+        #{bcProvincesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCityCode != null" >
+        #{bcCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCityName != null" >
+        #{bcCityName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.user.TbBankCity" >
+    update tb_bank_city
+    <set >
+      <if test="bcProvincesCode != null" >
+        bc_provinces_code = #{bcProvincesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCityCode != null" >
+        bc_city_code = #{bcCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCityName != null" >
+        bc_city_name = #{bcCityName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bc_city_id = #{bcCityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.user.TbBankCity" >
+    update tb_bank_city
+    set bc_provinces_code = #{bcProvincesCode,jdbcType=VARCHAR},
+      bc_city_code = #{bcCityCode,jdbcType=VARCHAR},
+      bc_city_name = #{bcCityName,jdbcType=VARCHAR}
+    where bc_city_id = #{bcCityId,jdbcType=INTEGER}
+  </update>
+</mapper>

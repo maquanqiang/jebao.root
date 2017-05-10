@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.employee.TbDepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.employee.TbDepartment" >
+    <id column="dep_id" property="depId" jdbcType="INTEGER" />
+    <result column="dep_name" property="depName" jdbcType="VARCHAR" />
+    <result column="dep_parent_id" property="depParentId" jdbcType="INTEGER" />
+    <result column="dep_is_department" property="depIsDepartment" jdbcType="BIT" />
+    <result column="dep_is_del" property="depIsDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dep_id, dep_name, dep_parent_id, dep_is_department, dep_is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_department
+    where dep_id = #{depId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.employee.TbDepartment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="depId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_department (dep_name, dep_parent_id, dep_is_department,
+    dep_is_del)
+    values (#{depName,jdbcType=VARCHAR}, #{depParentId,jdbcType=INTEGER}, #{depIsDepartment,jdbcType=BIT},
+    #{depIsDel,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.employee.TbDepartment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="depId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depName != null" >
+        dep_name,
+      </if>
+      <if test="depParentId != null" >
+        dep_parent_id,
+      </if>
+      <if test="depIsDepartment != null" >
+        dep_is_department,
+      </if>
+      <if test="depIsDel != null" >
+        dep_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depName != null" >
+        #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depParentId != null" >
+        #{depParentId,jdbcType=INTEGER},
+      </if>
+      <if test="depIsDepartment != null" >
+        #{depIsDepartment,jdbcType=BIT},
+      </if>
+      <if test="depIsDel != null" >
+        #{depIsDel,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.employee.TbDepartment" >
+    update tb_department
+    <set >
+      <if test="depName != null" >
+        dep_name = #{depName,jdbcType=VARCHAR},
+      </if>
+      <if test="depParentId != null" >
+        dep_parent_id = #{depParentId,jdbcType=INTEGER},
+      </if>
+      <if test="depIsDepartment != null" >
+        dep_is_department = #{depIsDepartment,jdbcType=BIT},
+      </if>
+      <if test="depIsDel != null" >
+        dep_is_del = #{depIsDel,jdbcType=BIT},
+      </if>
+    </set>
+    where dep_id = #{depId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.employee.TbDepartment" >
+    update tb_department
+    set dep_name = #{depName,jdbcType=VARCHAR},
+    dep_parent_id = #{depParentId,jdbcType=INTEGER},
+    dep_is_department = #{depIsDepartment,jdbcType=BIT},
+    dep_is_del = #{depIsDel,jdbcType=BIT}
+    where dep_id = #{depId,jdbcType=INTEGER}
+  </update>
+
+
+  <!--==================================================华丽分割线==================================================-->
+  <select id="selectList" resultMap="BaseResultMap" parameterType="com.jebao.jebaodb.entity.employee.search.DepartmentSM">
+    SELECT <include refid="Base_Column_List"></include> FROM tb_department
+    <where>
+      <include refid="dynamicWehre"/>
+    </where>
+    order by dep_parent_id LIMIT #{begin},#{pageSize}
+  </select>
+  <select id="selectListCount" resultType="integer" parameterType="com.jebao.jebaodb.entity.employee.search.DepartmentSM">
+    SELECT COUNT(*) FROM tb_department
+    <where>
+      <include refid="dynamicWehre"/>
+    </where>
+  </select>
+  <sql id="dynamicWehre">
+    <if test="name != null and name != ''">
+      AND dep_name LIKE #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId != null">
+      AND (dep_parent_id = #{parentId,jdbcType=INTEGER}
+      <if test="parentAndSelf">
+        or dep_id = #{parentId,jdbcType=INTEGER}
+      </if>
+      )
+    </if>
+    <if test="isDepartment != null">
+      AND  dep_is_department = #{isDepartment,jdbcType=BIT}
+    </if>
+
+  </sql>
+  
+  <delete id="delete" parameterType="integer">
+    UPDATE tb_department SET dep_is_del=1 where dep_id = #{value,jdbcType=INTEGER}
+  </delete>
+
+</mapper>

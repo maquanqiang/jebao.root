@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>信投资本综合管理系统</title>
+    #parse("common/head.html")
+    <style>
+        /*覆盖layer的超高z-index，解决select2的弹出层被覆盖问题*/
+        .layui-layer,.layui-layer-shade{z-index:9998!important;}
+        /*select2的弹出层z-index高于layer*/
+        .select2-dropdown{z-index: 9999}
+        /*组织架构图css*/
+        .tree ul {
+            padding-top: 20px; position: relative;
+
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        .tree li {
+            float: left; text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 5px 5px;
+
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        /*使用 ::before and ::after 绘制连接线*/
+        .tree li::before, .tree li::after{
+            content: '';
+            position: absolute; top: 0; right: 50%;
+            border-top: 1px solid #ccc;
+            width: 50%; height: 20px;
+        }
+        .tree li::after{
+            right: auto; left: 50%;
+            border-left: 1px solid #ccc;
+        }
+        /*We need to remove left-right connectors from elements without
+        any siblings*/
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+        /*Remove space from the top of single children*/
+        .tree li:only-child{ padding-top: 0;}
+        /*Remove left connector from first child and
+        right connector from last child*/
+        .tree li:first-child::before, .tree li:last-child::after{
+            border: 0 none;
+        }
+        /*Adding back the vertical connector to the last nodes*/
+        .tree li:last-child::before{
+            border-right: 1px solid #ccc;
+            border-radius: 0 5px 0 0;
+            -webkit-border-radius: 0 5px 0 0;
+            -moz-border-radius: 0 5px 0 0;
+        }
+        .tree li:first-child::after{
+            border-radius: 5px 0 0 0;
+            -webkit-border-radius: 5px 0 0 0;
+            -moz-border-radius: 5px 0 0 0;
+        }
+        /*Time to add downward connectors from parents*/
+        .tree ul ul::before{
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            border-left: 1px solid #ccc;
+            width: 0; height: 20px;
+        }
+        .tree li a{
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #666;
+            font-family: arial, verdana, tahoma;
+            font-size: 11px;
+            display: inline-block;
+
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        /*Time for some hover effects*/
+        /*We will apply the hover effect the the lineage of the element also*/
+        .tree li a:hover, .tree li a:hover+ul li a {
+            background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+        }
+        /*Connector styles on hover*/
+        .tree li a:hover+ul li::after,
+        .tree li a:hover+ul li::before,
+        .tree li a:hover+ul::before,
+        .tree li a:hover+ul ul::before{
+            border-color:  #94a0b4;
+        }
+    </style>
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部菜单 -->
+    #parse("common/main-header.html")
+    <!-- 左侧菜单 -->
+    #parse("common/main-sidebar.html")
+    <!-- 页面主内容 -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>部门管理</h1>
+        </section>
+        <section class="content">
+            <!-- 查询条件块 -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <form class="form-inline" id="search_form" novalidate="novalidate" autocomplete="off">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">名称</div>
+                                        <input type="text" class="form-control" name="name" v-model="searchObj.name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">只看部级</div>
+                                        <select class="form-control" name="isDepartment" style="width: 15rem;" v-model="searchObj.isDepartment">
+                                            <option value="">全部</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group margin">
+                                        <div class="input-group-addon">部门</div>
+                                        <select class="select2" name="parentId" style="width: 15rem;" v-model.number="searchObj.parentId">
+                                            <option value="">全部</option>
+                                            <option v-for="item in departments" :value="item.id">{{ item.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="input-group  margin">
+                                        <a href="javascript:void(0);" class="btn btn-primary" role="button" id="btnSearch"
+                                           @click.prevent="search">搜索</a>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="input-group  margin">
+                                        <a href="javascript:void(0);" class="btn btn-primary " role="button" id="add-people"
+                                           @click.prevent="openPostForm(0)">添加</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--表格数据块-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="nav-tabs-custom">
+                        <!-- Tabs within a box -->
+                        <ul class="nav nav-tabs pull-right ui-sortable-handle">
+                            <li><a href="#content-chart" data-toggle="tab">图表</a></li>
+                            <li class="active"><a href="#content-table" data-toggle="tab">表格</a></li>
+                            <li class="pull-left header"><i class="fa fa-bar-chart-o"></i> 部门/团队信息</li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <!-- tab 表格内容切换区域 -->
+                            <div class="chart tab-pane active" id="content-table">
+                                <table class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>上级名称</th>
+                                        <th>是否部级</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <template v-for="item in dataList">
+                                        <tr>
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.parentName}}</td>
+                                            <td>{{item.isDepartment?"是":"否"}}</td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="btn btn-default btn-xs"
+                                                   role="button" @click.prevent="openPostForm(item.id)">修改</a>
+                                                <a href="javascript:void(0);" class="btn btn-default btn-xs remove-msg"
+                                                   role="button" @click.prevent="openDeleteWin(item.id)">删除</a>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- tab 图形区域 -->
+                            <div class="chart tab-pane" id="content-chart">
+
+                                <div class="tree">
+                                    <ul>
+                                        <tree-item :model="treeData"></tree-item>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+    </div>
+    <!-- /.content-wrapper -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+<!--添加模板-->
+<div class="modal col-xs-12 js-open-modal">
+    <form class="form-horizontal">
+        <input type="hidden" name="id" v-model.number="formData.id" >
+        <div class="box-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">名称:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" autocomplete="off" name="name" v-model="formData.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">上级部门:</label>
+                <div class="col-sm-8">
+                    <select class="select2" style="width:100%;height: 34px;border-color: #d2d6de;"  name="parentId" v-model.number="formData.parentId" :disabled="isEdit">
+                        <option value="0">无</option>
+                        <option v-for="item in departments" :value="item.id">{{ item.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">级别:</label>
+                <div class="col-sm-8">
+                    <select class="form-control" style="width:100%;height: 34px;border-color: #d2d6de;"  name="isDepartment" v-model.number="formData.isDepartment" :disabled="isEdit">
+                        <option value="1">部门</option>
+                        <option value="0">团队/小组</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="has-error" :class="{hide:error.hide }">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-8">
+                    <small class="help-block">{{error.message}}</small>
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </form>
+</div>
+
+#include("common/footer.html")
+
+<!-- item template -->
+<script type="text/x-template" id="item-template">
+    <li>
+        <a href="javascript:void(0);" @click.prevent="toggle">{{model.name}}  <span v-if="hasChildren" class="glyphicon" :class="open?'glyphicon-chevron-down':'glyphicon-chevron-up'"></span></a>
+
+        <ul v-show="open" v-if="hasChildren">
+            <tree-item v-for="item in model.children" :model="item"></tree-item>
+        </ul>
+    </li>
+</script>
+<script src=$UrlHelperTool.href("/content/script/employee/department.js")></script>
+</body>
+</html>

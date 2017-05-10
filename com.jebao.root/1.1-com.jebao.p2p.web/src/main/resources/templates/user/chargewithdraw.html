@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>充值提现-我的账户</title>
+    #parse("common/head.html")
+    <!--css-->
+    <link rel="stylesheet" href="${filePath}/css/lib/bootstrapValidator.css">
+    <link rel="stylesheet" href="${filePath}/css/sidebar.css">
+    <link rel="stylesheet" href="${filePath}/css/myAccount.css">
+</head>
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--我的账户导航-->
+<div class="account-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">充值提现</a>
+    </p>
+</div>
+<!--我的账户内容-->
+<div class="account-main clearfix">
+    <!--我的账户--左侧导航-->
+    #parse("user/sidebar.html")
+    <!--我的账户--右侧主要内容-->
+    <div class="account-content fr">
+        <!--账户总览-->
+        <div class="my-account">
+            <h2>充值提现</h2>
+        </div>
+        <!--充值提现-->
+        <div class="account-rex" v-if="hasFundAccount">
+            <input type="hidden" id="typeId" value="${typeId}">
+            <div class="account-rex-tit clearfix">
+                <h4 class="active">我要充值</h4>
+                <h4>我要提现</h4>
+            </div>
+            <div class="account-rex-list">
+                <div class="account-rex-item  active">
+                    <div class="recharge-type">
+                        <div class="rechange-type-title clearfix">
+                            <h5 class="active">快捷充值</h5>
+                            <h5 v-show="posStatus">快速充值</h5>
+                            <h5 v-show="!posStatus">网银充值</h5>
+                        </div>
+                        <div class="rechange-list">
+                            <div class="rechange-item active">
+                                <form id="quickPay_form" action="/api/user/quickpay" method="post" autocomplete="off">
+                                    <div class="account-bankImg clearfix">
+                                        <img src="${filePath}/images/account-bank.png" class="fl">
+                                        <div v-cloak class="account-bankDetail fl">
+                                            <h5>{{ bankInfo.bankName }}</h5>
+                                            <p class="card-type">储蓄卡</p>
+                                            <p class="card-num">{{ bankInfo.bankCardNo }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="account-banktext clearfix">
+                                        <h5>可用金额：</h5>
+                                        <span class="red" v-cloak>{{ bankInfo.balance }}</span><i>元</i>
+                                    </div>
+                                    <div class="form-group account-banktext clearfix">
+                                        <h5>充值金额：</h5>
+                                        <input type="text" name="money" value="" placeholder="请输入充值金额">
+                                        <span>元</span>
+                                    </div>
+                                    <a href="javascript:void(0);" class="account-btn" @click.prevent="submit('#quickPay_form')">充值</a>
+                                    <div class="postal-reminder reminder">
+                                        <h4>温馨提示</h4>
+                                        <p>1.充值在富友系统确认完成。</p>
+                                        <p>2.充值未完成，请勿关闭浏览器窗口，操作完成后，浏览器会自动跳转返回到网站界面。</p>
+                                        <p>3.如果您在充值过程中遇到任何问题，可以直接致电010-65006966或咨询在线客服寻求帮助。</p>
+                                    </div>
+                                </form>
+                            </div>
+                            <div v-show="posStatus" class="rechange-item">
+                                <form id="fastRecharge_form" action="/api/user/fastRecharge" method="post" autocomplete="off">
+                                    <div class="account-banktext clearfix">
+                                        <h5>可用金额：</h5>
+                                        <span class="red" v-cloak>{{ bankInfo.balance }}</span><i>元</i>
+                                    </div>
+                                    <div class="form-group account-banktext clearfix">
+                                        <h5>充值金额：</h5>
+                                        <input type="text" name="money" value="" placeholder="请输入充值金额">
+                                        <span>元</span>
+                                    </div>
+                                    <a href="javascript:void(0);" class="account-btn" @click.prevent="submit('#fastRecharge_form')">充值</a>
+                                    <div class="postal-reminder reminder">
+                                        <h4>温馨提示</h4>
+                                        <p>1.充值在富友系统确认完成。</p>
+                                        <p>2.充值未完成，请勿关闭浏览器窗口，操作完成后，浏览器会自动跳转返回到网站界面。</p>
+                                        <p>3.如果您在充值过程中遇到任何问题，可以直接致电010-65006966或咨询在线客服寻求帮助。</p>
+                                    </div>
+                                </form>
+                            </div>
+                            <div v-show="!posStatus" class="rechange-item">
+                                <form id="onlineBankRecharge_form" action="/api/user/onlineBankRecharge" method="post" autocomplete="off">
+                                    <div class="account-banktext clearfix">
+                                        <h5>可用金额：</h5>
+                                        <span class="red" v-cloak>{{ bankInfo.balance }}</span><i>元</i>
+                                    </div>
+                                    <div class="form-group account-banktext clearfix">
+                                        <h5>充值金额：</h5>
+                                        <input type="text" name="money" value="" placeholder="请输入充值金额">
+                                        <span>元</span>
+                                    </div>
+                                    <a href="javascript:void(0);" class="account-btn" @click.prevent="submit('#onlineBankRecharge_form')">充值</a>
+                                    <div class="postal-reminder reminder">
+                                        <h4>温馨提示</h4>
+                                        <p>1.充值在富友系统确认完成。</p>
+                                        <p>2.充值未完成，请勿关闭浏览器窗口，操作完成后，浏览器会自动跳转返回到网站界面。</p>
+                                        <p>3.如果您在充值过程中遇到任何问题，可以直接致电010-65006966或咨询在线客服寻求帮助。</p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-rex-item">
+                    <form id="withdrawDeposit_form" action="/api/user/withdrawDeposit" method="post" autocomplete="off">
+                        <div class="account-bankImg clearfix">
+                            <img src="${filePath}/images/account-bank.png" class="fl">
+                            <div class="account-bankDetail fl" v-cloak>
+                                <h5>{{ bankInfo.bankName }}</h5>
+                                <p class="card-type">储蓄卡</p>
+                                <p class="card-num">{{ bankInfo.bankCardNo }}</p>
+                            </div>
+                        </div>
+                        <div class="account-banktext clearfix">
+                            <h5>可用金额：</h5>
+                            <span class="red" v-cloak>{{ bankInfo.balance }}</span><i>元</i>
+                        </div>
+                        <div class="form-group account-banktext clearfix">
+                            <h5>提现金额：</h5>
+                            <input type="text" name="money" value="" placeholder="请输入提现金额">
+                            <span>元</span>
+                        </div>
+                        <div class="account-banktext clearfix">
+                            <h5>到账时间：</h5>
+                            <p>预计<span>{{ inTime }} </span><em>( 实际到账时间以银行入账为准 )</em></p>
+                        </div>
+                        <div class="account-banktext clearfix">
+                            <h5>手续费：</h5>
+                            <span>$UrlHelperTool.getFee()元</span>
+                        </div>
+                        <a href="javascript:void(0);" class="account-btn" @click.prevent="submit('#withdrawDeposit_form')">提现</a>
+                        <div class="postal-reminder reminder">
+                            <h4>温馨提示</h4>
+                            <p>1.提现在富友系统确认完成。</p>
+                            <p>2.提现未完成，请勿关闭浏览器窗口，操作完成后，浏览器会自动跳转返回到网站界面。</p>
+                            <p>3.如果您在提现过程中遇到任何问题，可以直接致电010-65006966或咨询在线客服寻求帮助。</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="my-account" v-else>
+            <div class="account-install-list">
+                <div class="account-install-item clearfix">
+                    <img src="${filePath}/images/account-error.png">
+                    <h5>资金托管账户</h5>
+                    <p class="pt5">由第三方（富友）提供资金托管服务，保障资金独立与安全</p>
+                    <a href="/userfund/register" class="account-open open-btn">开通</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--内容 end-->
+#parse("common/footer.html")
+<script src="/content/js/lib/bootstrapValidator.js"></script>
+<script src="/content/js/lib/bootstrapValidator.ext.js"></script>
+<script src=$UrlHelperTool.href("/content/script/user/chargewithdraw.js")></script>
+</body>
+</html>

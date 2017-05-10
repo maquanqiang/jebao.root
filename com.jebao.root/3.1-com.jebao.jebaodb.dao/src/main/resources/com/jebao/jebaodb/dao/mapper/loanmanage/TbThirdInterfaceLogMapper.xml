@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.loanmanage.TbThirdInterfaceLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.loanmanage.TbThirdInterfaceLog" >
+    <id column="til_id" property="tilId" jdbcType="BIGINT" />
+    <result column="til_type" property="tilType" jdbcType="INTEGER" />
+    <result column="til_serial_number" property="tilSerialNumber" jdbcType="VARCHAR" />
+    <result column="til_return_code" property="tilReturnCode" jdbcType="VARCHAR" />
+    <result column="til_req_text" property="tilReqText" jdbcType="VARCHAR" />
+    <result column="til_resp_text" property="tilRespText" jdbcType="VARCHAR" />
+    <result column="til_create_time" property="tilCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    til_id, til_type, til_serial_number, til_return_code,
+    til_req_text, til_resp_text, til_create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_third_interface_log
+    where til_id = #{tilId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.loanmanage.TbThirdInterfaceLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="tilId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_third_interface_log (til_type, til_serial_number,
+      til_return_code, til_req_text,
+      til_resp_text, til_create_time)
+    values (#{tilType,jdbcType=INTEGER}, #{tilSerialNumber,jdbcType=VARCHAR},
+      #{tilReturnCode,jdbcType=VARCHAR}, #{tilReqText,jdbcType=VARCHAR},
+      #{tilRespText,jdbcType=VARCHAR}, #{tilCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.loanmanage.TbThirdInterfaceLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="tilId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_third_interface_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tilType != null" >
+        til_type,
+      </if>
+      <if test="tilSerialNumber != null" >
+        til_serial_number,
+      </if>
+      <if test="tilReturnCode != null" >
+        til_return_code,
+      </if>
+      <if test="tilReqText != null" >
+        til_req_text,
+      </if>
+      <if test="tilRespText != null" >
+        til_resp_text,
+      </if>
+      <if test="tilCreateTime != null" >
+        til_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tilType != null" >
+        #{tilType,jdbcType=INTEGER},
+      </if>
+      <if test="tilSerialNumber != null" >
+        #{tilSerialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tilReturnCode != null" >
+        #{tilReturnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tilReqText != null" >
+        #{tilReqText,jdbcType=VARCHAR},
+      </if>
+      <if test="tilRespText != null" >
+        #{tilRespText,jdbcType=VARCHAR},
+      </if>
+      <if test="tilCreateTime != null" >
+        #{tilCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.loanmanage.TbThirdInterfaceLog" >
+    update tb_third_interface_log
+    <set >
+      <if test="tilType != null" >
+        til_type = #{tilType,jdbcType=INTEGER},
+      </if>
+      <if test="tilSerialNumber != null" >
+        til_serial_number = #{tilSerialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tilReturnCode != null" >
+        til_return_code = #{tilReturnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tilReqText != null" >
+        til_req_text = #{tilReqText,jdbcType=VARCHAR},
+      </if>
+      <if test="tilRespText != null" >
+        til_resp_text = #{tilRespText,jdbcType=VARCHAR},
+      </if>
+      <if test="tilCreateTime != null" >
+        til_create_time = #{tilCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where til_id = #{tilId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.loanmanage.TbThirdInterfaceLog" >
+    update tb_third_interface_log
+    set
+      til_type = #{tilType,jdbcType=INTEGER},
+      til_serial_number = #{tilSerialNumber,jdbcType=VARCHAR},
+      til_return_code = #{tilReturnCode,jdbcType=VARCHAR},
+      til_req_text = #{tilReqText,jdbcType=VARCHAR},
+      til_resp_text = #{tilRespText,jdbcType=VARCHAR},
+      til_create_time = #{tilCreateTime,jdbcType=TIMESTAMP}
+    where til_id = #{tilId,jdbcType=BIGINT}
+  </update>
+</mapper>

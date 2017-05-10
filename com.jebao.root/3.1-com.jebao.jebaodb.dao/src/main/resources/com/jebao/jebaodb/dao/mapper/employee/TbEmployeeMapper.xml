@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.employee.TbEmployeeMapper" >
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.employee.TbEmployee" >
+        <id column="emp_id" property="empId" jdbcType="INTEGER" />
+        <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+        <result column="emp_mobilephone" property="empMobilephone" jdbcType="VARCHAR" />
+        <result column="emp_card_no" property="empCardNo" jdbcType="VARCHAR" />
+        <result column="emp_sex" property="empSex" jdbcType="INTEGER" />
+        <result column="emp_birthday" property="empBirthday" jdbcType="DATE" />
+        <result column="emp_status" property="empStatus" jdbcType="INTEGER" />
+        <result column="emp_entry_date" property="empEntryDate" jdbcType="DATE" />
+        <result column="emp_dimission_date" property="empDimissionDate" jdbcType="DATE" />
+        <result column="emp_is_deleted" property="empIsDeleted" jdbcType="BIT" />
+        <result column="emp_create_time" property="empCreateTime" jdbcType="TIMESTAMP" />
+        <result column="emp_create_user" property="empCreateUser" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        emp_id, emp_name, emp_mobilephone, emp_card_no, emp_sex, emp_birthday, emp_status,
+        emp_entry_date, emp_dimission_date, emp_is_deleted, emp_create_time, emp_create_user
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from tb_employee
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.employee.TbEmployee" >
+        <selectKey resultType="java.lang.Integer" keyProperty="empId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_employee (emp_name, emp_mobilephone, emp_card_no,
+        emp_sex, emp_birthday, emp_status,
+        emp_entry_date, emp_dimission_date, emp_is_deleted,
+        emp_create_time, emp_create_user)
+        values (#{empName,jdbcType=VARCHAR}, #{empMobilephone,jdbcType=VARCHAR}, #{empCardNo,jdbcType=VARCHAR},
+        #{empSex,jdbcType=INTEGER}, #{empBirthday,jdbcType=DATE}, #{empStatus,jdbcType=INTEGER},
+        #{empEntryDate,jdbcType=DATE}, #{empDimissionDate,jdbcType=DATE}, #{empIsDeleted,jdbcType=BIT},
+        #{empCreateTime,jdbcType=TIMESTAMP}, #{empCreateUser,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.employee.TbEmployee" >
+        <selectKey resultType="java.lang.Integer" keyProperty="empId" order="AFTER" >
+            SELECT LAST_INSERT_ID() AS empId
+        </selectKey>
+        insert into tb_employee
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="empName != null" >
+                emp_name,
+            </if>
+            <if test="empMobilephone != null" >
+                emp_mobilephone,
+            </if>
+            <if test="empCardNo != null" >
+                emp_card_no,
+            </if>
+            <if test="empSex != null" >
+                emp_sex,
+            </if>
+            <if test="empBirthday != null" >
+                emp_birthday,
+            </if>
+            <if test="empStatus != null" >
+                emp_status,
+            </if>
+            <if test="empEntryDate != null" >
+                emp_entry_date,
+            </if>
+            <if test="empDimissionDate != null" >
+                emp_dimission_date,
+            </if>
+            <if test="empIsDeleted != null" >
+                emp_is_deleted,
+            </if>
+            <if test="empCreateTime != null" >
+                emp_create_time,
+            </if>
+            <if test="empCreateUser != null" >
+                emp_create_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="empName != null" >
+                #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="empMobilephone != null" >
+                #{empMobilephone,jdbcType=VARCHAR},
+            </if>
+            <if test="empCardNo != null" >
+                #{empCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="empSex != null" >
+                #{empSex,jdbcType=INTEGER},
+            </if>
+            <if test="empBirthday != null" >
+                #{empBirthday,jdbcType=DATE},
+            </if>
+            <if test="empStatus != null" >
+                #{empStatus,jdbcType=INTEGER},
+            </if>
+            <if test="empEntryDate != null" >
+                #{empEntryDate,jdbcType=DATE},
+            </if>
+            <if test="empDimissionDate != null" >
+                #{empDimissionDate,jdbcType=DATE},
+            </if>
+            <if test="empIsDeleted != null" >
+                #{empIsDeleted,jdbcType=BIT},
+            </if>
+            <if test="empCreateTime != null" >
+                #{empCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empCreateUser != null" >
+                #{empCreateUser,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.employee.TbEmployee" >
+        update tb_employee
+        <set >
+            <if test="empName != null" >
+                emp_name = #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="empMobilephone != null" >
+                emp_mobilephone = #{empMobilephone,jdbcType=VARCHAR},
+            </if>
+            <if test="empCardNo != null" >
+                emp_card_no = #{empCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="empSex != null" >
+                emp_sex = #{empSex,jdbcType=INTEGER},
+            </if>
+            <if test="empBirthday != null" >
+                emp_birthday = #{empBirthday,jdbcType=DATE},
+            </if>
+            <if test="empStatus != null" >
+                emp_status = #{empStatus,jdbcType=INTEGER},
+            </if>
+            <if test="empEntryDate != null" >
+                emp_entry_date = #{empEntryDate,jdbcType=DATE},
+            </if>
+            <if test="empDimissionDate != null" >
+                emp_dimission_date = #{empDimissionDate,jdbcType=DATE},
+            </if>
+            <if test="empIsDeleted != null" >
+                emp_is_deleted = #{empIsDeleted,jdbcType=BIT},
+            </if>
+            <if test="empCreateTime != null" >
+                emp_create_time = #{empCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="empCreateUser != null" >
+                emp_create_user = #{empCreateUser,jdbcType=INTEGER},
+            </if>
+        </set>
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.employee.TbEmployee" >
+        update tb_employee
+        set emp_name = #{empName,jdbcType=VARCHAR},
+        emp_mobilephone = #{empMobilephone,jdbcType=VARCHAR},
+        emp_card_no = #{empCardNo,jdbcType=VARCHAR},
+        emp_sex = #{empSex,jdbcType=INTEGER},
+        emp_birthday = #{empBirthday,jdbcType=DATE},
+        emp_status = #{empStatus,jdbcType=INTEGER},
+        emp_entry_date = #{empEntryDate,jdbcType=DATE},
+        emp_dimission_date = #{empDimissionDate,jdbcType=DATE},
+        emp_is_deleted = #{empIsDeleted,jdbcType=BIT},
+        emp_create_time = #{empCreateTime,jdbcType=TIMESTAMP},
+        emp_create_user = #{empCreateUser,jdbcType=INTEGER}
+        where emp_id = #{empId,jdbcType=INTEGER}
+    </update>
+
+
+    <!--==================================================华丽分割线==================================================-->
+    <resultMap id="EmployeeResultMap" type="com.jebao.jebaodb.entity.employee.EmployeeInfo">
+        <id column="emp_id" property="employee.empId" jdbcType="INTEGER"/>
+        <result column="edr_effect_date" property="edrEffectDate" jdbcType="DATE"/>
+        <result column="edr_expiry_date" property="edrExpiryDate" jdbcType="DATE"/>
+        <result column="err_effect_date" property="errEffectDate" jdbcType="DATE"/>
+        <result column="err_expiry_date" property="errExpiryDate" jdbcType="DATE"/>
+        <result column="lg_status" property="lgStatus" jdbcType="INTEGER"/>
+        <association property="employee" javaType="com.jebao.jebaodb.entity.employee.TbEmployee"
+                     resultMap="BaseResultMap"/>
+        <association column="dep_id" property="department" javaType="com.jebao.jebaodb.entity.employee.TbDepartment"
+                     resultMap="com.jebao.jebaodb.dao.mapper.employee.TbDepartmentMapper.BaseResultMap" />
+        <association column="rank_id" property="rank" javaType="com.jebao.jebaodb.entity.employee.TbRank"
+                     resultMap="com.jebao.jebaodb.dao.mapper.employee.TbRankMapper.BaseResultMap" />
+    </resultMap>
+
+    <sql id="selectEmployeeDetailsInfoSql">
+        tb_employee emp
+        LEFT JOIN tb_emp_dep_relationship edr ON edr.edr_emp_id = emp.emp_id
+        AND #{historyDate,jdbcType=DATE} BETWEEN edr.edr_effect_date
+        AND IFNULL(
+        edr.edr_expiry_date,
+        DATE_ADD(#{historyDate,jdbcType=DATE}, INTERVAL 1 DAY)
+        )
+        LEFT JOIN tb_department dep ON dep.dep_id = edr.edr_dep_id
+        LEFT JOIN tb_emp_rank_relationship err ON err.err_emp_id = emp.emp_id
+        AND #{historyDate,jdbcType=DATE} BETWEEN err.err_effect_date
+        AND IFNULL(
+        err.err_expiry_date,
+        DATE_ADD(#{historyDate,jdbcType=DATE}, INTERVAL 1 DAY)
+        )
+        LEFT JOIN tb_rank rank ON rank.rank_id = err.err_rank_id
+        WHERE
+        emp.emp_is_deleted = 0 <include refid="dynamicJoinWehre"/>
+    </sql>
+    <select id="selectEmployeeDetailsInfo" resultMap="EmployeeResultMap" parameterType="com.jebao.jebaodb.entity.employee.search.EmployeeSM">
+        SELECT
+        emp.*, dep.*, edr.edr_effect_date,
+        edr.edr_expiry_date,
+        rank.*, err.err_effect_date,
+        err.err_expiry_date
+        FROM <include refid="selectEmployeeDetailsInfoSql"/>
+        order by emp_id DESC LIMIT #{begin},#{pageSize}
+    </select>
+    <select id="selectEmployeeDetailsInfoCount" resultType="integer" parameterType="com.jebao.jebaodb.entity.employee.search.EmployeeSM">
+        SELECT COUNT(*)
+        FROM <include refid="selectEmployeeDetailsInfoSql"/>
+    </select>
+
+    <sql id="dynamicJoinWehre">
+        <if test="empId != null and empId>0">
+            AND emp_id = #{empId,jdbcType=INTEGER}
+        </if>
+        <if test="name != null and name != ''">
+            AND emp_name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND  emp_mobilephone = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="cardNo != null">
+            AND emp_card_no = #{cardNo,jdbcType=VARCHAR}
+        </if>
+        <if test="teamId > 0">
+            AND  dep_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        <if test="rankId > 0">
+            AND  rank_id = #{rankId,jdbcType=INTEGER}
+        </if>
+
+    </sql>
+
+    <resultMap id="EmpPerformanceInfoResult" type="com.jebao.jebaodb.entity.employee.EmpPerformanceInfo">
+        <id column="ii_id" property="orderId" jdbcType="BIGINT"/>
+        <result column="ii_money" property="orderMoney" jdbcType="DECIMAL"/>
+        <result column="ii_create_time" property="orderCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="ii_bp_id" property="productId" jdbcType="INTEGER"/>
+        <result column="ii_bp_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="ud_true_name" property="trueName" jdbcType="VARCHAR"/>
+        <result column="ud_phone" property="mobilePhone" jdbcType="VARCHAR"/>
+        <result column="emp_id" property="empId" jdbcType="INTEGER"/>
+        <result column="emp_name" property="empName" jdbcType="VARCHAR"/>
+        <result column="emp_mobilephone" property="empMobilePhone" jdbcType="VARCHAR"/>
+        <result column="dep_id" property="depId" jdbcType="INTEGER"/>
+        <result column="dep_name" property="depName" jdbcType="VARCHAR"/>
+        <result column="dep_parent_id" property="depParentId" jdbcType="INTEGER"/>
+        <result column="dep_is_department" property="depIsDepartment" jdbcType="BIT"/>
+        <result column="rank_id" property="rankId" jdbcType="INTEGER"/>
+        <result column="rank_name" property="rankName" jdbcType="VARCHAR"/>
+        <result column="rank_parent_id" property="rankParentId" jdbcType="INTEGER"/>
+        <result column="rank_brokerage_percent" property="rankBrokeragePercent" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="selectEmpPerformance" resultMap="EmpPerformanceInfoResult" parameterType="com.jebao.jebaodb.entity.employee.search.EmployeeSM">
+        SELECT invest.ii_id,invest.ii_money,invest.ii_create_time,invest.ii_bp_id,invest.ii_bp_name,ud.ud_true_name,ud.ud_phone,
+        emp.emp_id,emp.emp_name,emp.dep_id,emp.dep_name,emp.dep_parent_id,emp.dep_is_department,emp.rank_id,emp.rank_name,emp.rank_parent_id,emp.rank_brokerage_percent
+        FROM tb_invest_info invest
+        INNER JOIN tb_user_details ud ON ud.ud_login_id = invest.ii_login_id
+        INNER JOIN v_employee emp ON emp.emp_id = ud.ud_customer_manager_id
+        WHERE ud.ud_customer_manager_id > 0 <include refid="selectEmpPerformanceWehre"/> LIMIT #{begin},#{pageSize}
+    </select>
+    <select id="selectEmpPerformanceCount" resultType="integer">
+        SELECT COUNT(*)
+        FROM tb_invest_info invest
+        INNER JOIN tb_user_details ud ON ud.ud_login_id = invest.ii_login_id
+        INNER JOIN v_employee emp ON emp.emp_id = ud.ud_customer_manager_id
+        WHERE ud.ud_customer_manager_id > 0 <include refid="selectEmpPerformanceWehre"/>
+    </select>
+
+    <sql id="selectEmpPerformanceWehre">
+        <if test="empId != null and empId>0">
+            AND emp_id = #{empId,jdbcType=INTEGER}
+        </if>
+        <if test="name != null and name != ''">
+            AND emp_name like #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND  emp_mobilephone = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="teamId > 0">
+            AND  dep_id = #{teamId,jdbcType=INTEGER}
+        </if>
+        <if test="rankId > 0">
+            AND  rank_id = #{rankId,jdbcType=INTEGER}
+        </if>
+
+    </sql>
+
+
+</mapper>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    #set($filePath = $UrlHelperTool.getStaticFilePath())
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>操作失败 -金额宝</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="eamil=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="${filePath}/css/lib/base.css">
+    <style>
+        .wrap{
+            width: 100%;
+            text-align: center;
+            padding-top: 55%;
+        }
+        .wrap h1{
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: .8rem;
+        }
+        .wrap p{
+            font-size: 0.8rem;
+            color:#999999 ;
+            margin-bottom: .3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>${title}</h1>
+    <p>$!{content}</p>
+    <p>请稍后再试或咨询<span>010-65006966</span></p>
+</div>
+</body>
+</html>

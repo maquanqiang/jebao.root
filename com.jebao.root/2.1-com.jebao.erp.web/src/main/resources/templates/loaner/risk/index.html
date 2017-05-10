@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>风控信息</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <form id="search_form"><input type="hidden" name="loanerId" value="${loanerId}"/></form>
+                    <div class="box-body pad table-responsive">
+                        <a href="/loaner/risk/info/${loanerId}/rId/0" class="btn btn-primary" role="button">添加</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--风控信息-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="orderlist_table" class="table table-bordered table-hover dataTable"
+                                           role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="33%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">项目名称
+                                            </th>
+                                            <th width="33%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">更新时间
+                                            </th>
+                                            <th width="33%" class="ui-state-default sorting_disabled" rowspan="1"
+                                                colspan="1">操作
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <template v-for="item in risks">
+                                            <tr role="row">
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.updateTime }}</td>
+                                                <td>
+                                                    <a :href="getEditHref(item.loanerId,item.id)"
+                                                       class="btn btn-default btn-xs" role="button">修改</a>
+                                                    <a :href="'/loaner/risk/details/'+item.id" class="btn btn-default btn-xs"
+                                                       role="button" target="_blank">查看详情</a>
+                                                    <a :href="'/loaner/risk/materials/'+item.id" class="btn btn-default btn-xs"
+                                                       role="button" target="_blank">认证材料</a>
+                                                    <a href="javascript:void(0);" class="btn btn-default btn-xs remove-msg"
+                                                       role="button" @click.prevent="openDeleteWin(item.id)">删除</a>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<input type="hidden" id="hidden_active_menu" value="/loaner/index">
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/loaner/risk/index.js")></script>
+</body>
+</html>

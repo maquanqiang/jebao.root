@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.user.TbAccountsFundsMapper" >
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.user.TbAccountsFunds" >
+        <id column="af_id" property="afId" jdbcType="BIGINT" />
+        <result column="af_login_id" property="afLoginId" jdbcType="BIGINT" />
+        <result column="af_third_account" property="afThirdAccount" jdbcType="VARCHAR" />
+        <result column="af_balance" property="afBalance" jdbcType="DECIMAL" />
+        <result column="af_create_time" property="afCreateTime" jdbcType="TIMESTAMP" />
+        <result column="af_update_time" property="afUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="af_is_del" property="afIsDel" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        af_id, af_login_id, af_third_account, af_balance, af_create_time, af_update_time,
+        af_is_del
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from tb_accounts_funds
+        where af_id = #{afId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.user.TbAccountsFunds" >
+        <selectKey resultType="java.lang.Long" keyProperty="afId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_accounts_funds (af_login_id, af_third_account, af_balance,
+        af_create_time, af_update_time, af_is_del
+        )
+        values (#{afLoginId,jdbcType=BIGINT}, #{afThirdAccount,jdbcType=VARCHAR}, #{afBalance,jdbcType=DECIMAL},
+        #{afCreateTime,jdbcType=TIMESTAMP}, #{afUpdateTime,jdbcType=TIMESTAMP}, #{afIsDel,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.user.TbAccountsFunds" >
+        <selectKey resultType="java.lang.Long" keyProperty="afId" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_accounts_funds
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="afLoginId != null" >
+                af_login_id,
+            </if>
+            <if test="afThirdAccount != null" >
+                af_third_account,
+            </if>
+            <if test="afBalance != null" >
+                af_balance,
+            </if>
+            <if test="afCreateTime != null" >
+                af_create_time,
+            </if>
+            <if test="afUpdateTime != null" >
+                af_update_time,
+            </if>
+            <if test="afIsDel != null" >
+                af_is_del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="afLoginId != null" >
+                #{afLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="afThirdAccount != null" >
+                #{afThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="afBalance != null" >
+                #{afBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="afCreateTime != null" >
+                #{afCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="afUpdateTime != null" >
+                #{afUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="afIsDel != null" >
+                #{afIsDel,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.user.TbAccountsFunds" >
+        update tb_accounts_funds
+        <set >
+            <if test="afLoginId != null" >
+                af_login_id = #{afLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="afThirdAccount != null" >
+                af_third_account = #{afThirdAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="afBalance != null" >
+                af_balance = #{afBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="afCreateTime != null" >
+                af_create_time = #{afCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="afUpdateTime != null" >
+                af_update_time = #{afUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="afIsDel != null" >
+                af_is_del = #{afIsDel,jdbcType=INTEGER},
+            </if>
+        </set>
+        where af_id = #{afId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.user.TbAccountsFunds" >
+        update tb_accounts_funds
+        set af_login_id = #{afLoginId,jdbcType=BIGINT},
+        af_third_account = #{afThirdAccount,jdbcType=VARCHAR},
+        af_balance = #{afBalance,jdbcType=DECIMAL},
+        af_create_time = #{afCreateTime,jdbcType=TIMESTAMP},
+        af_update_time = #{afUpdateTime,jdbcType=TIMESTAMP},
+        af_is_del = #{afIsDel,jdbcType=INTEGER}
+        where af_id = #{afId,jdbcType=BIGINT}
+    </update>
+    <!--==================================================华丽分割线==================================================-->
+    <update id="updateByLoginId" parameterType="com.jebao.jebaodb.entity.user.TbAccountsFunds" >
+        update tb_accounts_funds
+        <set >
+            <if test="afBalance != null" >
+                af_balance = #{afBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="afUpdateTime != null" >
+                af_update_time = #{afUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where af_is_del=1
+        <if test="afLoginId != null" >
+            and af_login_id = #{afLoginId,jdbcType=BIGINT}
+        </if>
+        <if test="afThirdAccount != null" >
+            and af_third_account = #{afThirdAccount,jdbcType=VARCHAR}
+        </if>
+    </update>
+    <update id="deleteByLoginId" parameterType="java.lang.Long">
+        update tb_accounts_funds
+        set af_is_del = 2
+        where af_login_id = #{afLoginId,jdbcType=BIGINT}
+    </update>
+    <select id="selectByLoginId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from tb_accounts_funds
+        where af_login_id = #{afLoginId,jdbcType=BIGINT} and af_is_del=1
+    </select>
+</mapper>

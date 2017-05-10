@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>金额宝 - 联系我们 </title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/index.css">
+    <link rel="stylesheet" href="${filePath}/css/lib/swiper.css">
+</head>
+
+<body>
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+<!--关于我们导航-->
+<div class="aboutUs-nav">
+    <p>
+        <a href="/">首页</a><a href="javascript:void(0);" class="red">联系我们</a>
+    </p>
+</div>
+<!--关于我们内容-->
+<div class="account-main clearfix">
+    <!--关于我们--左侧导航-->
+    #parse("common/sidebar-about.html")
+    <!--关于我们--右侧主要内容-->
+    <div class="aboutUs-content fr">
+        <h2>联系我们</h2>
+        <h4>客户服务</h4>
+        <div class="aboutUs-info">
+            <div class="call-box clearfix">
+                <img src="${filePath}/images/aboutUs-tel.png" class="fl">
+                <div class="hot-tell fr">
+                    <div class="aboutUs-box-tit">全国统一服务热线：</div>
+                    <div class="aboutUs-box-cont">010-65006966</div>
+                </div>
+            </div>
+            <p class="fz12">服务时间（工作日）：9:00-18:00</p>
+            <p class="aboutUs-word">（如果您在使用金额宝的过程中有任何疑问（如注册、充值、提现以及与投资理财、借款等问题）请您与我们客服人员联系。）</p>
+        </div>
+        <h4>商务合作</h4>
+        <div class="aboutUs-info">
+            <div class="email-box clearfix">
+                <img src="${filePath}/images/aboutUs-email.png" class="fl">
+                <div class="partner-mail fr">
+                    <div class="aboutUs-box-tit">合作邮箱：</div>
+                    <div class="aboutUs-box-cont">service@jebao.net</div>
+                </div>
+            </div>
+            <p class="aboutUs-word">如果贵公司希望与我们建立商务合作，如P2C项目推荐、担保、支付、媒体采访等合作，请将合作意向进行简要描述并发送到此邮件。</p>
+        </div>
+        <h4>北京总部</h4>
+        <div class="aboutUs-info mb7">
+            <p class="aboutUs-word">公司名称：金额宝互联网信息科技（北京）有限公司</p>
+            <p class="aboutUs-word">公司地址：北京市朝阳区光华路世纪财富中心5号院1号楼10层</p>
+            <p class="aboutUs-word">联系方式：010-65006966</p>
+        </div>
+        <iframe src="${filePath}/map.html" width="684" height="300" frameborder="0" scrolling="no" style="margin-left: 96px"></iframe>
+    </div>
+</div>
+#parse("common/footer.html")
+</body>
+</html>

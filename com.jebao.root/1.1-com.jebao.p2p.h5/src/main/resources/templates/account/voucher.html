@@ -1,0 +1,159 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>我的红包</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/investRecord.css">
+    <style type="text/css">
+        /*红包使用情况*/
+        /*.weishiyong{background-image:url(${filePath}/images/weishiyong.png) ;background-repeat: no-repeat; width:100%;height:100%;background-size:100% 100%;margin-bottom:0.5rem;font-family: "微软雅黑";}*/
+        /*.jine_span{display:inline-block;width:5.5rem;text-align:center;color:#fff;float:left;padding-top:1.4rem;font-weight:bold;}*/
+        /*.jine_span b{font-weight:bold;font-size:2rem;}*/
+        /*.investRecord p.syqk_p{margin-left:6rem;color:#666;font-size:.58rem;line-height: 1.2rem;}*/
+        /*.syqk_p strong{display: block;color:#4D4D4D;font-size:0.8rem;font-weight:600;height: 2rem; line-height: 2.5rem;}*/
+        /*.syqk_p b{color:#FF738E;}*/
+
+        /*.yishiyong{background-image:url(${filePath}/images/yishiyong.png);}*/
+        /*.ysy_p strong{color:#8D8D8D}*/
+
+        /*.yiguoqi{background-image:url(${filePath}/images/yiguoqi.png);}*/
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="investRecord">
+        <div class="investRecord-tit-bg">
+            <div class="investRecord-tit">
+                <h4 @click="search(0)" class="active">未使用</h4>
+                <h4 @click="search(1)">已使用</h4>
+                <h4 @click="search(2)">已过期</h4>
+            </div>
+        </div>
+        <div class="investRecord-list">
+            <div class="investRecord-box active">
+               <div style="width:94%;margin:0.3rem auto 0;">
+                   <div  v-for="item in voucherList"   v-show="isHasDate"  >
+                    <div v-if="searchObj.vStatus == 0" class="weishiyong">
+                        <span class="jine_span"><b>{{ item.vAmount }}</b>元</span>
+                        <p class="syqk_p">
+                            <strong>{{ item.channelType }}</strong>
+                            {{ item.vMinCycle }}个月及以上标的可用<br>
+                            单笔投资额在{{ item.vMinPrice }}元（含）以上，立即返{{ item.vAmount }}元<br>
+                            <b>{{ item.vEndtime }}</b>前使用
+                        </p>
+                    </div>
+                   <div v-if="searchObj.vStatus == 1" class="weishiyong yishiyong">
+                       <span class="jine_span"><b>{{ item.vAmount }}</b>元</span>
+                       <p class="syqk_p ysy_p">
+                           <strong>{{ item.channelType }}</strong>
+                           限投{{ item.vMinCycle }}个月及以上标的可用<br>
+                           单笔投资额在{{ item.vMinPrice }}元（含）以上，立即返{{ item.vAmount }}元<br>
+                           使用时间:{{ item.vUpdatetime }}
+                       </p>
+                   </div>
+                   <div v-if="searchObj.vStatus == 2" class="weishiyong yiguoqi">
+                       <span class="jine_span"><b>{{ item.vAmount }}</b>元</span>
+                       <p class="syqk_p ysy_p">
+                           <strong>{{ item.channelType }}</strong>
+                           限投{{ item.vMinCycle }}个月及以上标的可用<br>
+                           单笔投资额在{{ item.vMinPrice }}元（含）以上，立即返{{ item.vAmount }}元<br>
+                           <b>{{ item.vEndtime }}</b>前使用
+                       </p>
+                   </div>
+                       </div>
+               </div>
+                <!--<div  class="investRecord-info" v-for="item in voucherList"   v-show="isHasDate"  >-->
+
+
+
+                    <!--&lt;!&ndash;<a href="财富详情-投资中.html">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<h5><span>{{ item.vName }}</span></h5>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="investRecord-content">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="investRecord-number  rate">&ndash;&gt;-->
+                            <!--&lt;!&ndash;使用范围：仅限投资{{ item.vMinCycle }}月（含）以上项目<br/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;使用规则：单笔投资额在{{ item.vMinPrice }}（含）以上，立返{{ item.vAmount }}元<br/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;有效期限：{{ item.vEndtime }}前有效&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;&ndash;&gt;-->
+
+
+                        <!--&lt;!&ndash;<div class="investRecord-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="investRecord-number rate"></div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p></p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="investRecord-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="investRecord-number orange"></div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p></p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="investRecord-item">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="investRecord-number noWeight"></div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p></p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--</div>-->
+                <div class="noProject"  v-show="!isHasDate">
+                    <p>暂无记录...</p>
+                </div>
+            </div>
+            <!--<div class="investRecord-box" >-->
+                <!--<div class="investRecord-info" v-show="isHasDatepi" v-for="item in paymentings">-->
+                    <!--&lt;!&ndash;<a href="财富详情-还款中.html">&ndash;&gt;-->
+                    <!--<h5>{{ item.bpName }}<span>{{item.bpNumber}}</span></h5>-->
+                    <!--<div class="investRecord-content">-->
+                        <!--<div class="investRecord-item">-->
+                            <!--<div class="investRecord-number rate">{{ item.money }}</div>-->
+                            <!--<p>投资金额（元）</p>-->
+                        <!--</div>-->
+                        <!--<div class="investRecord-item">-->
+                            <!--<div class="investRecord-number orange">{{ item.dueMoney }}</div>-->
+                            <!--<p>应还金额（元）</p>-->
+                        <!--</div>-->
+                        <!--<div class="investRecord-item">-->
+                            <!--<div class="investRecord-number noWeight">{{ item.createTime }}</div>-->
+                            <!--<p>投资时间</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="noProject"  v-show="!isHasDatepi">-->
+                    <!--<p>暂无记录...</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="investRecord-box">-->
+                <!--<div class="investRecord-info"  v-show="isHasDatepd" v-for="item in paymenteds">-->
+                    <!--&lt;!&ndash;<a href="财富详情-已还款.html">&ndash;&gt;-->
+                    <!--<h5>{{ item.bpName }}<span>{{item.bpNumber}}</span></h5>-->
+                    <!--<div class="investRecord-content">-->
+                        <!--<div class="investRecord-item">-->
+                            <!--<div class="investRecord-number rate">{{ item.money }}</div>-->
+                            <!--<p>投资金额（元）</p>-->
+                        <!--</div>-->
+                        <!--<div class="investRecord-item">-->
+                            <!--<div class="investRecord-number orange">{{ item.makeMoney }}</div>-->
+                            <!--<p>已赚金额（元）</p>-->
+                        <!--</div>-->
+                        <!--<div class="investRecord-item">-->
+                            <!--<div class="investRecord-number noWeight">{{ item.bpRate }}%</div>-->
+                            <!--<p>年化收益</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--</div>-->
+
+                <!--<div class="noProject"  v-show="!isHasDatepd">-->
+                    <!--<p>暂无记录...</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/voucher.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

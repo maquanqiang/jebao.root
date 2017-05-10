@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>设置密码 -金额宝</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" href="${filePath}/css/lib/bootstrapValidator.css">
+    <link rel="stylesheet" href="${filePath}/css/register.css">
+    <link rel="stylesheet" href="${filePath}/css/result.css">
+    <style>
+        .verification {
+            cursor: pointer
+        }
+    </style>
+</head>
+
+<body>
+<!-- 顶部登录信息 -->
+#parse("common/header.html")
+<!-- 导航条 -->
+#parse("common/navigation.html")
+<!--侧边栏--start-->
+#parse("common/sidebar.html")
+
+<!--内容 begin-->
+<div class="forget-main">
+    <!--步骤-->
+    <div class="step">
+        <ul class="clearfix">
+            <li>
+                <i class="step-one"></i>输入手机号
+            </li>
+            <li>
+                <i class="step-two"></i>重置密码
+            </li>
+            <li>
+                <i class="step-complete"></i>修改成功
+            </li>
+        </ul>
+    </div>
+    <!--主要内容-->
+    <div class="forget-content">
+        <form action="/api/account/forgotStep1" method="post" id="form1" class="bv-form" :class="{none:!form1.show}" autocomplete="off">
+            <div class="userName form-group clearfix">
+                <em></em><input type="text" placeholder="请输入注册时手机号" name="mobile" v-model="form1.mobile" >
+            </div>
+            <div class="imgCode form-group clearfix">
+                <div class="fl">
+                    <em></em><input type="text" placeholder="请输入图形验证码" name="imgCode" v-model="form1.imgCode">
+                </div>
+                <img src="/captcha/getCode" class="verification fr" @click="refreshCaptcha">
+                <p class="help-block" :class="{none:!form1.error.hasError}" v-cloak><i class="icon"></i>{{form1.error.message}}</p>
+            </div>
+            <a href="javascirpt:;" class="next-btn" @click.prevent="submitStep1">下一步</a>
+        </form>
+
+        <form action="/api/account/forgotStep2" method="post" id="form2" class="bv-form"  :class="{none:!form2.show}">
+            <div class="telCode form-group clearfix">
+                <div class="fl">
+                    <em></em><input type="text" placeholder="请输入短信验证码" name="messageCode" v-model="form2.messageCode">
+                </div>
+                <input type="button" value="获取验证码" class="get_code_btn color fr btn" @click="sendMessage">
+                <p class="help-block" :class="{none:!form2.message.hasError}" v-cloak><i class="icon"></i>{{form2.message.message}}</p>
+            </div>
+            <div class="userPassword form-group clearfix">
+                <em></em>
+                <input type="password" placeholder="请设置6-16密码（由字母、数字组成）" name="password" v-model="form2.password">
+            </div>
+            <div class="userPassword form-group clearfix">
+                <em></em>
+                <input type="password" placeholder="请输入确认密码" name="passwordAgain" v-model="form2.passwordAgain">
+                <p class="help-block" :class="{none:!form2.error.hasError}" v-cloak><i class="icon"></i>{{form2.error.message}}</p>
+            </div>
+            <p class="result-btn clearfix" style="width: 360px;margin: 0 auto">
+                <a href="javascript:void(0);" class="next-btn fl" style="width: 160px;" @click.prevent="backToStep1">上一步</a>
+                <a href="javascript:void(0);" class="next-btn fr" style="width: 160px;" @click.prevent="submitStep2">下一步</a>
+            </p>
+        </form>
+
+        <div id="complete" :class="{none:!form3.show}">
+            <div class="result-content" style="padding-top: 0">
+                <img src="${filePath}/images/result-right.png">
+                <h4>设置成功！</h4>
+                <p>请重新登录，<span class="time">3</span>秒后返回<a href="/account/login" class="myAccount">登录页面</a></p>
+                <a href="/account/login" class="go-btn">立即返回</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--内容 end-->
+
+
+#parse("common/footer.html")
+<script src="/content/js/lib/bootstrapValidator.js"></script>
+<script src=$UrlHelperTool.href("/content/script/account/forgot.js")></script>
+</body>
+</html>

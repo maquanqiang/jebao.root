@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.voucher.TbVoucherMapper" >
+    <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.voucher.TbVoucher" >
+        <id column="v_id" property="vId" jdbcType="BIGINT" />
+        <result column="v_name" property="vName" jdbcType="VARCHAR" />
+        <result column="v_amount" property="vAmount" jdbcType="DECIMAL" />
+        <result column="v_login_id" property="vLoginId" jdbcType="BIGINT" />
+        <result column="v_ii_id" property="vIiId" jdbcType="BIGINT" />
+        <result column="v_begintime" property="vBegintime" jdbcType="TIMESTAMP" />
+        <result column="v_endtime" property="vEndtime" jdbcType="TIMESTAMP" />
+        <result column="v_status" property="vStatus" jdbcType="INTEGER" />
+        <result column="v_min_price" property="vMinPrice" jdbcType="DECIMAL" />
+        <result column="v_min_cycle" property="vMinCycle" jdbcType="INTEGER" />
+        <result column="v_type" property="vType" jdbcType="INTEGER" />
+        <result column="v_createtime" property="vCreatetime" jdbcType="TIMESTAMP" />
+        <result column="v_updatetime" property="vUpdatetime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        v_id, v_name, v_amount, v_login_id, v_ii_id, v_begintime, v_endtime, v_status, v_min_price,
+        v_min_cycle, v_type, v_createtime, v_updatetime
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from tb_voucher
+        where v_id = #{vId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.jebao.jebaodb.entity.voucher.TbVoucher" >
+        insert into tb_voucher (v_id, v_name, v_amount,
+        v_login_id, v_ii_id, v_begintime,
+        v_endtime, v_status, v_min_price,
+        v_min_cycle, v_type, v_createtime,
+        v_updatetime)
+        values (#{vId,jdbcType=BIGINT}, #{vName,jdbcType=VARCHAR}, #{vAmount,jdbcType=DECIMAL},
+        #{vLoginId,jdbcType=BIGINT}, #{vIiId,jdbcType=BIGINT}, #{vBegintime,jdbcType=TIMESTAMP},
+        #{vEndtime,jdbcType=TIMESTAMP}, #{vStatus,jdbcType=INTEGER}, #{vMinPrice,jdbcType=DECIMAL},
+        #{vMinCycle,jdbcType=INTEGER}, #{vType,jdbcType=INTEGER}, #{vCreatetime,jdbcType=TIMESTAMP},
+        #{vUpdatetime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.voucher.TbVoucher" >
+        insert into tb_voucher
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="vId != null" >
+                v_id,
+            </if>
+            <if test="vName != null" >
+                v_name,
+            </if>
+            <if test="vAmount != null" >
+                v_amount,
+            </if>
+            <if test="vLoginId != null" >
+                v_login_id,
+            </if>
+            <if test="vIiId != null" >
+                v_ii_id,
+            </if>
+            <if test="vBegintime != null" >
+                v_begintime,
+            </if>
+            <if test="vEndtime != null" >
+                v_endtime,
+            </if>
+            <if test="vStatus != null" >
+                v_status,
+            </if>
+            <if test="vMinPrice != null" >
+                v_min_price,
+            </if>
+            <if test="vMinCycle != null" >
+                v_min_cycle,
+            </if>
+            <if test="vType != null" >
+                v_type,
+            </if>
+            <if test="vCreatetime != null" >
+                v_createtime,
+            </if>
+            <if test="vUpdatetime != null" >
+                v_updatetime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="vId != null" >
+                #{vId,jdbcType=BIGINT},
+            </if>
+            <if test="vName != null" >
+                #{vName,jdbcType=VARCHAR},
+            </if>
+            <if test="vAmount != null" >
+                #{vAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="vLoginId != null" >
+                #{vLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="vIiId != null" >
+                #{vIiId,jdbcType=BIGINT},
+            </if>
+            <if test="vBegintime != null" >
+                #{vBegintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vEndtime != null" >
+                #{vEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vStatus != null" >
+                #{vStatus,jdbcType=INTEGER},
+            </if>
+            <if test="vMinPrice != null" >
+                #{vMinPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="vMinCycle != null" >
+                #{vMinCycle,jdbcType=INTEGER},
+            </if>
+            <if test="vType != null" >
+                #{vType,jdbcType=INTEGER},
+            </if>
+            <if test="vCreatetime != null" >
+                #{vCreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vUpdatetime != null" >
+                #{vUpdatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.voucher.TbVoucher" >
+        update tb_voucher
+        <set >
+            <if test="vName != null" >
+                v_name = #{vName,jdbcType=VARCHAR},
+            </if>
+            <if test="vAmount != null" >
+                v_amount = #{vAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="vLoginId != null" >
+                v_login_id = #{vLoginId,jdbcType=BIGINT},
+            </if>
+            <if test="vIiId != null" >
+                v_ii_id = #{vIiId,jdbcType=BIGINT},
+            </if>
+            <if test="vBegintime != null" >
+                v_begintime = #{vBegintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vEndtime != null" >
+                v_endtime = #{vEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vStatus != null" >
+                v_status = #{vStatus,jdbcType=INTEGER},
+            </if>
+            <if test="vMinPrice != null" >
+                v_min_price = #{vMinPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="vMinCycle != null" >
+                v_min_cycle = #{vMinCycle,jdbcType=INTEGER},
+            </if>
+            <if test="vType != null" >
+                v_type = #{vType,jdbcType=INTEGER},
+            </if>
+            <if test="vCreatetime != null" >
+                v_createtime = #{vCreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vUpdatetime != null" >
+                v_updatetime = #{vUpdatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where v_id = #{vId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.voucher.TbVoucher" >
+        update tb_voucher
+        set v_name = #{vName,jdbcType=VARCHAR},
+        v_amount = #{vAmount,jdbcType=DECIMAL},
+        v_login_id = #{vLoginId,jdbcType=BIGINT},
+        v_ii_id = #{vIiId,jdbcType=BIGINT},
+        v_begintime = #{vBegintime,jdbcType=TIMESTAMP},
+        v_endtime = #{vEndtime,jdbcType=TIMESTAMP},
+        v_status = #{vStatus,jdbcType=INTEGER},
+        v_min_price = #{vMinPrice,jdbcType=DECIMAL},
+        v_min_cycle = #{vMinCycle,jdbcType=INTEGER},
+        v_type = #{vType,jdbcType=INTEGER},
+        v_createtime = #{vCreatetime,jdbcType=TIMESTAMP},
+        v_updatetime = #{vUpdatetime,jdbcType=TIMESTAMP}
+        where v_id = #{vId,jdbcType=BIGINT}
+    </update>
+<!--——————————————————————————————自定义————————————————-->
+    <sql id="selectByCondition_Where_Clause">
+        <if test="record.vName != null" >
+            AND  v_name = #{record.vName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.vAmount != null" >
+            AND  v_amount = #{record.vAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="record.vLoginId != null" >
+            AND  v_login_id = #{record.vLoginId,jdbcType=BIGINT}
+        </if>
+        <if test="record.vIiId != null" >
+            AND  v_ii_id = #{record.vIiId,jdbcType=BIGINT}
+        </if>
+        <if test="record.vBegintime != null" >
+            AND  v_begintime = #{record.vBegintime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.vStatus != null" >
+            <if test="record.vStatus == 2" >
+                <![CDATA[
+                AND  v_endtime <= NOW()
+            ]]>
+            </if>
+            <if test="record.vStatus == 0" >
+                <![CDATA[
+                AND  v_endtime >= NOW()
+            ]]>
+            </if>
+            AND  v_status = #{record.vStatus,jdbcType=INTEGER}
+        </if>
+        <if test="record.vMinPrice != null" >
+            AND  v_min_price = #{record.vMinPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="record.vMinCycle != null" >
+            AND  v_min_cycle = #{record.vMinCycle,jdbcType=INTEGER}
+        </if>
+        <if test="record.vType != null" >
+            AND  v_type = #{record.vType,jdbcType=INTEGER}
+        </if>
+        <if test="record.vCreatetime != null" >
+            AND  v_createtime = #{record.vCreatetime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.vUpdatetime != null" >
+            AND  v_updatetime = #{record.vUpdatetime,jdbcType=TIMESTAMP}
+        </if>
+    </sql>
+
+
+
+    <select id="getByMinWhere" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_voucher
+        <where>
+            <include refid="selectgetByMinWhere" />
+        </where>
+        ORDER BY v_amount DESC
+        <!--<if test="vMinPrice != null" >-->
+            <!--LIMIT 1-->
+        <!--</if>-->
+    </select>
+    <sql id="selectgetByMinWhere">
+        <![CDATA[   v_min_cycle <= #{vMinCycle} and CURDATE()<=date_format(v_endtime,'%Y-%m-%d') ]]>
+        and v_login_id= #{loginId} and v_status = 0
+        <if test="vMinPrice != null" >
+            <![CDATA[  and  v_min_price <= #{vMinPrice} ]]>
+        </if>
+    </sql>
+    <!--批量修改-->
+    <insert id="insertByBatch" parameterType="java.util.List">
+        <selectKey resultType="long" keyProperty="vId" order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_voucher
+        ( v_name, v_amount,
+        v_login_id, v_ii_id, v_begintime,
+        v_endtime, v_status, v_min_price,
+        v_min_cycle, v_createtime, v_updatetime
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.vName,jdbcType=VARCHAR}, #{item.vAmount,jdbcType=DECIMAL},
+            #{item.vLoginId,jdbcType=BIGINT}, #{item.vIiId,jdbcType=BIGINT}, #{item.vBegintime,jdbcType=TIMESTAMP},
+            #{item.vEndtime,jdbcType=TIMESTAMP}, #{item.vStatus,jdbcType=INTEGER}, #{item.vMinPrice,jdbcType=DECIMAL},
+            #{item.vMinCycle,jdbcType=INTEGER}, #{item.vCreatetime,jdbcType=TIMESTAMP}, #{item.vUpdatetime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+    <!--修改状态-->
+    <update id="updateStatus"  >
+        UPDATE tb_voucher
+        SET v_status =1,
+        v_ii_id=#{vIiId},
+        v_updatetime = NOW()
+        WHERE
+         v_id = #{vId}
+         AND   v_status = 0
+    </update>
+
+
+    <select id="selectByConditionForPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM  tb_voucher
+        <where>
+            <include refid="selectByCondition_Where_Clause" />
+        </where>
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT ${pageWhere.begin}, ${pageWhere.pageSize}
+    </select>
+
+    <select id="selectByConditionCount" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM  tb_voucher
+        <where>
+            <include refid="selectByCondition_Where_Clause" />
+        </where>
+    </select>
+
+    <update id="updateStatusTimeout">
+        UPDATE tb_voucher
+        SET v_status = 2,
+        v_updatetime = NOW()
+        WHERE
+        v_status = 0
+        <![CDATA[
+        AND v_endtime <= NOW()
+        ]]>
+    </update>
+    
+    
+    <select id="selectRemindList" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+            v_id,
+            v_login_id,
+            sum(v_amount) v_amount
+        FROM
+            tb_voucher
+        WHERE
+            DATE_FORMAT(v_endtime, '%Y-%m-%d') = #{paramDate}
+        AND v_status = 0
+        GROUP BY
+            v_login_id,
+            v_endtime
+    </select>
+    
+</mapper>

@@ -1,0 +1,46 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>提现</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/recharge.css">
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/lib/validate.css">
+    <script type="text/javascript" src="${filePath}/js/lib/jquery-mvalidate.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <form action="/mobile/api/withdrawDeposit" id="rechargeForm" method="post" autocomplete="off">
+        <fieldset>
+            <div class="cash-bank">
+                <img src="${filePath}/images/cash-bank/cash-gd.png">
+                <div class="cash-bank-detail">
+                    <h3>{{ bankInfo.bankName }}</h3>
+                    <p>{{ bankInfo.bankCardNo }}</p>
+                </div>
+            </div>
+            <p class="account-balance">账户余额：<span>{{ bankInfo.balance }}元</span></p>
+            <div class="zform-control">
+                <div class="control-field">
+                    <input type="text" id="money" class="field-text" name="money" placeholder="请输入提现金额" data-required="true" data-pattern="^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$" data-descriptions="money">
+                </div>
+                <p class="time">预计到账日期：T+1工作日</p>
+            </div>
+        </fieldset>
+        <a href="#" class="go">
+            <!--不可登录，背景为灰色-->
+            <!--<button type="submit" class="btn-disable" disabled>登录</button>-->
+            <!--可登录，背景为蓝色-->
+            <button type="submit">提现</button>
+        </a>
+    </form>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/withdraw.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+<script src="${filePath}/js/assembly/layer/layer.js"></script>
+
+</html>

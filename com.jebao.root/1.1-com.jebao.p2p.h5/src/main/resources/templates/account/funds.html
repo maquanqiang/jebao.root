@@ -1,0 +1,98 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>资金流水</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/capitalFlow.css">
+    <script src="${filePath}/js/lib/zepto.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="capitalFlow-item"  v-if="fundsDetails.length<=0">
+        <div class="capitalFlow-info" style="align-content: center">
+            <h5>暂无记录</h5>
+        </div>
+        </div>
+    <div class="capitalFlow-item"  v-for="item in fundsDetails">
+        <div class="capitalFlow-info">
+            <h5>{{ item.serialTypeName }}</h5>
+
+            <strong v-if="item.incAmount==''" class="blue">支出</strong>
+            <strong v-else class="orange">存入</strong>
+        </div>
+        <div class="capitalFlow-info">
+
+            <p  v-if="item.incAmount==''">交易金额：<span>{{ item.expAmount }}</span></p>
+            <p  v-else>交易金额：<span>{{ item.incAmount }}</span></p>
+            <p>交易日期：<span>{{ item.serialTime }}</span></p>
+        </div>
+    </div>
+    <!--<div class="capitalFlow-item">-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<h5>提现</h5>-->
+            <!--<strong class="orange">支出</strong>-->
+        <!--</div>-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<p>交易金额：<span>500</span></p>-->
+            <!--<p>交易日期：<span>2014-11-28</span></p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="capitalFlow-item">-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<h5>收益：<span>涨额拾贰月ZE1217010002</span></h5>-->
+            <!--<strong class="blue">存入</strong>-->
+        <!--</div>-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<p>交易金额：<span>500</span></p>-->
+            <!--<p>交易日期：<span>2014-11-28</span></p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="capitalFlow-item">-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<h5>回款本金：<span>涨额拾贰月ZE1217010002</span></h5>-->
+            <!--<strong class="blue">存入</strong>-->
+        <!--</div>-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<p>交易金额：<span>500</span></p>-->
+            <!--<p>交易日期：<span>2014-11-28</span></p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="capitalFlow-item">-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<h5>投标成功：<span>涨额拾贰月ZE1217010002</span></h5>-->
+            <!--<strong class="orange">支出</strong>-->
+        <!--</div>-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<p>交易金额：<span>500</span></p>-->
+            <!--<p>交易日期：<span>2014-11-28</span></p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="capitalFlow-item">-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<h5>奖励：<span>涨额拾贰月ZE1217010002</span></h5>-->
+            <!--<strong class="blue">存入</strong>-->
+        <!--</div>-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<p>交易金额：<span>500</span></p>-->
+            <!--<p>交易日期：<span>2014-11-28</span></p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="capitalFlow-item">-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<h5>兑换：<span>涨额拾贰月ZE1217010002</span></h5>-->
+            <!--<strong class="blue">存入</strong>-->
+        <!--</div>-->
+        <!--<div class="capitalFlow-info">-->
+            <!--<p>交易金额：<span>500</span></p>-->
+            <!--<p>交易日期：<span>2014-11-28</span></p>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/account/funds.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+</html>

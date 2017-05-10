@@ -1,0 +1,86 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>开通富友</title>
+    #parse("common/head.html")
+    #set($_loginUser_header_=$LoginUserTool.getUser())
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/assembly/iosSelect.css">
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/FUpay.css">
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/lib/validate.css">
+    <script src="${filePath}/js/lib/zepto.js"></script>
+    <script src="${filePath}/js/assembly/iosSelect.js"></script>
+    <script type="text/javascript" src="${filePath}/js/lib/jquery-mvalidate.js"></script>
+    <script src="${filePath}/js/assembly/layer/layer.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <form action="/api/userfund/register"  method="post" id="openForm" autocomplete="off">
+        <input   name="realName" type="hidden" value="${truename}">
+        <input   name="idCard" type="hidden" value="${idcard}">
+        <div class="fu-user">
+            <div class="fu-user-item">
+                <h5>姓名：</h5>
+                <p>${truename}</p>
+            </div>
+            <div class="fu-user-item">
+                <h5>身份证号:</h5>
+                <p>${idcard}</p>
+            </div>
+        </div>
+        <div class="tip">此银行卡将作为富友账户唯一充值提现卡</div>
+        <div class="fu-bank">
+            <div class="fu-bank-item">
+                <h5>选择银行：<input type="hidden" name="bankCode" id="bankId" value="" data-required="true" data-descriptions="bankId"><span id="showBank">点击这里选择银行</span> </h5>
+                <img src="${filePath}/images/triangle.png">
+            </div>
+            <div class="zform-control">
+                <div class="control-field fu-bank-info">
+                    <h5>银行卡号：</h5>
+                    <input type="text" id="bankCard" name="bankCardNo" class="field-text" placeholder="输入银行卡号" data-required="true" data-descriptions="bankCard">
+                </div>
+            </div>
+            <div class="fu-bank-item " id="select_contact">
+                <input type="hidden" name="bankProvinceCode" id="province" value="" >
+                <h5>选择地区：<input type="hidden" name="bankCityCode" id="contact_city_code" data-required="true" data-descriptions="contact_city_code" value="" data-city-name=""><span id="show_contact">点击这里选择地区</span> </h5>
+                <img src="${filePath}/images/triangle.png">
+            </div>
+        </div>
+        <div class="tip">该密码仅用于富友账户资金提现到银行卡时使用</div>
+        <div class="tip">非银行卡取款密码</div>
+        <div class="fu-transaction">
+            <div class="zform-control">
+                <div class="control-field fu-transaction-item" style="border-bottom: 1px solid #e9e9e9;">
+                    <h5>富友交易密码：</h5>
+                    <input type="password" id="pwd" name="payPassword" class="field-text" placeholder="不少于8位的字母和数字组合" data-required="true" data-descriptions="password">
+                </div>
+            </div>
+            <div class="zform-control">
+                <div class="control-field fu-transaction-item">
+                    <h5>确认交易密码：</h5>
+                    <input type="password" id="confirmpwd"  name="payPasswordAgain" class="field-text"  placeholder="请确认交易密码" data-required="true" data-descriptions="confirmpassword" data-conditional="confirmpwd">
+                </div>
+            </div>
+        </div>
+        <a href="#" class="open-btn">
+
+            <!--不可登录，背景为灰色-->
+            <!--<button type="submit" class="btn-disable" disabled>登录</button>-->
+            <!--可登录，背景为蓝色-->
+            <button type="submit">立即开通</button>
+        </a>
+    </form>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/userfund/registers.js")></script>
+<script src="${filePath}/js/lib/base.js"></script>
+<!--<script src="${filePath}/js/FUpay.js"></script>-->
+<!--<script src="${filePath}/js/data.js"></script>-->
+<script src="${filePath}/js/assembly/iscroll.js"></script>
+<script>
+
+</script>
+</html>

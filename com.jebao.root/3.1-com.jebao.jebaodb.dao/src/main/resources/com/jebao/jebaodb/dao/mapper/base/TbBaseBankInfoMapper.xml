@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.base.TbBaseBankInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.base.TbBaseBankInfo" >
+    <id column="bl_id" property="blId" jdbcType="INTEGER" />
+    <result column="bl_bank_code" property="blBankCode" jdbcType="VARCHAR" />
+    <result column="bl_bank_name" property="blBankName" jdbcType="VARCHAR" />
+    <result column="bl_bank_bin" property="blBankBin" jdbcType="VARCHAR" />
+    <result column="bl_is_del" property="blIsDel" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bl_id, bl_bank_code, bl_bank_name, bl_bank_bin, bl_is_del
+  </sql>
+  <select id="selectList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_base_bank_info WHERE bl_is_del=0
+  </select>
+  <select id="selectByBankCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_base_bank_info
+    where bl_bank_code = #{blBankCode,jdbcType=VARCHAR}
+    and bl_is_del = 0
+  </select>
+</mapper>

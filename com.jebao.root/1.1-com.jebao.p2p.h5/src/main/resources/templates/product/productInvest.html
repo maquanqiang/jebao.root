@@ -1,0 +1,93 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>立即投资</title>
+    #parse("common/head.html")
+    <link rel="stylesheet" type="text/css" href="${filePath}/css/investment.css">
+    <!--layer-->
+    <script src="${filePath}/js/assembly/layer/layer.js"></script>
+    <style>
+        .syhb_ul{width:85%;margin:0 auto;overflow:hidden;border: 1px solid #e9e9e9;padding:0.2rem 0.4rem;border-radius:0.25rem;}
+        .syhb_ul li{font-size:0.7rem;height: 1.2rem;line-height: 1.2rem;}
+
+    </style>
+</head>
+<body>
+#set($_loginUser_header_=$LoginUserTool.getUser())
+<form action="/api/product/productDetail" method="post" id="defaultForm">
+    <input id="bpId" name="bpId" type="hidden" value="${bpId}">
+</form>
+<div class="wrap">
+    <form action="">
+        <div class="plan-investment">
+            <div class="plan-money">
+                <h5>账户可用金额：</h5>
+                #if($_loginUser_header_.isLogin)
+                <p class="orange">{{statistics.balance}}</p>
+                #else
+                <p class="orange"><a :href="'/account/login?redirect=/product/detail/'+product.bpId" style="color: #FFAD30" >登录查看</a></p>
+                #end
+            </div>
+            <div class="plan-money">
+                <h5>项目可投金额：</h5>
+                <p>{{product.bpSurplusMoney}}</p>
+            </div>
+        </div>
+        <div class="spinner">
+            <h5>投资金额：</h5>
+            <input type="text" id="investMoney"  :placeholder="product.bpStartMoney+'元起投，'+product.bpRiseMoney+'元递增，'+product.bpTopMoney+'元上限'">
+            <p>若您的投资<strong>0</strong>元，<span class="orange">预估收益<i>0</i>元</span></p>
+            <div style="padding-top: 0.5rem"><h5 style="display:inline;float:left;">我的可用红包</h5> <h5 id="voucherp" style="display:inline;float:right;margin-right:1rem;">0元</h5> <ul class="syhb_ul">
+
+            <li v-for="vo  in  voucher " >投资满{{vo.vMinPrice}}元，返红包{{vo.vAmount}}元 </li>
+</ul>
+            </div>
+            <a href="javascript:void(0)" class="spinner-btn"  @click.prevent="investBtn">
+                <!--满标后不可点击，背景为灰色-->
+                <!--<button type="button" class="btn-disable" disabled>立即加入</button>-->
+                <!--可点击，背景为蓝色-->
+                <button type="button">立即加入</button>
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+<script src=$UrlHelperTool.href("/content/js/lib/vue.js")></script>
+<script src=$UrlHelperTool.href("/content/script/common.js") ></script>
+<script>if(common){common.apiOrigin = "$UrlHelperTool.getApiOrigin()";}</script>
+<script src=$UrlHelperTool.href("/content/script/product/productInvest.js")></script>
+<script src="${filePath}/js/lib/zepto.js"></script>
+<script src="${filePath}/js/lib/base.js"></script>
+<script>
+//    $(function(){
+//        //当文本框输入金额的时候
+//        $('.spinner input').on('propertychange input',function(){
+////            $('.spinner-btn button').removeClass('btn-disable');
+//            var money = parseInt($(this).val() * 1);
+//            $('.spinner input').html(money);
+//            alert(money);
+//        });
+//        //弹出框（点击立即投资）
+//        $('.spinner-btn').on('tap',function(){
+//            layer.open({
+//                title:false,
+//                closeBtn: false,
+//                content:'您的余额不足，请充值',
+//                btn: ['稍后再说', '去充值'],
+//                area: ['15rem','8.5rem'],
+//                yes: function(){
+//                    layer.closeAll();
+//                },
+//                success:function(layero){
+//                    var btn = layero.find('.layui-layer-btn');
+//                    btn.find('.layui-layer-btn1').attr({
+//                        href: '充值.html'
+//                        ,target: '_blank'
+//                    });
+//                }
+//            });
+//        });
+//    })
+</script>
+</html>

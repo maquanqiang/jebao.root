@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>#parse("common/head.html")
+</head>
+<body class="skin-blue sidebar-mini">
+#parse("common/main-header.html")
+<!-- Left side column. contains the logo and sidebar -->
+#parse("common/main-sidebar.html")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>借款人信息</h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!--基本资料-->
+        <div class="box-title">
+            <h5>基本资料</h5>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <form id="defaultForm"><input type="hidden" name="loanerId" value="${loanerId}"/></form>
+                        <div id="orderlist_table_wrapper" class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="orderlist_table" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="5%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">手机号</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">角色</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">用户名</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1"><span class="text-red">*</span>真实姓名</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1"><span class="text-red">*</span>身份证号</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1"><span class="text-red">*</span>性别</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1"><span class="text-red">*</span>年龄</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">邮箱</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">注册时间</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">最后一次登录时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" v-cloak>
+                                            <td>{{ loaner.phone }}</td>
+                                            <td>借款人</td>
+                                            <td>{{ loaner.nickName }}</td>
+                                            <td>{{ loaner.trueName }}</td>
+                                            <td>{{ loaner.idNumber }}</td>
+                                            <td>{{ sexArr[loaner.sex] }}</td>
+                                            <td>{{ loaner.age }}</td>
+                                            <td>{{ loaner.email }}</td>
+                                            <td>{{ loaner.registerTime }}</td>
+                                            <td>{{ loaner.lastLoginTime }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--详细资料-->
+        <div class="box-title">
+            <h5>详细资料</h5>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="dataTables_wrapper">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="orderlist_table_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">婚姻状况</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">常住地址</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">户口所在地</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">政治面貌</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">学历</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">信用状况</th>
+                                            <th width="7%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">月收入</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">工作城市</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">名下是否有房</th>
+                                            <th width="8%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">是否有车</th>
+                                            <th width="10%" class="ui-state-default sorting_disabled" rowspan="1" colspan="1">邮箱</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr role="row" v-cloak>
+                                            <td>{{ maritalStatusArr[loaner.maritalStatus] }}</td>
+                                            <td>{{ loaner.homeAdd }}</td>
+                                            <td>{{ loaner.hkadr }}</td>
+                                            <td>{{ politicsStatusArr[loaner.politicsStatus] }}</td>
+                                            <td>{{ educationArr[loaner.education] }}</td>
+                                            <td>{{ loaner.creditStatus }}</td>
+                                            <td>{{ loaner.monthlySalary }}</td>
+                                            <td>{{ loaner.workCity }}</td>
+                                            <td>{{ haveArr[loaner.ishaveHouse] }}</td>
+                                            <td>{{ haveArr[loaner.ishaveCar] }}</td>
+                                            <td>{{ loaner.email }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<input type="hidden" id="hidden_active_menu" value="/loaner/index">
+<!-- /.content-wrapper -->
+#parse("common/footer.html")
+<script src=$UrlHelperTool.href("/content/script/loaner/details.js")></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jebao.jebaodb.dao.mapper.loanmanage.TbBidRiskDataMapper" >
+  <resultMap id="BaseResultMap" type="com.jebao.jebaodb.entity.loanmanage.TbBidRiskData" >
+    <id column="brd_id" property="brdId" jdbcType="BIGINT" />
+    <result column="brd_bp_id" property="brdBpId" jdbcType="BIGINT" />
+    <result column="brd_name" property="brdName" jdbcType="VARCHAR" />
+    <result column="brd_no" property="brdNo" jdbcType="VARCHAR" />
+    <result column="brd_path" property="brdPath" jdbcType="VARCHAR" />
+    <result column="brd_url" property="brdUrl" jdbcType="VARCHAR" />
+    <result column="brd_create_time" property="brdCreateTime" jdbcType="TIMESTAMP" />
+    <result column="brd_update_time" property="brdUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="brd_remark" property="brdRemark" jdbcType="VARCHAR" />
+    <result column="brd_is_del" property="brdIsDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    brd_id, brd_bp_id, brd_name, brd_no, brd_path, brd_url, brd_create_time, brd_update_time,
+    brd_remark, brd_is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bid_risk_data
+    where brd_id = #{brdId,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.jebao.jebaodb.entity.loanmanage.TbBidRiskData" >
+      <selectKey resultType="java.lang.Long" keyProperty="brdId" order="AFTER" >
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into tb_bid_risk_data (brd_id, brd_bp_id, brd_name, 
+      brd_no, brd_path, brd_url,
+      brd_create_time, brd_update_time, brd_remark, 
+      brd_is_del)
+    values (#{brdId,jdbcType=BIGINT}, #{brdBpId,jdbcType=BIGINT}, #{brdName,jdbcType=VARCHAR}, 
+      #{brdNo,jdbcType=VARCHAR}, #{brdPath,jdbcType=VARCHAR}, #{brdUrl,jdbcType=VARCHAR},
+      #{brdCreateTime,jdbcType=TIMESTAMP}, #{brdUpdateTime,jdbcType=TIMESTAMP}, #{brdRemark,jdbcType=VARCHAR}, 
+      #{brdIsDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jebao.jebaodb.entity.loanmanage.TbBidRiskData" >
+    insert into tb_bid_risk_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="brdId != null" >
+        brd_id,
+      </if>
+      <if test="brdBpId != null" >
+        brd_bp_id,
+      </if>
+      <if test="brdName != null" >
+        brd_name,
+      </if>
+      <if test="brdNo != null" >
+        brd_no,
+      </if>
+      <if test="brdPath != null" >
+        brd_path,
+      </if>
+      <if test="brdUrl != null" >
+        brd_url,
+      </if>
+      <if test="brdCreateTime != null" >
+        brd_create_time,
+      </if>
+      <if test="brdUpdateTime != null" >
+        brd_update_time,
+      </if>
+      <if test="brdRemark != null" >
+        brd_remark,
+      </if>
+      <if test="brdIsDel != null" >
+        brd_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="brdId != null" >
+        #{brdId,jdbcType=BIGINT},
+      </if>
+      <if test="brdBpId != null" >
+        #{brdBpId,jdbcType=BIGINT},
+      </if>
+      <if test="brdName != null" >
+        #{brdName,jdbcType=VARCHAR},
+      </if>
+      <if test="brdNo != null" >
+        #{brdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="brdPath != null" >
+        #{brdPath,jdbcType=VARCHAR},
+      </if>
+      <if test="brdUrl != null" >
+        #{brdUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="brdCreateTime != null" >
+        #{brdCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="brdUpdateTime != null" >
+        #{brdUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="brdRemark != null" >
+        #{brdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="brdIsDel != null" >
+        #{brdIsDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jebao.jebaodb.entity.loanmanage.TbBidRiskData" >
+    update tb_bid_risk_data
+    <set >
+      <if test="brdBpId != null" >
+        brd_bp_id = #{brdBpId,jdbcType=BIGINT},
+      </if>
+      <if test="brdName != null" >
+        brd_name = #{brdName,jdbcType=VARCHAR},
+      </if>
+      <if test="brdNo != null" >
+        brd_no = #{brdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="brdPath != null" >
+        brd_path = #{brdPath,jdbcType=VARCHAR},
+      </if>
+      <if test="brdUrl != null" >
+        brd_url = #{brdUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="brdCreateTime != null" >
+        brd_create_time = #{brdCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="brdUpdateTime != null" >
+        brd_update_time = #{brdUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="brdRemark != null" >
+        brd_remark = #{brdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="brdIsDel != null" >
+        brd_is_del = #{brdIsDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where brd_id = #{brdId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jebao.jebaodb.entity.loanmanage.TbBidRiskData" >
+    update tb_bid_risk_data
+    set brd_bp_id = #{brdBpId,jdbcType=BIGINT},
+      brd_name = #{brdName,jdbcType=VARCHAR},
+      brd_no = #{brdNo,jdbcType=VARCHAR},
+      brd_path = #{brdPath,jdbcType=VARCHAR},
+      brd_url = #{brdUrl,jdbcType=VARCHAR},
+      brd_create_time = #{brdCreateTime,jdbcType=TIMESTAMP},
+      brd_update_time = #{brdUpdateTime,jdbcType=TIMESTAMP},
+      brd_remark = #{brdRemark,jdbcType=VARCHAR},
+      brd_is_del = #{brdIsDel,jdbcType=INTEGER}
+    where brd_id = #{brdId,jdbcType=BIGINT}
+  </update>
+    <!--==================================================华丽分割线==================================================-->
+    <sql id="selectByCondition_Where_Clause">
+        <if test="record.brdBpId != null" >
+           AND brd_bp_id = #{record.brdBpId,jdbcType=BIGINT}
+        </if>
+        <if test="record.brdName != null" >
+           AND brd_name = #{record.brdName,jdbcType=VARCHAR}
+        </if>
+        <if test="record.brdNo != null" >
+           AND brd_no = #{record.brdNo,jdbcType=VARCHAR}
+        </if>
+        <if test="record.brdPath != null" >
+           AND brd_path = #{record.brdPath,jdbcType=VARCHAR}
+        </if>
+        <if test="record.brdUrl != null" >
+           AND brd_url = #{record.brdUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="record.brdCreateTime != null" >
+           AND brd_create_time = #{record.brdCreateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.brdUpdateTime != null" >
+           AND brd_update_time = #{record.brdUpdateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="record.brdRemark != null" >
+           AND brd_remark = #{record.brdRemark,jdbcType=VARCHAR}
+        </if>
+
+        AND brd_is_del = 1
+
+    </sql>
+
+    <select id="selectForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_bid_risk_data
+        <if test="pageWhere.orderBy!=null">
+            ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionForPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_bid_risk_data
+        <where>
+            <include refid="selectByCondition_Where_Clause" />
+        </where>
+        <if test="pageWhere.orderBy!=null">
+           ORDER BY ${pageWhere.orderBy}
+        </if>
+        LIMIT #{pageWhere.begin},#{pageWhere.pageSize}
+    </select>
+    <select id="selectByConditionCount" resultType="java.lang.Integer">
+        select count(*)
+        from tb_bid_risk_data
+        <where>
+            <include refid="selectByCondition_Where_Clause" />
+        </where>
+    </select>
+</mapper>

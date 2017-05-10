@@ -1,0 +1,110 @@
+#set($_loginUser_=$LoginUserTool.getUser())
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="/content/AdminLTE-2.2.0/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+                <p>
+                    $_loginUser_.userName
+                </p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu" id="ulList">
+            <li class="treeview">
+                <a href="/home/index" target="_self">
+                    <i class="fa fa-dashboard"></i><span>首页</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i><span>文章管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/article/index"><i class="fa fa-circle-o"></i><span>文章列表</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i><span>借款人管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/loaner/index"><i class="fa fa-circle-o"></i><span>借款人列表</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o"></i><span>借款标的管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/bidplan/noLendingList"><i class="fa fa-circle-o"></i><span>未放款标的列表</span></a></li>
+                    <li><a href="/bidplan/alreadyLoanList"><i class="fa fa-circle-o"></i><span>已放款标的列表</span></a></li>
+                    <li><a href="/bidplan/index"><i class="fa fa-circle-o"></i><span>建标</span></a></li>
+                    <li><a href="/bidplan/notPassList"><i class="fa fa-circle-o"></i><span>开标被拒</span></a></li>
+                    <li><a href="/bidplan/reviewedPlanList"><i class="fa fa-circle-o"></i><span>等待开标</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i><span>借款贷后管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/postLoan/index"><i class="fa fa-circle-o"></i><span>还款列表</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i><span>员工管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/employee/index"><i class="fa fa-circle-o"></i><span>员工管理</span></a></li>
+                    <li><a href="/employee/upload"><i class="fa fa-circle-o"></i><span>批量上传</span></a></li>
+                    <li><a href="/employee/department"><i class="fa fa-circle-o"></i><span>部门管理</span></a></li>
+                    <li><a href="/employee/rank"><i class="fa fa-circle-o"></i><span>职级管理</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i><span>客户管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/customer/index"><i class="fa fa-circle-o"></i><span>客户管理</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i><span>绩效管理</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/performance/index"><i class="fa fa-circle-o"></i><span>员工业绩</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i><span>账户设置</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/account/password"><i class="fa fa-circle-o"></i><span>密码修改</span></a></li>
+                </ul>
+            </li>
+            <!--新添加的功能-->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i><span>统计报表</span><i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/report/pagingSelect"><i class="fa fa-circle-o"></i><span>还款明细列表</span></a></li>
+                </ul>
+                <ul class="treeview-menu">
+                    <li><a href="/report/pagingSelectDetails"><i class="fa fa-circle-o"></i><span>到期分红明细列表</span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
